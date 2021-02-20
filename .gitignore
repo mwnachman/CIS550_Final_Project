@@ -1,0 +1,8 @@
+# Dependency directories
+node_modules/
+
+# Built code
+build/
+
+# Environment variables, access tokens, other runtime data
+config/server.json
