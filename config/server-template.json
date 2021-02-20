@@ -1,0 +1,9 @@
+{
+  "BASE_URL": {
+    "development": "http://localhost:3000"
+  },
+  "setlistFM": {
+    "API_KEY": "YOUR_API_KEY",
+    "API_ROOT": "https://api.setlist.fm/rest/1.0/"
+  }
+}
