@@ -6,3 +6,6 @@ build/
 
 # Environment variables, access tokens, other runtime data
 config/server.json
+
+# ipython Notebook metadata
+notebooks/.ipynb_checkpoints
