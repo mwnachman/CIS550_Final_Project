@@ -8,4 +8,4 @@ build/
 config/server.json
 
 # ipython Notebook metadata
-notebooks/.ipynb_checkpoints
+data/notebooks/.ipynb_checkpoints
