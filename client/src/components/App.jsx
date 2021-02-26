@@ -21,12 +21,23 @@ class App extends React.Component {
     this.state = {
       band: '',
       date: '',
-      venue: ''
+      venue: '',
+      albums: []
     }
   }
 
   componentDidMount() {
+    this.fetchAllAlbums()
     this.fetchLastBeatlesSetlist()
+  }
+
+  async fetchAllAlbums() {
+    const promise = await axios.get(`${APIRoot}/albums`)
+    const status = promise.status
+    if (status == 200) {
+      const albums = promise.data
+      this.setState({albums})
+    }
   }
 
   async fetchLastBeatlesSetlist() {
