@@ -16,6 +16,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 
+app.get('/albums', api.getAllAlbums)
+
 app.get('/setlists/:artist_id', api.getSetlists)
 
 

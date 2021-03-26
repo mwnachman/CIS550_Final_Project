@@ -1,25 +1,41 @@
 const config = require('../config/server.json')
 const axios = require('axios')
+const mysql = require('mysql2');
 
-const APIRoot = config.setlistFM.API_ROOT
-const API_KEY = config.setlistFM.API_KEY
+aws_config = config['aws-mysql']
+aws_config.connectionLimit = 10;
+aws_config.waitForConnections = true;
+const connection = mysql.createPool(aws_config);
 
-// *** placeholder for DB connection ***
-// const mysql = require('mysql');
-// const config = config.db-config
-// config.connectionLimit = 10;
-// const connection = mysql.createPool(config);
+const setlist_APIRoot = config.setlistFM.API_ROOT
+const setlist_API_KEY = config.setlistFM.API_KEY
+
+
 
 
 // ROUTE HANDLERS
+
+async function getAllAlbums(req, res) {
+  console.log('in get albums')
+  let query = `
+    SELECT *
+    FROM Album;
+  `;
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      res.json(rows);
+    }
+  });
+}
 
 async function getSetlists(req, res) {
   try {
     const promise = await axios({
       method: 'GET',
-      url: `${APIRoot}/artist/${req.params.artist_id}/setlists`,
+      url: `${setlist_APIRoot}/artist/${req.params.artist_id}/setlists`,
       headers: {
-        'x-api-key': API_KEY,
+        'x-api-key': setlist_API_KEY,
         'accept': 'application/json'
       }
     })
@@ -32,5 +48,7 @@ async function getSetlists(req, res) {
 }
 
 module.exports = {
+  getAllAlbums,
   getSetlists
 }
+
