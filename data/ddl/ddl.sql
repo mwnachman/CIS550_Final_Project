@@ -43,6 +43,8 @@ CREATE TABLE Song (
   id                  CHAR(22),
   name                VARCHAR(255) NOT NULL,
   album_id            CHAR(22),
+  disc_number         INT,
+  track_number        INT,
   danceability        DECIMAL NOT NULL,
   energy              DECIMAL NOT NULL,
   song_key            INT NOT NULL,
