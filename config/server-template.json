@@ -7,7 +7,7 @@
     "user": "admin",
     "password": "ASK_MEREDITH",
     "database": "project",
-    "host": "cis550-mysql.cr53pytnenvj.us-east-1.rds.amazonaws.com"
+    "host": "cis550-project.cr53pytnenvj.us-east-1.rds.amazonaws.com"
   },
   "setlistFM": {
     "API_KEY": "YOUR_API_KEY",

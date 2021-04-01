@@ -1,10 +1,9 @@
-,Genre,genre_id
-0,Metal & Punk,7
-22,Rock & Pop,0
-49,Alternative Rock & Pop,8
-168,Dance & Electronic,3
-240,Country & Folk,4
-255,R&B,1
-351,Hip-Hop,2
-1492,Jazz,5
-1684,Other,6
+7,Metal & Punk
+0,Rock & Pop
+8,Alternative Rock & Pop
+3,Dance & Electronic
+4,Country & Folk
+1,R&B
+2,Hip-Hop
+5,Jazz
+6,Other
