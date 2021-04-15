@@ -1,1538 +1,1537 @@
-,Label,label_id
-0,Epic,21
-49,Paper Bag,1743
-59,Merge,106
-75,Barsuk,513
-98,Sony,83
-113,C/Z Records,5447
-123,Epic Records / Immortal Records,8486
-130,Curb,15287
-158,CBS,3424
-168,Skam,10837
-190,Jive,785
-202,Koch,1199
-217,Columbia,103
-228,BMG / Arista,10750
-255,Arista,502
-317,RCA,181
-341,Portrait,6644
-410,550 Music,2939
-433,Rockville,5440
-452,Domino,2
-475,American,3625
-517,Kill Rock Stars,33
-563,Relapse,301
-574,Matador,85
-586,Sub Pop,40
-592,Fat Cat Records,200
-603,Philips,90
-621,VHF,11815
-631,Planet Mu,1821
-673,Ruffhouse / Columbia / SME Records,5427
-689,Vanguard,1472
-759,L.M. Dupli-cation,21911
-769,Young God Records,1504
-790,Acony,1007
-800,Asian Man,2705
-810,Narnack Records,30848
-835,"Sony Soho Square, Epic",10354
-905,MUSICBLITZ Records,31036
-938,Dago,5037
-985,RCA / Latent,4396
-1027,Darla,1236
-1063,Grimsey Records,9083
-1082,"Star Trak, Arista",7395
-1110,Beggars Banquet Records,3650
-1120,Plug Research,2193
-1130,Paradox,21437
-1161,Roadrunner,606
-1171,"EMI, Columbia",3535
-1183,PeMa,29947
-1195,Columbia Records,3
-1221,Ruffhouse,14684
-1236,Drag City,75
-1242,Kranky,44
-1284,New West,233
-1322,Jive Records,8251
-1336,Granary Music / Yep Roc Records,30021
-1376,Epic Records,6563
-1401,Hydra Head Records,611
-1409,Deconstruction Records,9087
-1419,Velocette,11034
-1452,Sony UK,18900
-1478,"Rilo, Barsuk",11626
-1515,dBpm,1989
-1549,5 Rue Christine,1093
-1558,Ajax,11756
-1577,Absolutely Kosher,260
-1610,Aware / Columbia,30705
-1636,Dim Mak,2008
-1665,Mo' Wax,2615
-1727,Tiger Style,9706
-1743,Arista Records,5547
-1779,Relativity Records,8366
-1807,Saddle Creek,50
-1812,Merge Records,6
-1825,LaFace / Arista,2157
-1863,Hieroglyphics Imperium,9126
-1885,RJ's Electrical Connections,6482
-1916,Last Gang,1245
-1961,550,2940
-1985,Fire,2518
-2016,"Columbia, SME",3177
-2062,"Asylum, Atlantic",25962
-2106,Spitfire,5126
-2143,Barak Records,5734
-2156,E1,11330
-2171,BPitch Control,5096
-2182,Nettwerk,1636
-2200,Morr Music,1273
-2211,"Back Yard Recordings, Kill Rock Stars",2631
-2221,Young God,389
-2250,Captured Tracks,1348
-2297,Beggars Banquet,214
-2308,Xemu,6964
-2316,"Harvest, Columbia",3539
-2325,Napalm,3495
-2341,Restless / Enigma,6796
-2355,Alias,3641
-2366,Restless,2033
-2387,Fat Wreck Chords,1374
-2399,In The Red,184
-2425,2062,12245
-2436,Robotic Empire,6376
-2444,V2,410
-2459,Nuclear Blast,3653
-2469,Now-Again,19551
-2479,Dovecote,1280
-2490,"JDub, Epic",9089
-2527,SYR,20088
-2569,Ace Fu,355
-2581,Loud/Columbia/SME Records,1218
-2602,Stones Throw Records,11509
-2636,Lo Recordings,23273
-2641,Astralwerks,57
-2662,RCA Victor,4308
-2675,Virgin EMI,7165
-2687,Kuckuck,20265
-2698,PIAS,4181
-2709,Recital,5732
-2713,Emperor Jones,3045
-2726,Thrill Jockey,86
-2736,Temporary Whatever,15317
-2766,Stones Throw,336
-2790,J-Records,1022
-2826,Razor Sharp Records,4510
-2875,Hansa,10321
-2904,Metal Blade Records,5485
-2959,Seeland,13019
-2973,SST,3760
-2991,Spitfire Records,5125
-3087,LaFace,3693
-3099,Global Symphonic,1301
-3111,Touch & Go,798
-3127,Chapter One Entertainment,19380
-3150,Entertainment One,2545
-3159,Rough Trade,71
-3190,Projekt,17424
-3231,4AD,36
-3243,Aurora,4820
-3266,"Ill Will, Columbia",4961
-3443,Coyote,13142
-3470,Touch and Go,3082
-3502,YELLOWELECTRIC,25091
-3519,Ashmont,1377
-3543,Roc-a-Fella,4781
-3558,Flameshovel,6528
-3569,Polyvinyl,312
-3583,BMG International,16631
-3608,Sony BMG,118
-3620,Alternative Tentacles,3683
-3656,Sonig Records,15419
-3680,Yep Roc / Simian,476
-3704,M3 Macmil Music,11571
-3769,BMG,4262
-3784,Morr,3658
-3816,In the Red,1308
-3829,SuperEgo,2956
-3847,Animal World,1300
-3891,Neurot,3680
-3898,Backwoodz Studioz,3365
-3912,Slumberland Records,11
-3920,"Cicero Recordings, Ltd.",5035
-3939,Thirsty Ear,5891
-3960,"Tinker, Scratch",7663
-3990,OM,20416
-4010,Ghostly International,1475
-4026,Thirty Tigers,1
-4046,Magic Bullet Records,7147
-4072,Deltasonic,1603
-4084,Duck Down,3130
-4110,Cult / French Kiss,29982
-4140,"Interscope, XL",294
-4169,The Militia Group,7648
-4204,"We The Best, Epic",25313
-4234,Blood,17247
-4291,E1 Music,11337
-4319,ABB,11311
-4340,Warner Music,5160
-4361,"Merge, Track & Field",12043
-4394,Shitkatapult Strike,3929
-4407,Krian,4670
-4419,Yep Roc,876
-4433,Red Ink,125
-4482,"Merge, Bud Fox, Haldern Pop, Dew Process",5047
-4494,Barsuk Records,10429
-4527,"Arista, Mushroom",6011
-4537,Twisted Records,17760
-4544,A-Zap,6450
-4587,Creation Records,5253
-4597,Lidkercow Ltd,1360
-4610,Tonequake Records / Burnside Records,9999
-4648,Gravitation,604
-4658,Highwheel,6090
-4680,Slumberland,482
-4813,ATO / Rough Trade,12192
-4848,Holy Mountain,6241
-4853,Lewis,375
-4885,Dark Descent,8337
-4889,Bomp!,2053
-4899,The End,1517
-4908,"Funk Volume, Empire Distribution",7027
-4926,Warner Bros.,138
-4936,Northern Spy,4058
-4955,Tiny Engines,7888
-4966,"T-Neck, Epic",14790
-4989,Luaka Bop,327
-5001,Relapse Records,1225
-5023,Duckdown,1831
-5048,Anodyne,31066
-5063,Blackground/Jive/BMG Records,12249
-5147,Atlantic,354
-5211,Sony Records,8365
-5234,eOne Music,8245
-5316,Fat Possum,4
-5420,"Jive, 20-20",10136
-5431,Topshelf,6225
-5440,Lo,10698
-5453,ATO Records,621
-5472,"Three Gut Records, 3 Syllables Records",11797
-5523,Trouble in Mind,2269
-5541,Paper Bag Records,914
-5551,Sensibility,25776
-5563,Strange Famous,8804
-5577,Shrimper,1741
-5609,Young Baby Records,9355
-5621,A,1147
-5634,Metal Blade,2325
-5646,"Barsuk, My Dad",30760
-5679,"Interscope, Headhunter, Swami",9609
-5728,Strange Music,1955
-5811,Machine Entertainment Group,21353
-5893,Sinderlyn,11038
-5903,Tankcrimes,8174
-5910,Immortal / Epic Records,3617
-5934,Sick Wid It,7498
-6017,Communion,3963
-6060,Relentless,7424
-6126,Cooking Vinyl,1505
-6148,Kscope,152
-6160,Windfall,22114
-6170,Gee Street/V2/BMG Records,8703
-6212,Don Giovanni,1590
-6235,Anticon,677
-6289,Caldo Verde,1282
-6347,Revelations Records,19284
-6361,Reprise,17
-6370,Mayhem,5124
-6425,Sunday Best / Strange Famous,6930
-6449,Immortal / Epic,3616
-6465,Badman,3815
-6476,Artemis Records,8246
-6490,Asylum,3982
-6511,Arista/La Face,456
-6554,Ribbon,1995
-6576,Foreign Exchange Music,6399
-6587,PRhyme,11438
-6607,Sony Music,9057
-6620,Metal Blade / earMUSIC,9573
-6630,LKC,21632
-6642,Hush Records,566
-6652,Double Double Whammy,7911
-6672,Century Media,2801
-6702,Dualtone,7088
-6715,Nard Wuar,20164
-6738,One Little Indian,1612
-6750,ATO,31
-6781,Pasha,18840
-6841,Suicide Squeeze,1229
-6851,J,4935
-6877,My Dad / Barsuk,30059
-6890,Bendo,21095
-6906,Young Black Brotha,25765
-6936,Capricorn,4672
-6962,Virgin,459
-7004,"Ferret, Roadrunner",4724
-7037,Six Degrees,2340
-7077,Triple Crown,3326
-7099,Western Vinyl,25
-7108,Kompakt,288
-7137,Mojo,19277
-7174,"Death Row, Interscope, Priority",3263
-7218,Type,484
-7226,12k,11277
-7244,Gulcher Records,1261
-7257,Asthmatic Kitty,357
-7316,Cavity Search,4991
-7325,Trouble In Mind,3832
-7449,Joyful Noise,2566
-7453,Nine Yards Records,11447
-7465,Bpitch Control,32
-7506,JCOR,15534
-7529,TBD Records,6514
-7540,Redeye,1892
-7568,"Upside, Rough Trade",6698
-7673,Ruth St. Records,29160
-7686,BMG Music Spain,22650
-7722,Hypnotize Minds / Select-O-Hits,6013
-7742,E1 Music / Housecore / Century Media,5127
-7774,Relativity,3075
-7842,Fat Cat,531
-7873,Sacred Bones,1988
-7902,Carrot Top,944
-7936,Capitol,141
-7948,"ATO, Ark",9977
-7958,Eternal Yip Eye Music,7985
-7969,Smalltown Supersound,658
-7981,Tough Love / Slumberland,3514
-7983,Wreckshop,16725
-8015,V2 Records,3648
-8035,Jamla/Duck Down Records,6838
-8051,Woodsist,811
-8070,Volt,4799
-8081,Killer Pimp,418
-8091,ATP,158
-8098,Clear Label,7995
-8169,Audio Eagle,32154
-8189,SONY BMG MUSIC ENTERTAINMENT,22981
-8241,Sprint,14891
-8270,Ruff House,12631
-8288,Merge / City Slang,2294
-8298,Undertow Music,32179
-8331,GTO,17372
-8340,Totally Gross National Product,2458
-8359,Feel Good All Over,11221
-8373,Beats In Space,21875
-8390,Allegiance Records,7364
-8402,Artemis,13433
-8433,"8ft. Records, 11 Records",15837
-8491,Frenchkiss,105
-8512,Triple Crown Audio/Endearing,3258
-8550,Revive Records,6150
-8616,"Arista Nashville, 19",7274
-8652,75 Ark,5578
-8695,Goner,1645
-8731,Rostrum,5066
-8748,Taang! Records,17076
-8766,Ingrooves,29311
-8778,Carpark,23
-8788,Poor Boy Records,30038
-8798,Mello Music Group,3334
-8891,twosyllable,13954
-8901,Warner,4214
-8926,Act Music + Vision,9760
-8986,Web of Mimicry,22119
-9041,"Epic, Syco",11594
-9062,Supply and Demand,3038
-9098,Under One Flag,13379
-9111,Upbeat,1675
-9155,Columbia â€Ž,23473
-9184,Righteous Babe,363
-9235,"Matador, Merge Records, Flying Nun Records",32085
-9318,Fake Four,2451
-9334,Quality Hill,1716
-9355,Good Mountain,11816
-9377,Javotti / 3D,1722
-9391,Megaphonic,5204
-9414,"Doggystyle, EMPIRE",20155
-9459,Warner Bros,313
-9520,"Island/UMG, Yep Roc Records",577
-9541,Straight Records,21220
-9660,Innovative Leisure,2309
-9681,Yep Rock,1266
-9721,Damaged Goods,31560
-9741,Columbia / Sony Music Distribution,8070
-9754,Slumberland / Tough Love,3399
-9790,Nihjgt Feelings,5350
-9824,DSFA Records,8888
-9867,Capitol Records,9
-9905,"Guided By Voices, Inc.",21884
-9920,Tompkins Square,915
-9938,1 Deep Entertainment,21751
-9970,"JYP Entertainment, Republic",28312
-9977,Cherry Red,2238
-9997,Contender,23137
-10050,2nd Story Sound,2574
-10066,Zoo Entertainment,3384
-10109,Bad,5381
-10119,RuCo Inc.,15289
-10151,Eleven Seven,7721
-10167,Mad Decent,2689
-10182,P.W. Elverum & Sun,183
-10304,"QN5, L.A. Underground",8454
-10320,Keeled Scales,22517
-10405,Magna Carta,24396
-10478,Legacy,8972
-10520,RCA Records,19
-10534,So So Def,15130
-10567,"Candlelight, Profound Lore",7872
-10613,Different,2786
-10627,Translation Loss Records,5910
-10651,La Face,428
-10724,No Sleep,3444
-10736,Heavenly,437
-10813,Straight,4105
-10865,Sargent House,1185
-10889,Profound Lore,1976
-10894,Hollywood / Good,7009
-10904,Pompeii,1941
-10923,Raven Marching Band,990
-10948,Ralph Records,15475
-10960,Colombia,9189
-11070,"Jive, Zomba",4060
-11135,Sun Ark,24201
-11155,Beyond Records,30438
-11168,Swell Records,9954
-11194,Elektra,1616
-11214,Secretly Canadian,13
-11233,Peaceville Records,5451
-11256,Columbia/Red Ink,2680
-11306,Armageddon,4455
-11346,"Lights Music, Last Gang",7482
-11363,LO-MAX Records EMI,11806
-11399,Nomark,25145
-11448,Ghostly,1464
-11508,Entertainment One Music,2239
-11535,Big Scary Monsters Records,11849
-11567,Slumberland / Memphis Industries,2450
-11577,Peacefrog Records,21675
-11587,Asian Man Records,4065
-11615,Warm Records,1328
-11649,We the Best,6596
-11677,Ye Olde,29441
-11701,Odd Future,2219
-11727,Barsuk/Elsinor,1859
-11743,Matinee,22047
-11787,Brick,3980
-11813,Carpark Records,1412
-11824,Matador / Domino,4914
-11862,TBD,1467
-11962,Taang!,16861
-11976,Nonesuch,237
-11981,Delmore Recordings,30540
-11995,Great Crap Factory,29786
-12011,Castle Face,808
-12030,"RCA, Kemosabe",20738
-12172,Light Organ Records,5604
-12271,Almo Sounds,5163
-12281,Durtro,9384
-12321,Modern Records,10771
-12332,Hyperdub,289
-12350,Mummy / Stones Throw,4931
-12406,GBV,29510
-12423,Strange Famous Rec,16729
-12469,Death Row / Interscope / Atlantic,3936
-12495,All City/Koch,12696
-12514,Crosstown Rebels,30689
-12592,Epic / Immortal,3621
-12605,To Whom It May Concern/Co-operative Music,2704
-12636,Pocket Kid Records,13524
-12676,Scotti Bros. Records,25604
-12807,Central Control,3014
-12908,"Dirty Science, Fat Beats",15174
-13061,Infinity Cat,5896
-13074,Solid State,3492
-13084,To Whom It May Concern,5078
-13105,Light in the Attic,3142
-13209,Jester Records / Kscope Music,7322
-13298,Aftermath,814
-13332,Open Bar,4953
-13359,Autumn Tone,6977
-13394,Shake It,13349
-13418,Just Music,15480
-13470,Arista Nashville,951
-13592,Bathetic,2933
-13603,Ba Da Bing,1628
-13710,Westbound,4288
-13726,Moribund,17884
-13746,Eighteenth Street Lounge Music,3802
-13775,"Atlantic, Roadrunner",5476
-13798,Fat Beats,1650
-13857,No Sleep Records,8077
-13888,"Fueled By Ramen, Atlantic",20098
-13900,Profound Lore Records,6369
-13919,SST Records,270
-13946,"Arista, Cheeky",4736
-13958,10p Records,4012
-14096,Babygrande,5467
-14119,Bella Union,339
-14161,Hi Fi,30405
-14204,E1 Records / Ne'Astra Music Group,5733
-14232,GBV Inc,5419
-14249,Arts & Crafts,371
-14260,Self-Released,461
-14279,"Cheeky, Arista",4735
-14329,Bauhaus Music / Cooking Vinyl,8372
-14362,In the Red Records,92
-14376,Neurot Recordings,3189
-14432,Badman Recording Co.,30917
-14484,Enterteinment One Music,9758
-14514,Play It Again Sam,950
-14533,Relativity / Epic,18754
-14585,LM Dupli-Cation,7096
-14652,Holidays for Quince,29684
-14741,Garrett,12189
-14757,Andmoresound,10332
-14769,"Anticon, Alien Transistor",7886
-14809,Just Sunshine Records,16928
-14879,One Records,2667
-14987,Young Turks,2665
-15050,Widespread,31440
-15096,Work Song,7653
-15115,Mahogani,7939
-15217,Ye Olde Records,30695
-15260,Free People,3054
-15307,Runt,2875
-15340,"Rough Trade, RCA",453
-15351,Felte,3854
-15406,Chimera Music,896
-15419,Music For Nations / Relativity,5455
-15441,Saint Marie,3999
-15465,Dirty Version,5833
-15488,Gawk,22428
-15509,Rainwater,4609
-15585,Honor B4 Money,31055
-15616,RBC,10160
-15658,Nature Sounds,131
-15672,Columbia / Aware,809
-15707,Iron Works,5782
-15718,SVART,7075
-15739,Magazine,29493
-15756,Computer Ugly / Fat Beats,6533
-15770,Georgiana,30014
-15781,Anti,108
-15820,Last Kings,13826
-15863,Legacy Recordings,7177
-15876,"EMI, Parlophone",6617
-15896,Luaka Bop / V2,11259
-15937,Signature Sounds,1060
-15973,Deathwish,5013
-16003,CMNTY CULTURE,28497
-16046,"LaFace, Jive",5149
-16115,Topshelf / Bridge 9,12365
-16173,Peek-A-Boo,5660
-16185,Rhymes of an Hour,5730
-16306,No Quarter,2347
-16335,American Laundromat,11546
-16377,"Island, ZoÃ«",30593
-16390,Yep Roc Records,26493
-16406,Spinning Top,15219
-16416,Modern Outsider,5426
-16444,The Mezzotint Label,5387
-16502,The Spheres,8087
-16522,Universal Music Canada,11498
-16535,37d03d,26625
-16544,HLR,29530
-16566,Epic / Interscope,6912
-16631,Cascine,3148
-16700,"Fly Eye, Columbia, Startime",3795
-16714,Rotten,15073
-16763,Paradise Bachelors,29993
-16777,Tbd Records,29172
-16809,Hammock Music,3481
-16846,"Lil Lou, Warner",25490
-16872,TEN/Kemosabe,8160
-16902,Armed,30592
-16935,TDE,7726
-16949,We Were Never Being Boring,12804
-16958,Almost Gold,1131
-16972,"Death Row, Interscope",3903
-16999,"Sparro, Inc.",27831
-17032,ESL,8013
-17045,Drunken Fish,4814
-17071,Ostgut,66
-17095,"Deconstruction, Mushroom, Arista",7896
-17105,Glitterhouse,6070
-17138,Deep Elm,11413
-17229,Loud Records,5571
-17276,Heavenly Records,13100
-17292,Jagjaguwar,5
-17314,Idaho Music,22860
-17337,Embassy Productions,12887
-17381,Driftless,6931
-17469,UNited Daries,4440
-17496,Javotti Media,7255
-17507,Names / ATO,3900
-17531,"Sonic Cathedral, Slumberland",29926
-17556,Rabble Rouser,12066
-17567,Captured Tracks/Bella Union,4593
-17650,Constellation Records,6610
-17660,Loud/RCA,25345
-17681,Catsup Plate,203
-17694,Misra Records,211
-17706,ABB Records,6762
-17751,Constellation,828
-17759,"Merge, Domino",2619
-17770,Smells Like,2874
-17805,"Lindseystomp, Decca, Universal",8494
-17853,Combat,4406
-17915,Indianola Records,7116
-17925,EMI / Columbia,3544
-17956,Sumerian,3418
-18024,Tonequake,9998
-18037,"eOne, LilyDog",13723
-18049,"The Phantom Entertainment LLC, EMPIRE",27193
-18059,"Avex, Thrill Jockey",9824
-18069,Artemisia,8765
-18087,Lobster Records,9745
-18100,E1 Music / Roadrunner Records,30206
-18113,300,13993
-18142,Endless Flight,31460
-18165,No Rest Until Ruin,13831
-18179,RVNG Intl.,2423
-18225,"Proper, Scarlet Letter",11580
-18236,Ace Fu Records,15646
-18246,Banjodad,9131
-18257,ATO / Prawn Song,9254
-18307,Boner,4650
-18315,Mom + Pop,1267
-18348,RVNG INTL,28062
-18371,"Columbia, Mad Decent",10920
-18406,Infinite Best,1653
-18419,Bludgeon Riffola,14946
-18433,Loud/RCA/BMG,1219
-18491,Daft Life Limited,4196
-18528,Caroline International,22040
-18548,Warner Bros. / Machine Shop,8362
-18607,Death Row / Interscope,3937
-18693,"Fire, GBV Inc.",7817
-18713,Guided by Voices Inc.,2344
-18732,Tokoloshe,8966
-18744,"ESGN, EMPIRE",15188
-18818,CBS / Columbia,13647
-18855,"Davido Worldwide, Sony, RCA",27246
-18872,"Helium 3, Atco",1933
-18889,Peaceville,2943
-18897,Third Worlds,6894
-19143,IGC / iHipHop,12053
-19162,Revox,11856
-19190,Goofin',20745
-19203,Up,2852
-19218,LAUREN RECORDS,27007
-19321,Ode / A&M,18945
-19372,The Null Corporation,521
-19394,AKAI Music,13030
-19466,RCA Nashville,4737
-19506,Rise,5353
-19584,Jive Records / BMG,8253
-19696,Partisan,1354
-19706,Atco,508
-19796,XL,132
-19806,Family Productions/Columbia,9588
-19889,Signature Sound,32057
-19915,Birdman Records,4642
-19926,Zomba,11033
-19944,Arbutus,1652
-20007,Sussex,5626
-20017,Dirty Hit,7891
-20030,Ostgut Ton,11515
-20040,"Merge, Dead Oceans",13427
-20189,J Records,12655
-20256,"Earstorm, Big Beat",6958
-20260,Hypnotized Minds,14529
-20276,Gypsy Boy,31117
-20293,Atco / Albert / EMI,5284
-20347,Elektra Records,274
-20379,Windham Hill,24583
-20391,Membran,14964
-20404,Island,22
-20426,Private Music,15940
-20437,Pole,31528
-20524,Italians Do It Better,2517
-20543,Steel Wool,15668
-20576,Third Man,100
-20610,Alive Naturalsound,8937
-20684,High Beam,15332
-20694,Dine Alone,5504
-20706,"Columbia, RCA",15154
-20714,Ribbon Music,2377
-20724,Jazz Rock,19090
-20749,Cotillion,3885
-20773,Scat Records,8527
-20791,HUB,12911
-20809,Serjical Strike,24048
-20870,Mass Appeal,9972
-20894,Righteous Babe Records,30651
-20933,Ba Da Bing!,918
-20941,AGAINST GIANTS,24910
-20947,"Music for Nations, Kosh",24531
-21024,Prosthetic,1749
-21034,Scatt,2614
-21088,Tommy Boy,4767
-21185,EastWest / Albert / Epic,5285
-21196,International Anthem,17370
-21211,Albert,3787
-21220,Albert Productions,5274
-21221,ATCO,5276
-21252,eOne / Good Fight Music,10404
-21269,"Jive, BMG",3267
-21312,East West,4757
-21377,KScope,14851
-21448,earMUSIC,18161
-21467,Gilla House,15194
-21526,"Cleveland International, Epic",10275
-21550,Asphodel Records,17792
-21598,Rough Trade / Sire,3808
-21631,Escapi Music,5260
-21694,"Volt, Atco",4801
-21775,Internal Affairs,15784
-21843,Kirtland,1599
-21906,Red Bull,5473
-21966,"Mom+Pop, Marathon Artists, Milk!",22378
-22043,Mule Musiq,8855
-22108,The Flenser,8028
-22198,Tri Angle,2099
-22229,J & R Adventures,30468
-22286,"Demigodz, Dirty Version",9098
-22411,Bayonet,12830
-22543,Woodist,15741
-22564,"V2 Records, Yep Roc Records",569
-22643,"Blood Money, eOne",8946
-22671,Ruthless,4369
-22729,Dark Descent Records,10913
-22758,Mad Science,165
-22794,Innervisions,11203
-22916,V2 / XL,340
-22971,POW,15974
-22990,Normative,12279
-23020,XL Recordings,69
-23025,Loud / RCA / BMG,6780
-23053,Tolotta Records,8520
-23062,"Frenchkiss, Columbia",6172
-23106,RCA / Hydra Head Records,7119
-23221,Cantora,1640
-23323,Vendlus Records,7437
-23327,"Young God, Mute",16657
-23344,Failure,12880
-23475,Dolly Records,8688
-23498,Fortuna,1632
-23531,Open Wide; Columbia Nashvile,8797
-23569,Water Music,12352
-23649,Neue Meister,15757
-23731,Universal,55
-23742,E1 Entertainment,15628
-23752,Underwater Peoples,1877
-23786,Eastern Conference,6493
-23838,Rat Pak,31666
-23914,Psycho+Logical-Records,18042
-23942,Chesky,31842
-24087,ZoÃ«,30392
-24122,Father/Daughter,11724
-24145,French Kiss / Pendu Sound,5603
-24261,Big Dada,5365
-24317,Luke Records,8273
-24335,Sub Pop / City Slang,7194
-24347,Ipecac,52
-24380,Self-released,254
-24427,"Mood Muzik, EMPIRE",18224
-24449,Revelation / Epic,4878
-24461,Black River,14614
-24473,"PIAS, Heavenly",16915
-24498,Memphis Industries / Kill Rock Stars,30153
-24562,Absolutely Kosher Records,22780
-24575,Volcano Entertainment,3386
-24597,Break World,12408
-24664,Hardly Art,1828
-24711,Planet Mu Records,11375
-24721,"Slaughter Gang, Epic",20685
-24735,Empire Distribution,8626
-24770,Capitol / EMI,255
-24794,"Parlophone, Capitol",253
-24801,Glass Air Records,7799
-24871,J / Allido,11335
-24887,Pendu Sound,14352
-24900,Star Trak,325
-24946,Terror Squad,6594
-24968,Silver Bow,20793
-24979,Rhymesayers,888
-25038,"BEP, Epic",28580
-25134,"YG, KT",8146
-25144,311,8045
-25183,Black Market Activities,3417
-25194,eOne / Nuclear Blast,9345
-25205,FOLLOWSPOT,15491
-25216,20 Buck Spin,13527
-25221,Single Lock,7941
-25301,Warner bros,8127
-25321,Sony Music Entertainment US Latin LLC,25917
-25387,Last Gang Records,74
-25400,Hometapes,794
-25448,RabbleRouser,32015
-25521,Rinse,1727
-25568,Jam Down Records,24570
-25591,Dead Oceans,12
-25635,YG,10293
-25646,Nelstar,18747
-25671,"Saint, Columbia",18351
-25753,Songs of the South,32020
-25872,Music For Nations / Metal Blade,5453
-25898,Axis,4849
-25915,Cooking Vinyl Records,10693
-25982,ISO / Columbia,3558
-26009,Epic Records / CBS Records,9654
-26018,Jet Records,9657
-26037,Blood Music,14245
-26094,BMG U.S. Latin,9859
-26180,Night Bloom,20452
-26189,Paradise of Bachelors,4256
-26208,"True North, A&M",22246
-26231,Orindal,9240
-26263,Vroom Vroom,16206
-26269,"Think It's a Game, Lucci",20024
-26321,Atlantic Records,4562
-26332,Mello,12618
-26346,Deaf Records,10740
-26358,Thrill Jockey Records,30500
-26382,"300, Quality Control",19066
-26408,Manimal Vinyl,3686
-26441,InsideOutMusic,17882
-26477,East Side Digital,18185
-26523,Fueled By Ramen,879
-26575,Mama Bird,22145
-26612,GNDWire,19343
-26688,Mayer Music,9549
-26728,Parlophone,590
-26796,Blue Corn,31987
-26838,Rykodisc,7526
-26933,Original Signal,1156
-26943,Southern Lord,117
-26959,"Phonogenic, Sony UK",20881
-26997,"Blanco y Negro, Def American Recordings",3477
-27009,Blanco y Negro,3478
-27021,Polydor,877
-27033,Shanachie,11906
-27093,Amorphous,17234
-27107,Mute,147
-27165,Shaytan,20972
-27221,Paradise Of Bachelors,19519
-27257,Doomtree,1625
-27291,Loveâ€™s Way,17431
-27406,Matador Records,20
-27446,#Merky,19415
-27462,"Sub Pop, Flemish Eye",9711
-27474,"Musex, BMI",19146
-27494,Undertow,18940
-27667,File Under: Music,30884
-27814,Will,4501
-27859,Mack Avenue,8458
-27917,Carrot Top Records,11565
-27930,Wishart Group,19910
-27940,BMD Fox Records,8098
-27992,"GBV, Inc.",19341
-28099,Zero Hour,5778
-28123,Alive Records,8992
-28183,Strange,12982
-28201,"Royal Mountain, Sub Pop",20796
-28212,Brain Records / Portrait Records,8848
-28222,Merge / Rough Trade,386
-28349,Yep Roc/Simian/Elephant 6,1037
-28382,"H20, Empire",19444
-28424,RCA Records / Portrait Records,8846
-28459,Fool's Gold,2142
-28526,East West / Koch,11883
-28556,Deep,17677
-28610,Numero Uno,20975
-28648,Fueled by Ramen,2960
-28662,Zoo Music,1775
-28705,Enigma,2993
-28761,DÃ©cor,8471
-28804,Smiley Miley Inc.,14669
-28827,Honeycomb Hideout,32025
-28909,Rocket #9 Records,8525
-28922,Halo Records,8523
-29007,Black Butter,20277
-29055,Sony Latin,20431
-29065,"Clockwork, Full Mettle",20256
-29096,Grand Jury,9007
-29112,Chimera,3012
-29208,Five Seven,9295
-29288,EMPIRE,20248
-29304,Procrastinate! Music Traitors,17623
-29409,Temporary Residence,303
-29420,Hopeless,3240
-29448,"Innovative Leisure, Timetable",20581
-29458,Morning Records,7100
-29503,Guided By Voices,29354
-29552,SideOneDummy,1978
-29576,WEA International,20504
-29636,Text,6464
-29650,"Bad Vibes Forever, EMPIRE",20917
-29661,"Thirty Tigers, We Buy Gold",22148
-29755,"First Generation Rich, EMPIRE",22198
-29863,Roswell/RCA,4556
-29879,Eclipse Records / Beautiful Happiness,5786
-29905,Wegawam,21373
-29913,Prospect Park,3501
-30008,Run for Cover,7315
-30020,"LaFace, Arista",5650
-30036,Get Low,9462
-30118,Vulf,15072
-30191,Box of Cedar,1822
-30199,W.25TH,21155
-30208,Oh Boy,14319
-30218,Uovooo,18086
-30229,Bonsound,12611
-30243,"88rising, EMPIRE",21614
-30257,Daptone,1462
-30299,RidingEasy,13005
-30328,"Stretch, Ropeadope",20643
-30371,Mille Plateaux,986
-30373,Suitcase Town,7368
-30396,Stockholm,11427
-30410,Gull,15121
-30440,Lucky Number,3849
-30451,Ernest Jenning Record Co.,27641
-30514,"Rabid, Mute",21579
-30525,FPE,17156
-30602,Bloodshot,443
-30666,Jiaolong,21426
-30690,eOne,4038
-30712,Ode,5106
-30818,Guerrilla Funk,6776
-30851,Bossier City,21549
-30862,"Sunday Best, PIAS",19670
-30892,Silver Age,18476
-30987,"Last Kings, EMPIRE",22165
-31015,Elektra / Mute / Sub Pop,11040
-31142,Lionboy,15258
-31155,EMI,311
-31207,"Aural Apothecary, Columbia",21979
-31218,Schoolkids,21873
-31267,Equal Vision,112
-31316,Okrahoma,7752
-31328,Deathwish Inc.,3366
-31393,Communicating Vessels,17458
-31426,Parlophone/Atlantic,7977
-31441,"All We Got, Atlantic",21995
-31455,"Syco,Sony BMG,J",9335
-31511,"Disruptor, Columbia",15178
-31554,"RCA, B-Unique",23294
-31609,Latency,22341
-31621,"Fat Possum, Bella Union",23292
-31630,Wu Music Group / Koch,9307
-31646,Koch Records / JVC Records,9305
-31706,Artoffacts,21661
-31744,Regain Records,7754
-31788,Warner Nashville,17044
-31843,"Third Man, Columbia",22045
-31875,Scarred For Life,23246
-31907,Absentee,22700
-31929,Just Sunshine,19114
-31941,Turnstile,1742
-31994,"Columbia, Epic",5790
-32030,Rabid,58
-32063,Immune,30908
-32161,"300 Entertainment, Rich Forever",22820
-32175,"Sony, Epic",6468
-32198,Twisted Elegance,20043
-32228,Beatnik,27285
-32279,Psychic Data,23598
-32281,"Phantasy Sound, Mute",22134
-32406,FAMM,22957
-32418,Capricorn Records,13012
-32442,Mixpak,8911
-32448,Small Stone,15526
-32474,Zelig,23316
-32542,Umor-Rex,20408
-32561,"Vertigo, Warner Bros.",5181
-32611,L.A. Club Resource,17838
-32656,Sister Polygon,18452
-32668,Aimless,25392
-32680,"Secretly Canadian, Tri Angle",22546
-32699,Reprise Records,98
-32718,Artisan Era,25851
-32804,"Fat Possum, Mama Bird, Loose",22048
-32839,Closed Casket Activities,19579
-32850,Forty Below,19530
-32894,300 Entertainment,19099
-32939,Virgin Records,97
-32969,SKiN GRAFT,20372
-32985,"Sire, Warner Bros.",4340
-32996,Mom+Pop,3022
-33035,Gnomonsong,1627
-33089,Load,374
-33108,Prosthetic Records,6940
-33113,Sony Music Australia,12326
-33181,"Young Stoner Life, 300",25085
-33213,Imago,11817
-33224,Beyond Beyond is Beyond,13762
-33255,Jet Set,405
-33329,Season of Mist,1286
-33337,Notenuf,4933
-33422,12hunna,11460
-33434,"Epic, E1",32132
-33484,Burger,11944
-33508,FatCat,199
-33525,Chess Club,18460
-33554,"Atlantic, Virgin",6028
-33635,Fire Talk,23116
-33708,BigHit Entertainment,25366
-33728,"City Slang, Merge",24695
-33802,Compass,19059
-33978,"Western Vinyl, Bella Union",9757
-33987,Wonderlick,19889
-34001,Healthy,20577
-34035,Afternoon,13730
-34057,"HevyDevy, InsideOutMusic",23795
-34067,"RCA, 19",23293
-34124,Three Lobed,15207
-34158,Hydra Head,671
-34166,Sony LatÃ­n,25589
-34177,Latent,23030
-34218,"Crush, Atlantic",18178
-34228,CN,17737
-34239,3DOT,25084
-34349,Warner Bros. UK,23660
-34416,"300, Glizzy Gang",25702
-34428,Q Prime,3632
-34449,"Artistry, Warner Bros",25448
-34463,Pepper / Jive Electro,12721
-34476,Rad Cult,3020
-34510,UNFD,17834
-34521,God?,24519
-34585,Atlantic Nashville,14795
-34611,New Machine,14096
-34621,Pure Noise,8968
-34703,Joy Void,17887
-34716,"SO Recordings, Silva Screen",23584
-34729,Clean Slate / Work,2707
-34769,Alligator,32159
-34781,WeDidIt,23308
-34808,Cabin 24,2353
-34819,Golden Child,21062
-34829,"Blue Chair, Warner Nashville",23560
-34922,Mint,11798
-34995,"Double Double Whammy, Don Giovanni",11181
-35018,Run For Cover,8556
-35025,Griselda Records,26128
-35158,"REMember, Warner Bros.",23525
-35181,Mega Collider,13653
-35248,Female Energy,26129
-35274,"RCA, Question Everything",25576
-35275,"Question Everything, RCA",25719
-35324,DFA,1792
-35339,Hot,12429
-35355,Sony Music Latin,11868
-35411,Flying Nun,13226
-35457,"Slash, Warner Bros.",14570
-35468,Slash,3461
-35643,Language of Stone,1426
-35702,"Columbia, Warner Bros.",4295
-35716,New West Records,212
-35833,Interscope,10
-35850,Freida Jean,23703
-35880,Grouch,26425
-35888,Trustkill Records,19563
-35912,Sacred Bones / Bella Union,6882
-35923,Weathermaker,4172
-35944,Warner Bros. Nashville,13002
-35982,B-Boy,4472
-36065,"Easy Eye Sound, Nonesuch",19942
-36181,"Secret Songs, Last Gang",23731
-36265,Dualtone Music Group,2650
-36276,Samedi,24067
-36285,Funk Volume,9171
-36372,"Maverick, Reprise",2782
-36389,Lonely Astronaut Records,30960
-36469,Proper,30315
-36481,Pytheas,14648
-36566,InsideOut,3494
-36678,Tresor,3318
-36686,"Epic, Grand Hustle",14633
-36701,anticon.,491
-36752,Scumgang,24462
-36780,"Mozzy, EMPIRE",21064
-36855,Warner Russia,24234
-36862,Empire,18467
-36892,Balley,19497
-36927,"What A Music, Parlophone, Big Beat, Atlantic",23842
-36942,"Little Tokyo, Sony UK",24065
-36966,Beyond Beyond Is Beyond,23786
-36974,Winspear,20954
-36979,"Young Mary's, Thirty Tigers",23989
-36990,PAN,3292
-37012,Young God / Mute,11238
-37039,Glizzy Gang,24235
-37058,anno,23748
-37218,Snakepit / Roadrunner,24139
-37230,"Big Persona, 88 Classic, RCA",26168
-37260,Blue Raft,24676
-37271,felte,18664
-37367,Columbia/ Red Ink,568
-37387,Tender Loving Empire,6373
-37418,88rising,23581
-37442,Kaw-Liga,16723
-37494,"Aftermath, 12 Tone",24189
-37522,Suicidal,17487
-37581,Rhino,2830
-37612,Never Broke Again,23004
-37637,"I'm Poppy, Mad Decent",23967
-37651,Napalm Records,4860
-37760,"Fat Possum, Cult",24018
-37798,Golden Chil,26230
-37902,"Polyvinyl, Liberation",24466
-37973,Volcano,2914
-37997,XL / Maverick,3427
-38021,"Vamplife, Heatmakerz, EMPIRE",26020
-38064,Sumerian Records,7346
-38124,Joytime Collective,23347
-38216,The Leaf Label,2970
-38270,6131,10775
-38279,Big Label,26246
-38322,Centricity Music,24024
-38335,"Bad Dreams, EMPIRE",26200
-38359,Get Loud,26565
-38370,Whities,16431
-38513,Definitive Jux,713
-38607,"Tan Cressida, Columbia",24580
-38727,"Island, Neon Gold",24541
-38820,First Priority Music,12997
-38841,"NPG, Arista",6057
-38883,"Simco, Epic",26716
-38896,Spinefarm,3321
-38972,DeSoto Records,21860
-39021,Bell Records,13265
-39069,Monday,16370
-39126,Tiger Style Records,12621
-39351,Night & Day,2715
-39375,"NPG, Warner Bros.",23272
-39384,Abraxan Hymns,14654
-39572,Rimas,24764
-39619,incienso,26161
-39658,Gilead Media,8027
-39698,Mascot,16511
-39723,Homewood,14531
-40104,"NaÃ¯ve, Mute",26330
-40226,"Low Country Sound, Elektra",21805
-40250,House Arrest,25070
-40280,Les Disques Du Crepuscule,24859
-40387,Shelter Press,12701
-40390,ViciSolum,15064
-40438,Native Cat,25554
-40523,Easy Star,14362
-40596,Fuzze-Flex,26124
-40681,Caldo Verde Records,648
-40700,Untuned,25928
-40713,Oscar Street,24079
-40722,"W.25TH, Superior Viaduct",25522
-40806,"Roadrunner, 333 Wreckords Crew",24880
-40816,Albert / Atlantic,5282
-40833,Human Season,26404
-40854,Invictus Productions,11731
-40914,Swami,7049
-40939,Ear Music,26427
-41140,God? / Drag City,9332
-41150,Shelly,26478
-41215,Sub Pop Records,28638
-41256,Torn Clean,18044
-41284,Atlantic UK,23216
-41299,Modern Sky,21306
-41351,Deathbomb Arc,17793
-41373,Warner Brasil,25449
-41392,ESP-Disk,4805
-41428,Gilead,20958
-41451,"Top Dawg, RCA",19325
-41479,Trance Syndicate Records,11069
-41490,Orange Milk,16697
-41512,Twinight Records,25611
-41545,Earth Analog,28640
-41570,"ByStorm, RCA",13408
-41612,"Mom+Pop, Ninja Tune",25894
-41642,M.A. Music / 3D,26710
-41901,Decca Records,19249
-41914,Purple / EMI / Warner Bros.,8446
-41937,Northern Electronics,19235
-42007,"Ropeadope, Stretch",25421
-42043,Vots,15859
-42093,Marbled Arm,26703
-42149,Hypnotic Dirge,25664
-42156,"Hickman Holler, RCA",25926
-42190,Buddha Records,17986
-42213,The Label Group,28590
-42233,Temporary Residence Ltd.,1720
-42288,"Spring Snow, Columbia",24945
-42361,Sunday Best Recordings,25836
-42408,"OVO Sound, Warner Bros.",9463
-42480,Mono Mundo Recordings,32290
-42601,"Maybach, Epic",26369
-42645,Mascot Records,23674
-42694,Bread Winners' Association,26808
-42749,RCA International,21142
-42793,Monument,15180
-42869,Simco,27031
-42953,Century Media Records,4007
-43020,Geographic,27787
-43071,Greenway,22602
-43082,Dais,16722
-43101,kranky,18014
-43155,Martha's Music,10701
-43179,Rough Trade Records,79
-43226,Mantra,2634
-43271,"Leaving, PLANCHA",27643
-43291,Silver Lining,21258
-43346,True Panther,1523
-43369,Holy Roar,8305
-43413,"Kranky, 4AD",626
-43432,â„— 2019 Speakerbox Recordings Limited under,25002
-43460,The Antlers,65
-43470,Mezzotint,13021
-43482,Not Not Fun,1441
-43493,MVD Audio,26933
-43522,Beachwood Park,31714
-43542,PAN Records,26751
-43563,Palilalia,20670
-43574,Ropeadope,12332
-43580,Babymetal,26239
-43594,Roon,27563
-43684,I.O.T,25051
-43706,"Free Nation, Cinematic",27380
-43713,Awful,16340
-43828,Top Dawg,2046
-43871,Thistlefield,18338
-43879,Rap Vacation,26985
-43912,TSM Recordings,28924
-43920,Red House,15838
-43958,Dutch,25135
-43987,12th Street,4865
-44096,Sire,264
-44200,Alamo,23432
-44221,Honeymoon,26711
-44265,Muddguts,26977
-44288,Zirkulo,5312
-44322,Warner Brothers,444
-44362,Other People / Matador,6209
-44410,Silver Lining Music,26970
-44475,Konichiwa,1337
-44497,14th Floor,872
-44536,Keep Cool / RCA,25242
-44556,Hit City U.S.A.,6767
-44562,Josie,5503
-44604,"Elektra, Capitol",9373
-44681,Trouble In Mind Records,25533
-44848,Musique TOPS,27530
-44859,PGM,25004
-44929,"Season of Mist, Prosthetic",20817
-44942,Tomplicated,27608
-44968,"Kitty-Yo, XL",5135
-44985,Southeastern,13040
-44996,"International Anthem, Nonesuch",27420
-45037,Internal/FFRR,11482
-45067,852 Musiq,20624
-45106,Grand Jury Music,28721
-45112,LaFlare Records / EMPIRE,27099
-45142,Wax Nine,21467
-45153,Radar,4290
-45185,"300, Atlantic",22874
-45328,"Wax Nine, Carpark",27602
-45339,U OK?,28988
-45369,New Amsterdam,8419
-45378,Syco,2558
-45412,Regal Recordings,8025
-45426,Secret City,934
-45435,Padiddle,27375
-45442,Union IV Recordings,25213
-45453,Kamera,4394
-45503,Kemosabe,10203
-45560,Sony Music Entertainment,6436
-45577,Griselda,23387
-45598,Profound Love,12397
-45645,"More Is More, EMPIRE",27648
-45658,"Atlantic, Barsuk",620
-45671,Sony BMG / Puscifer Entertainment,9808
-45721,Motor Music,8241
-45764,Domino Recording Co,27653
-45803,Montyray,28703
-45862,Kitchenware,1018
-45975,Platinum East,27699
-46096,September,27683
-46218,NNA Tapes,7615
-46436,"Them Hellas, The Blind Youth, EMPIRE",18453
-46467,Kanine Records,1016
-46501,Thrift Shop,7970
-46548,Compass Records,28694
-46558,GOD?,28142
-46578,RVNG INTL.,26952
-46587,"Freddy Got Magic, EMPIRE",25628
-46594,Bloodshot Records,39
-46629,Sony Music CG,26720
-46655,Upset The Rhythm,13497
-46715,Kate Bollinger,28738
-46730,Doghouse Records,20273
-46741,Las Fuegas,21207
-46818,Season Of Mist,16205
-46827,Profile,4367
-46842,Red Girl Media,28885
-46852,"Columbia Records, Sony",28304
-46932,Wharf Cat Records,25535
-47073,Step-Forward,6811
-47123,Record Company Ten/Big Beat,5759
-47145,Permanent,6827
-47266,Rockathon Records,8526
-47290,Zappo,28827
-47355,Astral Spirits,28676
-47409,Snakefarm Records,26487
-47469,Indie Recordings,4363
-47486,Big Beat,3121
-47512,Leaving,2289
-47536,River House,26090
-47575,Otsego,26942
-47615,"Columbia, Tan Cressida, Odd Future",5676
-47630,13th Planet,21582
-47649,Warner Bros. Records,9034
-47658,Mack Life,18542
-47768,London,3662
-47806,Lambent Light / Thirty Tigers,28937
-47829,Mirror Universe Tapes,11368
-47842,Famous Class,11451
-47861,Jealous Butcher,27828
-47871,"Nice Life, Atlantic",18250
-47924,Metropolis Records,4113
-47933,Awful Records/RCA,29057
-47958,Chainsaw,3914
-48075,Glorious Dead,15732
-48125,Terrible,1518
-48137,House of Mythology,15232
-48145,"Akira, The Orchard",24262
-48156,Cogumelo Records,5669
-48179,Unique Leader,19346
-48212,"1501 Certified, 300 Entertainment",27948
-48259,"SomeOthaShip Connect, eOne",28842
-48403,Heffa,7506
-48434,Dog Show,26032
-48445,Ruby Yacht,23700
-48498,"Atlantic, Poe Boy",4944
-48526,Music for Nations,17620
-48538,ill gotten,18638
-48556,Team Love,1883
-48565,Sooper,26337
-48574,Luminelle,22976
-48711,Solitaire,21576
-48723,Giant,6072
-48732,Vapor,3714
-48743,"Loud, RCA",25650
-48771,"Cactus Jack, Atlantic",28016
-48783,War Dog,28020
-48846,White Sun,19769
-48868,Sound Mind Music,28956
-48877,Baby Halo,23226
-48887,Mint Records,430
-48916,"Grunt, RCA",20451
-48925,Archer,30742
-48937,Gong Records,28533
-48959,555-5555,26843
-48973,"Highbridge the Label, Atlantic",27738
-49037,Tha Alumni Music Group,7433
-49049,"Tan Cressida, Warner",28912
-49101,Jean Sandwich Records,25989
-49108,Big Scary Monsters,21765
-49118,Treader,23068
-49136,"Brassland, Arts & Crafts",28594
-49170,Exploding In Sound,3367
-49189,"SHAM, Thirty Tigers",28714
-49201,Awesome Tapes From Africa,10548
-49207,Bmg Entertainment,17712
-49291,SPV/Steamhammer,18165
-49317,Canvasback,27472
-49354,Streamcut & RCA Records,29005
-49419,ASAP Worldwide / RCA,13065
-49437,Whatever's Clever,27903
-49474,Joyful Noise Recordings,26919
-49510,Artist Partners,14760
-49549,Megaforce / Music for Nations,12036
-49574,Brain Records,4289
-49651,"Highway 20, Thirty Tigers",27659
-49765,Agency 99,28115
-49783,Checkbook Records,25815
-49800,Retrohash,28119
-49801,"OVO Sound, Warner",27899
-49816,Thrill Forever,28486
-49844,Drag City Records,26660
-49868,"Aura, Sony",29052
-49888,Stony Plain,22508
-49910,Fake Record Label,14605
-49947,Forever Living Originals,25888
-49976,Cooking Vinyl Limited,27322
-49987,Alive,286
-50059,PNKSLM,12605
-50067,Akira,22765
-50141,b4 / Remote Control,28032
-50149,Cloud Recordings,185
-50205,The SpitSLAM Record,28138
-50215,Paper Route Empire,16222
-50247,Hogg Life,28118
-50341,"Atlantic, Rhino",4222
-50369,Uppity Cracker,7043
-50417,"Tha Alumni Music Group, 88 Classic, RCA",7432
-50429,Wharf Cat,15744
-50465,Audiogram,15226
-50498,E-Tron,28505
-50508,Eighteenth Street,2017
-50543,Lovers Music,28061
-50593,"Parkwood, Columbia",22661
-50631,Top Dawg Entertainment,2299
-50641,Kanine,1325
-50672,Annie Melody,28613
-50717,"Drag City, Carrot Top",29960
-50728,Dine Alone Records,28214
-50749,Basement's Basement,28184
-50795,Razor Sharp / Epic Street / Sony Music,5394
-50846,Unseen Worlds,26636
-50862,E.G.,8297
-50892,Outer Note,28811
-50927,YBNL Nation / EMPIRE,28997
-50991,Diana Gordon,23730
-51018,Brassland Projects,27743
-51034,Naked Music Recordings,24964
-51074,"Secretly Canadian, Rough Trade",9665
-51093,Dangerbird,70
-51100,Revenant,14160
-51116,TO3S,27841
-51135,Shrimper Records,82
-51191,Mutually Detrimental,18870
-51213,AntiFragile,27579
-51238,Love OnLine,27815
-51419,Warner Music Japan,12010
-51444,Honey,28840
-51454,Pro Era,22638
-51507,Dog Knights,25925
-51516,Radiokilla Records,28238
-51591,Revelation Records,6956
-51609,"Elektra, Atlantic",17046
-51711,Wrong Again Records,8361
-51723,Nevado,13689
-51758,"Mad Decent, Columbia",28470
-51800,"Taylamade, Atlantic",25178
-51830,Instant Records,27127
-51889,"Dangerous, EMPIRE",19470
-51966,Afterglo,29790
-51979,"Mangrove, Southern Lord",7751
-51984,Suicide Squeeze Records,9382
-52007,Better Noise,27292
-52050,MyMusicEmpire,31753
-52062,MCM,18110
-52110,"Erskine, Columbia",27110
-52122,Six Shooter,9643
-52133,"Infectious, Mute",8832
-52179,"Asylum , Warner Brothers",20639
-52190,2000 Zomba Recording LLC,11552
-52242,Milan,19782
-52267,Colpix,12526
-52317,Clivage,19125
-52327,Orchid Tapes,7890
-52459,"Epiphany, Thirty Tigers, RCA",27334
-52508,MCG,27698
-52643,Sahel Sounds,25506
-52653,"Straight, Warner Bros.",7218
-52662,Gearbox,20490
-52794,Lento,28660
-52937,"Empire, Atlantic",22104
-52976,Sonic Unyon,1981
-53024,Baby Making,19333
-53074,"TSNMI, Atlantic",28284
-53115,Memory Music,29001
-53126,"Qwest, Warner Bros.",12270
-53200,"Little Tokyo, RCA",17129
-53229,Transgressive,1296
-53240,Alfa Records,8920
-53312,Jive / BMG,5852
-53339,Warner Bros. Records â€Ž,22368
-53361,Dolly,30985
-53419,Sugar Hill,7087
-53472,"Jive, FFROE, Zomba",20640
-53584,Power Plant Studios,14752
-53615,Riot,26848
-53635,R&R Digital,28413
-53741,PME,25048
-53830,"Epic, Jet, CBS Associated",12686
-53917,Mexican Summer,1262
-53923,Atco Records,5981
-54020,Warner Bros. / Maverick,1670
-54058,Jet,6830
-54101,"WEA, Warner Bros.",9339
-54113,Jet / United Artists,12678
-54130,Yen,21417
-54231,Kirshner,13239
-54312,WEA,6959
-54326,Warner Bros. / United Artists,12677
-54428,Cutters,18845
-54506,"Little Daggers, Universal Music AS",29097
-54549,"Columbia, RED Ink",616
-54567,New Aeon Musick,28426
-54613,Mailboat,28501
-54640,LLC,28487
-54697,Geographic North,17725
-54903,Chapter Music,14301
-54952,Infinite Companion,25732
-54971,Hopeles,26532
-55000,Maybach,19996
-55024,Hefty!,15398
-55041,100% Electronica,18005
-55112,"Question Everything, Empire",21528
-55127,Late August Records,27015
-55137,Shelflife,18151
-55157,DÃ¤mmerung Arts,8564
-55184,Federal Prisoner,23336
-55209,Hush,1673
-55265,"Grand Hustle, EMPIRE",29116
-55310,Restless/Bar/None,16344
-55352,Lo Tom,29080
-55372,Other Music,6635
-55393,Practise,25041
-55435,Republic of Music,3289
-55498,Infectious,2686
-55509,Late August,26993
-55565,American Recordings,1000
-55756,Albert/Atlantic Records,2783
-55787,El Paraiso,6659
-55995,Fiction / Sire,3116
-56084,Elektra/Asylum,478
-56096,Fire Records,12248
-56131,Artery,13855
-56218,Jade Tree Records,4682
-56264,Rise Records,9323
-56306,"Sony, Sign of the Times Limited",8005
-56345,"Epic, V2",5516
-56356,Fiction / Elektra,3112
-56380,"Team Wang, JYP Entertainment",27044
-56396,Svart,11852
-56444,Lava/Atlantic,16200
-56501,Sony Music / Kitchenware,16181
-56524,"Kitchenware, CBS",16177
-56586,Ripple Music,28521
-56597,Artoffact Records,28049
-56655,Jeepster,1175
-56686,Family Jukebox,27627
-56696,Zambia Music Parlour,25879
-56738,Earache Records,3569
-56751,RVNG,5510
-56764,P. W. Elverum & Sun,3388
-56793,Jade Tree,1925
-56821,Cascine / flau,12390
-56825,Delmark Records,24008
-56833,Delmark,16523
-56980,L'ami Du Peuple,29829
-56990,Lame-O,17015
-57000,ATCO Records,13443
-57048,Factory,2990
-57093,Ruf,19812
-57120,"Vanner, RCA Nashville",26553
+21,Epic
+1743,Paper Bag
+106,Merge
+513,Barsuk
+83,Sony
+5447,C/Z Records
+8486,Epic Records / Immortal Records
+15287,Curb
+3424,CBS
+10837,Skam
+785,Jive
+1199,Koch
+103,Columbia
+10750,BMG / Arista
+502,Arista
+181,RCA
+6644,Portrait
+2939,550 Music
+5440,Rockville
+2,Domino
+3625,American
+33,Kill Rock Stars
+301,Relapse
+85,Matador
+40,Sub Pop
+200,Fat Cat Records
+90,Philips
+11815,VHF
+1821,Planet Mu
+5427,Ruffhouse / Columbia / SME Records
+1472,Vanguard
+21911,L.M. Dupli-cation
+1504,Young God Records
+1007,Acony
+2705,Asian Man
+30848,Narnack Records
+10354,"Sony Soho Square, Epic"
+31036,MUSICBLITZ Records
+5037,Dago
+4396,RCA / Latent
+1236,Darla
+9083,Grimsey Records
+7395,"Star Trak, Arista"
+3650,Beggars Banquet Records
+2193,Plug Research
+21437,Paradox
+606,Roadrunner
+3535,"EMI, Columbia"
+29947,PeMa
+3,Columbia Records
+14684,Ruffhouse
+75,Drag City
+44,Kranky
+233,New West
+8251,Jive Records
+30021,Granary Music / Yep Roc Records
+6563,Epic Records
+611,Hydra Head Records
+9087,Deconstruction Records
+11034,Velocette
+18900,Sony UK
+11626,"Rilo, Barsuk"
+1989,dBpm
+1093,5 Rue Christine
+11756,Ajax
+260,Absolutely Kosher
+30705,Aware / Columbia
+2008,Dim Mak
+2615,Mo' Wax
+9706,Tiger Style
+5547,Arista Records
+8366,Relativity Records
+50,Saddle Creek
+6,Merge Records
+2157,LaFace / Arista
+9126,Hieroglyphics Imperium
+6482,RJ's Electrical Connections
+1245,Last Gang
+2940,550
+2518,Fire
+3177,"Columbia, SME"
+25962,"Asylum, Atlantic"
+5126,Spitfire
+5734,Barak Records
+11330,E1
+5096,BPitch Control
+1636,Nettwerk
+1273,Morr Music
+2631,"Back Yard Recordings, Kill Rock Stars"
+389,Young God
+1348,Captured Tracks
+214,Beggars Banquet
+6964,Xemu
+3539,"Harvest, Columbia"
+3495,Napalm
+6796,Restless / Enigma
+3641,Alias
+2033,Restless
+1374,Fat Wreck Chords
+184,In The Red
+12245,2062
+6376,Robotic Empire
+410,V2
+3653,Nuclear Blast
+19551,Now-Again
+1280,Dovecote
+9089,"JDub, Epic"
+20088,SYR
+355,Ace Fu
+1218,Loud/Columbia/SME Records
+11509,Stones Throw Records
+23273,Lo Recordings
+57,Astralwerks
+4308,RCA Victor
+7165,Virgin EMI
+20265,Kuckuck
+4181,PIAS
+5732,Recital
+3045,Emperor Jones
+86,Thrill Jockey
+15317,Temporary Whatever
+336,Stones Throw
+1022,J-Records
+4510,Razor Sharp Records
+10321,Hansa
+5485,Metal Blade Records
+13019,Seeland
+3760,SST
+5125,Spitfire Records
+3693,LaFace
+1301,Global Symphonic
+798,Touch & Go
+19380,Chapter One Entertainment
+2545,Entertainment One
+71,Rough Trade
+17424,Projekt
+36,4AD
+4820,Aurora
+4961,"Ill Will, Columbia"
+13142,Coyote
+3082,Touch and Go
+25091,YELLOWELECTRIC
+1377,Ashmont
+4781,Roc-a-Fella
+6528,Flameshovel
+312,Polyvinyl
+16631,BMG International
+118,Sony BMG
+3683,Alternative Tentacles
+15419,Sonig Records
+476,Yep Roc / Simian
+11571,M3 Macmil Music
+4262,BMG
+3658,Morr
+1308,In the Red
+2956,SuperEgo
+1300,Animal World
+3680,Neurot
+3365,Backwoodz Studioz
+11,Slumberland Records
+5035,"Cicero Recordings, Ltd."
+5891,Thirsty Ear
+7663,"Tinker, Scratch"
+20416,OM
+1475,Ghostly International
+1,Thirty Tigers
+7147,Magic Bullet Records
+1603,Deltasonic
+3130,Duck Down
+29982,Cult / French Kiss
+294,"Interscope, XL"
+7648,The Militia Group
+25313,"We The Best, Epic"
+17247,Blood
+11337,E1 Music
+11311,ABB
+5160,Warner Music
+12043,"Merge, Track & Field"
+3929,Shitkatapult Strike
+4670,Krian
+876,Yep Roc
+125,Red Ink
+5047,"Merge, Bud Fox, Haldern Pop, Dew Process"
+10429,Barsuk Records
+6011,"Arista, Mushroom"
+17760,Twisted Records
+6450,A-Zap
+5253,Creation Records
+1360,Lidkercow Ltd
+9999,Tonequake Records / Burnside Records
+604,Gravitation
+6090,Highwheel
+482,Slumberland
+12192,ATO / Rough Trade
+6241,Holy Mountain
+375,Lewis
+8337,Dark Descent
+2053,Bomp!
+1517,The End
+7027,"Funk Volume, Empire Distribution"
+138,Warner Bros.
+4058,Northern Spy
+7888,Tiny Engines
+14790,"T-Neck, Epic"
+327,Luaka Bop
+1225,Relapse Records
+1831,Duckdown
+31066,Anodyne
+12249,Blackground/Jive/BMG Records
+354,Atlantic
+8365,Sony Records
+8245,eOne Music
+4,Fat Possum
+10136,"Jive, 20-20"
+6225,Topshelf
+10698,Lo
+621,ATO Records
+11797,"Three Gut Records, 3 Syllables Records"
+2269,Trouble in Mind
+914,Paper Bag Records
+25776,Sensibility
+8804,Strange Famous
+1741,Shrimper
+9355,Young Baby Records
+1147,A
+2325,Metal Blade
+30760,"Barsuk, My Dad"
+9609,"Interscope, Headhunter, Swami"
+1955,Strange Music
+21353,Machine Entertainment Group
+11038,Sinderlyn
+8174,Tankcrimes
+3617,Immortal / Epic Records
+7498,Sick Wid It
+3963,Communion
+7424,Relentless
+1505,Cooking Vinyl
+152,Kscope
+22114,Windfall
+8703,Gee Street/V2/BMG Records
+1590,Don Giovanni
+677,Anticon
+1282,Caldo Verde
+19284,Revelations Records
+17,Reprise
+5124,Mayhem
+6930,Sunday Best / Strange Famous
+3616,Immortal / Epic
+3815,Badman
+8246,Artemis Records
+3982,Asylum
+456,Arista/La Face
+1995,Ribbon
+6399,Foreign Exchange Music
+11438,PRhyme
+9057,Sony Music
+9573,Metal Blade / earMUSIC
+21632,LKC
+566,Hush Records
+7911,Double Double Whammy
+2801,Century Media
+7088,Dualtone
+20164,Nard Wuar
+1612,One Little Indian
+31,ATO
+18840,Pasha
+1229,Suicide Squeeze
+4935,J
+30059,My Dad / Barsuk
+21095,Bendo
+25765,Young Black Brotha
+4672,Capricorn
+459,Virgin
+4724,"Ferret, Roadrunner"
+2340,Six Degrees
+3326,Triple Crown
+25,Western Vinyl
+288,Kompakt
+19277,Mojo
+3263,"Death Row, Interscope, Priority"
+484,Type
+11277,12k
+1261,Gulcher Records
+357,Asthmatic Kitty
+4991,Cavity Search
+3832,Trouble In Mind
+2566,Joyful Noise
+11447,Nine Yards Records
+32,Bpitch Control
+15534,JCOR
+6514,TBD Records
+1892,Redeye
+6698,"Upside, Rough Trade"
+29160,Ruth St. Records
+22650,BMG Music Spain
+6013,Hypnotize Minds / Select-O-Hits
+5127,E1 Music / Housecore / Century Media
+3075,Relativity
+531,Fat Cat
+1988,Sacred Bones
+944,Carrot Top
+141,Capitol
+9977,"ATO, Ark"
+7985,Eternal Yip Eye Music
+658,Smalltown Supersound
+3514,Tough Love / Slumberland
+16725,Wreckshop
+3648,V2 Records
+6838,Jamla/Duck Down Records
+811,Woodsist
+4799,Volt
+418,Killer Pimp
+158,ATP
+7995,Clear Label
+32154,Audio Eagle
+22981,SONY BMG MUSIC ENTERTAINMENT
+14891,Sprint
+12631,Ruff House
+2294,Merge / City Slang
+32179,Undertow Music
+17372,GTO
+2458,Totally Gross National Product
+11221,Feel Good All Over
+21875,Beats In Space
+7364,Allegiance Records
+13433,Artemis
+15837,"8ft. Records, 11 Records"
+105,Frenchkiss
+3258,Triple Crown Audio/Endearing
+6150,Revive Records
+7274,"Arista Nashville, 19"
+5578,75 Ark
+1645,Goner
+5066,Rostrum
+17076,Taang! Records
+29311,Ingrooves
+23,Carpark
+30038,Poor Boy Records
+3334,Mello Music Group
+13954,twosyllable
+4214,Warner
+9760,Act Music + Vision
+22119,Web of Mimicry
+11594,"Epic, Syco"
+3038,Supply and Demand
+13379,Under One Flag
+1675,Upbeat
+23473,Columbia â€Ž
+363,Righteous Babe
+32085,"Matador, Merge Records, Flying Nun Records"
+2451,Fake Four
+1716,Quality Hill
+11816,Good Mountain
+1722,Javotti / 3D
+5204,Megaphonic
+20155,"Doggystyle, EMPIRE"
+313,Warner Bros
+577,"Island/UMG, Yep Roc Records"
+21220,Straight Records
+2309,Innovative Leisure
+1266,Yep Rock
+31560,Damaged Goods
+8070,Columbia / Sony Music Distribution
+3399,Slumberland / Tough Love
+5350,Nihjgt Feelings
+8888,DSFA Records
+9,Capitol Records
+21884,"Guided By Voices, Inc."
+915,Tompkins Square
+21751,1 Deep Entertainment
+28312,"JYP Entertainment, Republic"
+2238,Cherry Red
+23137,Contender
+2574,2nd Story Sound
+3384,Zoo Entertainment
+5381,Bad
+15289,RuCo Inc.
+7721,Eleven Seven
+2689,Mad Decent
+183,P.W. Elverum & Sun
+8454,"QN5, L.A. Underground"
+22517,Keeled Scales
+24396,Magna Carta
+8972,Legacy
+19,RCA Records
+15130,So So Def
+7872,"Candlelight, Profound Lore"
+2786,Different
+5910,Translation Loss Records
+428,La Face
+3444,No Sleep
+437,Heavenly
+4105,Straight
+1185,Sargent House
+1976,Profound Lore
+7009,Hollywood / Good
+1941,Pompeii
+990,Raven Marching Band
+15475,Ralph Records
+9189,Colombia
+4060,"Jive, Zomba"
+24201,Sun Ark
+30438,Beyond Records
+9954,Swell Records
+1616,Elektra
+13,Secretly Canadian
+5451,Peaceville Records
+2680,Columbia/Red Ink
+4455,Armageddon
+7482,"Lights Music, Last Gang"
+11806,LO-MAX Records EMI
+25145,Nomark
+1464,Ghostly
+2239,Entertainment One Music
+11849,Big Scary Monsters Records
+2450,Slumberland / Memphis Industries
+21675,Peacefrog Records
+4065,Asian Man Records
+1328,Warm Records
+6596,We the Best
+29441,Ye Olde
+2219,Odd Future
+1859,Barsuk/Elsinor
+22047,Matinee
+3980,Brick
+1412,Carpark Records
+4914,Matador / Domino
+1467,TBD
+16861,Taang!
+237,Nonesuch
+30540,Delmore Recordings
+29786,Great Crap Factory
+808,Castle Face
+20738,"RCA, Kemosabe"
+5604,Light Organ Records
+5163,Almo Sounds
+9384,Durtro
+10771,Modern Records
+289,Hyperdub
+4931,Mummy / Stones Throw
+29510,GBV
+16729,Strange Famous Rec
+3936,Death Row / Interscope / Atlantic
+12696,All City/Koch
+30689,Crosstown Rebels
+3621,Epic / Immortal
+2704,To Whom It May Concern/Co-operative Music
+13524,Pocket Kid Records
+25604,Scotti Bros. Records
+3014,Central Control
+15174,"Dirty Science, Fat Beats"
+5896,Infinity Cat
+3492,Solid State
+5078,To Whom It May Concern
+3142,Light in the Attic
+7322,Jester Records / Kscope Music
+814,Aftermath
+4953,Open Bar
+6977,Autumn Tone
+13349,Shake It
+15480,Just Music
+951,Arista Nashville
+2933,Bathetic
+1628,Ba Da Bing
+4288,Westbound
+17884,Moribund
+3802,Eighteenth Street Lounge Music
+5476,"Atlantic, Roadrunner"
+1650,Fat Beats
+8077,No Sleep Records
+20098,"Fueled By Ramen, Atlantic"
+6369,Profound Lore Records
+270,SST Records
+4736,"Arista, Cheeky"
+4012,10p Records
+5467,Babygrande
+339,Bella Union
+30405,Hi Fi
+5733,E1 Records / Ne'Astra Music Group
+5419,GBV Inc
+371,Arts & Crafts
+461,Self-Released
+4735,"Cheeky, Arista"
+8372,Bauhaus Music / Cooking Vinyl
+92,In the Red Records
+3189,Neurot Recordings
+30917,Badman Recording Co.
+9758,Enterteinment One Music
+950,Play It Again Sam
+18754,Relativity / Epic
+7096,LM Dupli-Cation
+29684,Holidays for Quince
+12189,Garrett
+10332,Andmoresound
+7886,"Anticon, Alien Transistor"
+16928,Just Sunshine Records
+2667,One Records
+2665,Young Turks
+31440,Widespread
+7653,Work Song
+7939,Mahogani
+30695,Ye Olde Records
+3054,Free People
+2875,Runt
+453,"Rough Trade, RCA"
+3854,Felte
+896,Chimera Music
+5455,Music For Nations / Relativity
+3999,Saint Marie
+5833,Dirty Version
+22428,Gawk
+4609,Rainwater
+31055,Honor B4 Money
+10160,RBC
+131,Nature Sounds
+809,Columbia / Aware
+5782,Iron Works
+7075,SVART
+29493,Magazine
+6533,Computer Ugly / Fat Beats
+30014,Georgiana
+108,Anti
+13826,Last Kings
+7177,Legacy Recordings
+6617,"EMI, Parlophone"
+11259,Luaka Bop / V2
+1060,Signature Sounds
+5013,Deathwish
+28497,CMNTY CULTURE
+5149,"LaFace, Jive"
+12365,Topshelf / Bridge 9
+5660,Peek-A-Boo
+5730,Rhymes of an Hour
+2347,No Quarter
+11546,American Laundromat
+30593,"Island, ZoÃ«"
+26493,Yep Roc Records
+15219,Spinning Top
+5426,Modern Outsider
+5387,The Mezzotint Label
+8087,The Spheres
+11498,Universal Music Canada
+26625,37d03d
+29530,HLR
+6912,Epic / Interscope
+3148,Cascine
+3795,"Fly Eye, Columbia, Startime"
+15073,Rotten
+29993,Paradise Bachelors
+29172,Tbd Records
+3481,Hammock Music
+25490,"Lil Lou, Warner"
+8160,TEN/Kemosabe
+30592,Armed
+7726,TDE
+12804,We Were Never Being Boring
+1131,Almost Gold
+3903,"Death Row, Interscope"
+27831,"Sparro, Inc."
+8013,ESL
+4814,Drunken Fish
+66,Ostgut
+7896,"Deconstruction, Mushroom, Arista"
+6070,Glitterhouse
+11413,Deep Elm
+5571,Loud Records
+13100,Heavenly Records
+5,Jagjaguwar
+22860,Idaho Music
+12887,Embassy Productions
+6931,Driftless
+4440,UNited Daries
+7255,Javotti Media
+3900,Names / ATO
+29926,"Sonic Cathedral, Slumberland"
+12066,Rabble Rouser
+4593,Captured Tracks/Bella Union
+6610,Constellation Records
+25345,Loud/RCA
+203,Catsup Plate
+211,Misra Records
+6762,ABB Records
+828,Constellation
+2619,"Merge, Domino"
+2874,Smells Like
+8494,"Lindseystomp, Decca, Universal"
+4406,Combat
+7116,Indianola Records
+3544,EMI / Columbia
+3418,Sumerian
+9998,Tonequake
+13723,"eOne, LilyDog"
+27193,"The Phantom Entertainment LLC, EMPIRE"
+9824,"Avex, Thrill Jockey"
+8765,Artemisia
+9745,Lobster Records
+30206,E1 Music / Roadrunner Records
+13993,300
+31460,Endless Flight
+13831,No Rest Until Ruin
+2423,RVNG Intl.
+11580,"Proper, Scarlet Letter"
+15646,Ace Fu Records
+9131,Banjodad
+9254,ATO / Prawn Song
+4650,Boner
+1267,Mom + Pop
+28062,RVNG INTL
+10920,"Columbia, Mad Decent"
+1653,Infinite Best
+14946,Bludgeon Riffola
+1219,Loud/RCA/BMG
+4196,Daft Life Limited
+22040,Caroline International
+8362,Warner Bros. / Machine Shop
+3937,Death Row / Interscope
+7817,"Fire, GBV Inc."
+2344,Guided by Voices Inc.
+8966,Tokoloshe
+15188,"ESGN, EMPIRE"
+13647,CBS / Columbia
+27246,"Davido Worldwide, Sony, RCA"
+1933,"Helium 3, Atco"
+2943,Peaceville
+6894,Third Worlds
+12053,IGC / iHipHop
+11856,Revox
+20745,Goofin'
+2852,Up
+27007,LAUREN RECORDS
+18945,Ode / A&M
+521,The Null Corporation
+13030,AKAI Music
+4737,RCA Nashville
+5353,Rise
+8253,Jive Records / BMG
+1354,Partisan
+508,Atco
+132,XL
+9588,Family Productions/Columbia
+32057,Signature Sound
+4642,Birdman Records
+11033,Zomba
+1652,Arbutus
+5626,Sussex
+7891,Dirty Hit
+11515,Ostgut Ton
+13427,"Merge, Dead Oceans"
+12655,J Records
+6958,"Earstorm, Big Beat"
+14529,Hypnotized Minds
+31117,Gypsy Boy
+5284,Atco / Albert / EMI
+274,Elektra Records
+24583,Windham Hill
+14964,Membran
+22,Island
+15940,Private Music
+31528,Pole
+2517,Italians Do It Better
+15668,Steel Wool
+100,Third Man
+8937,Alive Naturalsound
+15332,High Beam
+5504,Dine Alone
+15154,"Columbia, RCA"
+2377,Ribbon Music
+19090,Jazz Rock
+3885,Cotillion
+8527,Scat Records
+12911,HUB
+24048,Serjical Strike
+9972,Mass Appeal
+30651,Righteous Babe Records
+918,Ba Da Bing!
+24910,AGAINST GIANTS
+24531,"Music for Nations, Kosh"
+1749,Prosthetic
+2614,Scatt
+4767,Tommy Boy
+5285,EastWest / Albert / Epic
+17370,International Anthem
+3787,Albert
+5274,Albert Productions
+5276,ATCO
+10404,eOne / Good Fight Music
+3267,"Jive, BMG"
+4757,East West
+14851,KScope
+18161,earMUSIC
+15194,Gilla House
+10275,"Cleveland International, Epic"
+17792,Asphodel Records
+3808,Rough Trade / Sire
+5260,Escapi Music
+4801,"Volt, Atco"
+15784,Internal Affairs
+1599,Kirtland
+5473,Red Bull
+22378,"Mom+Pop, Marathon Artists, Milk!"
+8855,Mule Musiq
+8028,The Flenser
+2099,Tri Angle
+30468,J & R Adventures
+9098,"Demigodz, Dirty Version"
+12830,Bayonet
+15741,Woodist
+569,"V2 Records, Yep Roc Records"
+8946,"Blood Money, eOne"
+4369,Ruthless
+10913,Dark Descent Records
+165,Mad Science
+11203,Innervisions
+340,V2 / XL
+15974,POW
+12279,Normative
+69,XL Recordings
+6780,Loud / RCA / BMG
+8520,Tolotta Records
+6172,"Frenchkiss, Columbia"
+7119,RCA / Hydra Head Records
+1640,Cantora
+7437,Vendlus Records
+16657,"Young God, Mute"
+12880,Failure
+8688,Dolly Records
+1632,Fortuna
+8797,Open Wide; Columbia Nashvile
+12352,Water Music
+15757,Neue Meister
+55,Universal
+15628,E1 Entertainment
+1877,Underwater Peoples
+6493,Eastern Conference
+31666,Rat Pak
+18042,Psycho+Logical-Records
+31842,Chesky
+30392,ZoÃ«
+11724,Father/Daughter
+5603,French Kiss / Pendu Sound
+5365,Big Dada
+8273,Luke Records
+7194,Sub Pop / City Slang
+52,Ipecac
+254,Self-released
+18224,"Mood Muzik, EMPIRE"
+4878,Revelation / Epic
+14614,Black River
+16915,"PIAS, Heavenly"
+30153,Memphis Industries / Kill Rock Stars
+22780,Absolutely Kosher Records
+3386,Volcano Entertainment
+12408,Break World
+1828,Hardly Art
+11375,Planet Mu Records
+20685,"Slaughter Gang, Epic"
+8626,Empire Distribution
+255,Capitol / EMI
+253,"Parlophone, Capitol"
+7799,Glass Air Records
+11335,J / Allido
+14352,Pendu Sound
+325,Star Trak
+6594,Terror Squad
+20793,Silver Bow
+888,Rhymesayers
+28580,"BEP, Epic"
+8146,"YG, KT"
+8045,311
+3417,Black Market Activities
+9345,eOne / Nuclear Blast
+15491,FOLLOWSPOT
+13527,20 Buck Spin
+7941,Single Lock
+8127,Warner bros
+25917,Sony Music Entertainment US Latin LLC
+74,Last Gang Records
+794,Hometapes
+32015,RabbleRouser
+1727,Rinse
+24570,Jam Down Records
+12,Dead Oceans
+10293,YG
+18747,Nelstar
+18351,"Saint, Columbia"
+32020,Songs of the South
+5453,Music For Nations / Metal Blade
+4849,Axis
+10693,Cooking Vinyl Records
+3558,ISO / Columbia
+9654,Epic Records / CBS Records
+9657,Jet Records
+14245,Blood Music
+9859,BMG U.S. Latin
+20452,Night Bloom
+4256,Paradise of Bachelors
+22246,"True North, A&M"
+9240,Orindal
+16206,Vroom Vroom
+20024,"Think It's a Game, Lucci"
+4562,Atlantic Records
+12618,Mello
+10740,Deaf Records
+30500,Thrill Jockey Records
+19066,"300, Quality Control"
+3686,Manimal Vinyl
+17882,InsideOutMusic
+18185,East Side Digital
+879,Fueled By Ramen
+22145,Mama Bird
+19343,GNDWire
+9549,Mayer Music
+590,Parlophone
+31987,Blue Corn
+7526,Rykodisc
+1156,Original Signal
+117,Southern Lord
+20881,"Phonogenic, Sony UK"
+3477,"Blanco y Negro, Def American Recordings"
+3478,Blanco y Negro
+877,Polydor
+11906,Shanachie
+17234,Amorphous
+147,Mute
+20972,Shaytan
+19519,Paradise Of Bachelors
+1625,Doomtree
+17431,Loveâ€™s Way
+20,Matador Records
+19415,#Merky
+9711,"Sub Pop, Flemish Eye"
+19146,"Musex, BMI"
+18940,Undertow
+30884,File Under: Music
+4501,Will
+8458,Mack Avenue
+11565,Carrot Top Records
+19910,Wishart Group
+8098,BMD Fox Records
+19341,"GBV, Inc."
+5778,Zero Hour
+8992,Alive Records
+12982,Strange
+20796,"Royal Mountain, Sub Pop"
+8848,Brain Records / Portrait Records
+386,Merge / Rough Trade
+1037,Yep Roc/Simian/Elephant 6
+19444,"H20, Empire"
+8846,RCA Records / Portrait Records
+2142,Fool's Gold
+11883,East West / Koch
+17677,Deep
+20975,Numero Uno
+2960,Fueled by Ramen
+1775,Zoo Music
+2993,Enigma
+8471,DÃ©cor
+14669,Smiley Miley Inc.
+32025,Honeycomb Hideout
+8525,Rocket #9 Records
+8523,Halo Records
+20277,Black Butter
+20431,Sony Latin
+20256,"Clockwork, Full Mettle"
+9007,Grand Jury
+3012,Chimera
+9295,Five Seven
+20248,EMPIRE
+17623,Procrastinate! Music Traitors
+303,Temporary Residence
+3240,Hopeless
+20581,"Innovative Leisure, Timetable"
+7100,Morning Records
+29354,Guided By Voices
+1978,SideOneDummy
+20504,WEA International
+6464,Text
+20917,"Bad Vibes Forever, EMPIRE"
+22148,"Thirty Tigers, We Buy Gold"
+22198,"First Generation Rich, EMPIRE"
+4556,Roswell/RCA
+5786,Eclipse Records / Beautiful Happiness
+21373,Wegawam
+3501,Prospect Park
+7315,Run for Cover
+5650,"LaFace, Arista"
+9462,Get Low
+15072,Vulf
+1822,Box of Cedar
+21155,W.25TH
+14319,Oh Boy
+18086,Uovooo
+12611,Bonsound
+21614,"88rising, EMPIRE"
+1462,Daptone
+13005,RidingEasy
+20643,"Stretch, Ropeadope"
+986,Mille Plateaux
+7368,Suitcase Town
+11427,Stockholm
+15121,Gull
+3849,Lucky Number
+27641,Ernest Jenning Record Co.
+21579,"Rabid, Mute"
+17156,FPE
+443,Bloodshot
+21426,Jiaolong
+4038,eOne
+5106,Ode
+6776,Guerrilla Funk
+21549,Bossier City
+19670,"Sunday Best, PIAS"
+18476,Silver Age
+22165,"Last Kings, EMPIRE"
+11040,Elektra / Mute / Sub Pop
+15258,Lionboy
+311,EMI
+21979,"Aural Apothecary, Columbia"
+21873,Schoolkids
+112,Equal Vision
+7752,Okrahoma
+3366,Deathwish Inc.
+17458,Communicating Vessels
+7977,Parlophone/Atlantic
+21995,"All We Got, Atlantic"
+9335,"Syco,Sony BMG,J"
+15178,"Disruptor, Columbia"
+23294,"RCA, B-Unique"
+22341,Latency
+23292,"Fat Possum, Bella Union"
+9307,Wu Music Group / Koch
+9305,Koch Records / JVC Records
+21661,Artoffacts
+7754,Regain Records
+17044,Warner Nashville
+22045,"Third Man, Columbia"
+23246,Scarred For Life
+22700,Absentee
+19114,Just Sunshine
+1742,Turnstile
+5790,"Columbia, Epic"
+58,Rabid
+30908,Immune
+22820,"300 Entertainment, Rich Forever"
+6468,"Sony, Epic"
+20043,Twisted Elegance
+27285,Beatnik
+23598,Psychic Data
+22134,"Phantasy Sound, Mute"
+22957,FAMM
+13012,Capricorn Records
+8911,Mixpak
+15526,Small Stone
+23316,Zelig
+20408,Umor-Rex
+5181,"Vertigo, Warner Bros."
+17838,L.A. Club Resource
+18452,Sister Polygon
+25392,Aimless
+22546,"Secretly Canadian, Tri Angle"
+98,Reprise Records
+25851,Artisan Era
+22048,"Fat Possum, Mama Bird, Loose"
+19579,Closed Casket Activities
+19530,Forty Below
+19099,300 Entertainment
+97,Virgin Records
+20372,SKiN GRAFT
+4340,"Sire, Warner Bros."
+3022,Mom+Pop
+1627,Gnomonsong
+374,Load
+6940,Prosthetic Records
+12326,Sony Music Australia
+25085,"Young Stoner Life, 300"
+11817,Imago
+13762,Beyond Beyond is Beyond
+405,Jet Set
+1286,Season of Mist
+4933,Notenuf
+11460,12hunna
+32132,"Epic, E1"
+11944,Burger
+199,FatCat
+18460,Chess Club
+6028,"Atlantic, Virgin"
+23116,Fire Talk
+25366,BigHit Entertainment
+24695,"City Slang, Merge"
+19059,Compass
+9757,"Western Vinyl, Bella Union"
+19889,Wonderlick
+20577,Healthy
+13730,Afternoon
+23795,"HevyDevy, InsideOutMusic"
+23293,"RCA, 19"
+15207,Three Lobed
+671,Hydra Head
+25589,Sony LatÃ­n
+23030,Latent
+18178,"Crush, Atlantic"
+17737,CN
+25084,3DOT
+23660,Warner Bros. UK
+25702,"300, Glizzy Gang"
+3632,Q Prime
+25448,"Artistry, Warner Bros"
+12721,Pepper / Jive Electro
+3020,Rad Cult
+17834,UNFD
+24519,God?
+14795,Atlantic Nashville
+14096,New Machine
+8968,Pure Noise
+17887,Joy Void
+23584,"SO Recordings, Silva Screen"
+2707,Clean Slate / Work
+32159,Alligator
+23308,WeDidIt
+2353,Cabin 24
+21062,Golden Child
+23560,"Blue Chair, Warner Nashville"
+11798,Mint
+11181,"Double Double Whammy, Don Giovanni"
+8556,Run For Cover
+26128,Griselda Records
+23525,"REMember, Warner Bros."
+13653,Mega Collider
+26129,Female Energy
+25576,"RCA, Question Everything"
+25719,"Question Everything, RCA"
+1792,DFA
+12429,Hot
+11868,Sony Music Latin
+13226,Flying Nun
+14570,"Slash, Warner Bros."
+3461,Slash
+1426,Language of Stone
+4295,"Columbia, Warner Bros."
+212,New West Records
+10,Interscope
+23703,Freida Jean
+26425,Grouch
+19563,Trustkill Records
+6882,Sacred Bones / Bella Union
+4172,Weathermaker
+13002,Warner Bros. Nashville
+4472,B-Boy
+19942,"Easy Eye Sound, Nonesuch"
+23731,"Secret Songs, Last Gang"
+2650,Dualtone Music Group
+24067,Samedi
+9171,Funk Volume
+2782,"Maverick, Reprise"
+30960,Lonely Astronaut Records
+30315,Proper
+14648,Pytheas
+3494,InsideOut
+3318,Tresor
+14633,"Epic, Grand Hustle"
+491,anticon.
+24462,Scumgang
+21064,"Mozzy, EMPIRE"
+24234,Warner Russia
+18467,Empire
+19497,Balley
+23842,"What A Music, Parlophone, Big Beat, Atlantic"
+24065,"Little Tokyo, Sony UK"
+23786,Beyond Beyond Is Beyond
+20954,Winspear
+23989,"Young Mary's, Thirty Tigers"
+3292,PAN
+11238,Young God / Mute
+24235,Glizzy Gang
+23748,anno
+24139,Snakepit / Roadrunner
+26168,"Big Persona, 88 Classic, RCA"
+24676,Blue Raft
+18664,felte
+568,Columbia/ Red Ink
+6373,Tender Loving Empire
+23581,88rising
+16723,Kaw-Liga
+24189,"Aftermath, 12 Tone"
+17487,Suicidal
+2830,Rhino
+23004,Never Broke Again
+23967,"I'm Poppy, Mad Decent"
+4860,Napalm Records
+24018,"Fat Possum, Cult"
+26230,Golden Chil
+24466,"Polyvinyl, Liberation"
+2914,Volcano
+3427,XL / Maverick
+26020,"Vamplife, Heatmakerz, EMPIRE"
+7346,Sumerian Records
+23347,Joytime Collective
+2970,The Leaf Label
+10775,6131
+26246,Big Label
+24024,Centricity Music
+26200,"Bad Dreams, EMPIRE"
+26565,Get Loud
+16431,Whities
+713,Definitive Jux
+24580,"Tan Cressida, Columbia"
+24541,"Island, Neon Gold"
+12997,First Priority Music
+6057,"NPG, Arista"
+26716,"Simco, Epic"
+3321,Spinefarm
+21860,DeSoto Records
+13265,Bell Records
+16370,Monday
+12621,Tiger Style Records
+2715,Night & Day
+23272,"NPG, Warner Bros."
+14654,Abraxan Hymns
+24764,Rimas
+26161,incienso
+8027,Gilead Media
+16511,Mascot
+14531,Homewood
+26330,"NaÃ¯ve, Mute"
+21805,"Low Country Sound, Elektra"
+25070,House Arrest
+24859,Les Disques Du Crepuscule
+12701,Shelter Press
+15064,ViciSolum
+25554,Native Cat
+14362,Easy Star
+26124,Fuzze-Flex
+648,Caldo Verde Records
+25928,Untuned
+24079,Oscar Street
+25522,"W.25TH, Superior Viaduct"
+24880,"Roadrunner, 333 Wreckords Crew"
+5282,Albert / Atlantic
+26404,Human Season
+11731,Invictus Productions
+7049,Swami
+26427,Ear Music
+9332,God? / Drag City
+26478,Shelly
+28638,Sub Pop Records
+18044,Torn Clean
+23216,Atlantic UK
+21306,Modern Sky
+17793,Deathbomb Arc
+25449,Warner Brasil
+4805,ESP-Disk
+20958,Gilead
+19325,"Top Dawg, RCA"
+11069,Trance Syndicate Records
+16697,Orange Milk
+25611,Twinight Records
+28640,Earth Analog
+13408,"ByStorm, RCA"
+25894,"Mom+Pop, Ninja Tune"
+26710,M.A. Music / 3D
+19249,Decca Records
+8446,Purple / EMI / Warner Bros.
+19235,Northern Electronics
+25421,"Ropeadope, Stretch"
+15859,Vots
+26703,Marbled Arm
+25664,Hypnotic Dirge
+25926,"Hickman Holler, RCA"
+17986,Buddha Records
+28590,The Label Group
+1720,Temporary Residence Ltd.
+24945,"Spring Snow, Columbia"
+25836,Sunday Best Recordings
+9463,"OVO Sound, Warner Bros."
+32290,Mono Mundo Recordings
+26369,"Maybach, Epic"
+23674,Mascot Records
+26808,Bread Winners' Association
+21142,RCA International
+15180,Monument
+27031,Simco
+4007,Century Media Records
+27787,Geographic
+22602,Greenway
+16722,Dais
+18014,kranky
+10701,Martha's Music
+79,Rough Trade Records
+2634,Mantra
+27643,"Leaving, PLANCHA"
+21258,Silver Lining
+1523,True Panther
+8305,Holy Roar
+626,"Kranky, 4AD"
+25002,â„— 2019 Speakerbox Recordings Limited under
+65,The Antlers
+13021,Mezzotint
+1441,Not Not Fun
+26933,MVD Audio
+31714,Beachwood Park
+26751,PAN Records
+20670,Palilalia
+12332,Ropeadope
+26239,Babymetal
+27563,Roon
+25051,I.O.T
+27380,"Free Nation, Cinematic"
+16340,Awful
+2046,Top Dawg
+18338,Thistlefield
+26985,Rap Vacation
+28924,TSM Recordings
+15838,Red House
+25135,Dutch
+4865,12th Street
+264,Sire
+23432,Alamo
+26711,Honeymoon
+26977,Muddguts
+5312,Zirkulo
+444,Warner Brothers
+6209,Other People / Matador
+26970,Silver Lining Music
+1337,Konichiwa
+872,14th Floor
+25242,Keep Cool / RCA
+6767,Hit City U.S.A.
+5503,Josie
+9373,"Elektra, Capitol"
+25533,Trouble In Mind Records
+27530,Musique TOPS
+25004,PGM
+20817,"Season of Mist, Prosthetic"
+27608,Tomplicated
+5135,"Kitty-Yo, XL"
+13040,Southeastern
+27420,"International Anthem, Nonesuch"
+11482,Internal/FFRR
+20624,852 Musiq
+28721,Grand Jury Music
+27099,LaFlare Records / EMPIRE
+21467,Wax Nine
+4290,Radar
+22874,"300, Atlantic"
+27602,"Wax Nine, Carpark"
+28988,U OK?
+8419,New Amsterdam
+2558,Syco
+8025,Regal Recordings
+934,Secret City
+27375,Padiddle
+25213,Union IV Recordings
+4394,Kamera
+10203,Kemosabe
+6436,Sony Music Entertainment
+23387,Griselda
+12397,Profound Love
+27648,"More Is More, EMPIRE"
+620,"Atlantic, Barsuk"
+9808,Sony BMG / Puscifer Entertainment
+8241,Motor Music
+27653,Domino Recording Co
+28703,Montyray
+1018,Kitchenware
+27699,Platinum East
+27683,September
+7615,NNA Tapes
+18453,"Them Hellas, The Blind Youth, EMPIRE"
+1016,Kanine Records
+7970,Thrift Shop
+28694,Compass Records
+28142,GOD?
+26952,RVNG INTL.
+25628,"Freddy Got Magic, EMPIRE"
+39,Bloodshot Records
+26720,Sony Music CG
+13497,Upset The Rhythm
+28738,Kate Bollinger
+20273,Doghouse Records
+21207,Las Fuegas
+16205,Season Of Mist
+4367,Profile
+28885,Red Girl Media
+28304,"Columbia Records, Sony"
+25535,Wharf Cat Records
+6811,Step-Forward
+5759,Record Company Ten/Big Beat
+6827,Permanent
+8526,Rockathon Records
+28827,Zappo
+28676,Astral Spirits
+26487,Snakefarm Records
+4363,Indie Recordings
+3121,Big Beat
+2289,Leaving
+26090,River House
+26942,Otsego
+5676,"Columbia, Tan Cressida, Odd Future"
+21582,13th Planet
+9034,Warner Bros. Records
+18542,Mack Life
+3662,London
+28937,Lambent Light / Thirty Tigers
+11368,Mirror Universe Tapes
+11451,Famous Class
+27828,Jealous Butcher
+18250,"Nice Life, Atlantic"
+4113,Metropolis Records
+29057,Awful Records/RCA
+3914,Chainsaw
+15732,Glorious Dead
+1518,Terrible
+15232,House of Mythology
+24262,"Akira, The Orchard"
+5669,Cogumelo Records
+19346,Unique Leader
+27948,"1501 Certified, 300 Entertainment"
+28842,"SomeOthaShip Connect, eOne"
+7506,Heffa
+26032,Dog Show
+23700,Ruby Yacht
+4944,"Atlantic, Poe Boy"
+17620,Music for Nations
+18638,ill gotten
+1883,Team Love
+26337,Sooper
+22976,Luminelle
+21576,Solitaire
+6072,Giant
+3714,Vapor
+25650,"Loud, RCA"
+28016,"Cactus Jack, Atlantic"
+28020,War Dog
+19769,White Sun
+28956,Sound Mind Music
+23226,Baby Halo
+430,Mint Records
+20451,"Grunt, RCA"
+30742,Archer
+28533,Gong Records
+26843,555-5555
+27738,"Highbridge the Label, Atlantic"
+7433,Tha Alumni Music Group
+28912,"Tan Cressida, Warner"
+25989,Jean Sandwich Records
+21765,Big Scary Monsters
+23068,Treader
+28594,"Brassland, Arts & Crafts"
+3367,Exploding In Sound
+28714,"SHAM, Thirty Tigers"
+10548,Awesome Tapes From Africa
+17712,Bmg Entertainment
+18165,SPV/Steamhammer
+27472,Canvasback
+29005,Streamcut & RCA Records
+13065,ASAP Worldwide / RCA
+27903,Whatever's Clever
+26919,Joyful Noise Recordings
+14760,Artist Partners
+12036,Megaforce / Music for Nations
+4289,Brain Records
+27659,"Highway 20, Thirty Tigers"
+28115,Agency 99
+25815,Checkbook Records
+28119,Retrohash
+27899,"OVO Sound, Warner"
+28486,Thrill Forever
+26660,Drag City Records
+29052,"Aura, Sony"
+22508,Stony Plain
+14605,Fake Record Label
+25888,Forever Living Originals
+27322,Cooking Vinyl Limited
+286,Alive
+12605,PNKSLM
+22765,Akira
+28032,b4 / Remote Control
+185,Cloud Recordings
+28138,The SpitSLAM Record
+16222,Paper Route Empire
+28118,Hogg Life
+4222,"Atlantic, Rhino"
+7043,Uppity Cracker
+7432,"Tha Alumni Music Group, 88 Classic, RCA"
+15744,Wharf Cat
+15226,Audiogram
+28505,E-Tron
+2017,Eighteenth Street
+28061,Lovers Music
+22661,"Parkwood, Columbia"
+2299,Top Dawg Entertainment
+1325,Kanine
+28613,Annie Melody
+29960,"Drag City, Carrot Top"
+28214,Dine Alone Records
+28184,Basement's Basement
+5394,Razor Sharp / Epic Street / Sony Music
+26636,Unseen Worlds
+8297,E.G.
+28811,Outer Note
+28997,YBNL Nation / EMPIRE
+23730,Diana Gordon
+27743,Brassland Projects
+24964,Naked Music Recordings
+9665,"Secretly Canadian, Rough Trade"
+70,Dangerbird
+14160,Revenant
+27841,TO3S
+82,Shrimper Records
+18870,Mutually Detrimental
+27579,AntiFragile
+27815,Love OnLine
+12010,Warner Music Japan
+28840,Honey
+22638,Pro Era
+25925,Dog Knights
+28238,Radiokilla Records
+6956,Revelation Records
+17046,"Elektra, Atlantic"
+8361,Wrong Again Records
+13689,Nevado
+28470,"Mad Decent, Columbia"
+25178,"Taylamade, Atlantic"
+27127,Instant Records
+19470,"Dangerous, EMPIRE"
+29790,Afterglo
+7751,"Mangrove, Southern Lord"
+9382,Suicide Squeeze Records
+27292,Better Noise
+31753,MyMusicEmpire
+18110,MCM
+27110,"Erskine, Columbia"
+9643,Six Shooter
+8832,"Infectious, Mute"
+20639,"Asylum , Warner Brothers"
+11552,2000 Zomba Recording LLC
+19782,Milan
+12526,Colpix
+19125,Clivage
+7890,Orchid Tapes
+27334,"Epiphany, Thirty Tigers, RCA"
+27698,MCG
+25506,Sahel Sounds
+7218,"Straight, Warner Bros."
+20490,Gearbox
+28660,Lento
+22104,"Empire, Atlantic"
+1981,Sonic Unyon
+19333,Baby Making
+28284,"TSNMI, Atlantic"
+29001,Memory Music
+12270,"Qwest, Warner Bros."
+17129,"Little Tokyo, RCA"
+1296,Transgressive
+8920,Alfa Records
+5852,Jive / BMG
+22368,Warner Bros. Records â€Ž
+30985,Dolly
+7087,Sugar Hill
+20640,"Jive, FFROE, Zomba"
+14752,Power Plant Studios
+26848,Riot
+28413,R&R Digital
+25048,PME
+12686,"Epic, Jet, CBS Associated"
+1262,Mexican Summer
+5981,Atco Records
+1670,Warner Bros. / Maverick
+6830,Jet
+9339,"WEA, Warner Bros."
+12678,Jet / United Artists
+21417,Yen
+13239,Kirshner
+6959,WEA
+12677,Warner Bros. / United Artists
+18845,Cutters
+29097,"Little Daggers, Universal Music AS"
+616,"Columbia, RED Ink"
+28426,New Aeon Musick
+28501,Mailboat
+28487,LLC
+17725,Geographic North
+14301,Chapter Music
+25732,Infinite Companion
+26532,Hopeles
+19996,Maybach
+15398,Hefty!
+18005,100% Electronica
+21528,"Question Everything, Empire"
+27015,Late August Records
+18151,Shelflife
+8564,DÃ¤mmerung Arts
+23336,Federal Prisoner
+1673,Hush
+29116,"Grand Hustle, EMPIRE"
+16344,Restless/Bar/None
+29080,Lo Tom
+6635,Other Music
+25041,Practise
+3289,Republic of Music
+2686,Infectious
+26993,Late August
+1000,American Recordings
+2783,Albert/Atlantic Records
+6659,El Paraiso
+3116,Fiction / Sire
+478,Elektra/Asylum
+12248,Fire Records
+13855,Artery
+4682,Jade Tree Records
+9323,Rise Records
+8005,"Sony, Sign of the Times Limited"
+5516,"Epic, V2"
+3112,Fiction / Elektra
+27044,"Team Wang, JYP Entertainment"
+11852,Svart
+16200,Lava/Atlantic
+16181,Sony Music / Kitchenware
+16177,"Kitchenware, CBS"
+28521,Ripple Music
+28049,Artoffact Records
+1175,Jeepster
+27627,Family Jukebox
+25879,Zambia Music Parlour
+3569,Earache Records
+5510,RVNG
+3388,P. W. Elverum & Sun
+1925,Jade Tree
+12390,Cascine / flau
+24008,Delmark Records
+16523,Delmark
+29829,L'ami Du Peuple
+17015,Lame-O
+13443,ATCO Records
+2990,Factory
+19812,Ruf
+26553,"Vanner, RCA Nashville"
