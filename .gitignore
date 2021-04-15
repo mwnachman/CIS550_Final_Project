@@ -9,3 +9,8 @@ config/server.json
 
 # ipython Notebook metadata
 data/notebooks/.ipynb_checkpoints
+
+#server stuff
+server/node_modules
+server/.serverless
+server/package-lock.json
