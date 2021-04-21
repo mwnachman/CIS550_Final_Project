@@ -4,7 +4,7 @@
   "description": "Music Recommendations and Analysis",
   "main": "index.js",
   "scripts": {
-    "copy": "mkdir -p build/$NODE_ENV && cp -r client/src/index.html build/$NODE_ENV",
+    "copy": "mkdir -p build/$NODE_ENV && cp -r client/src/index.html client/src/assets build/$NODE_ENV",
     "copy:dev": "NODE_ENV=development npm run copy",
     "lint": "eslint --ext .js --ext .jsx src",
     "serve": "NODE_ENV=development node ./server/index.js",

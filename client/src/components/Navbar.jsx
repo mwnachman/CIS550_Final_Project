@@ -44,7 +44,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { styles, band, date, venue } = this.props
+    const { styles } = this.props
     const { searchTerm, searchResults } = this.state
     const open = searchTerm.length > 0
     return (
@@ -57,7 +57,7 @@ class Navbar extends React.Component {
             <Typography className={styles.title}
                         variant='h6'
                         noWrap>
-              CIS-550 Group Project
+              NAME - TBD
             </Typography>
             <div className={styles.search}>
               <div className={styles.searchIcon}>
@@ -84,9 +84,6 @@ class Navbar extends React.Component {
                   )}
                 </Paper>
               </Popper>
-            </div>
-            <div className={styles.title}>
-              {band}&nbsp;&nbsp;{date}&nbsp;&nbsp;{venue}
             </div>
           </Toolbar>
         </AppBar>
