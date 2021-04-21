@@ -20,9 +20,9 @@ const columns = [
   { id: 'info', label: 'Additional Info', minWidth: 100 }
 ]
 
-const Browse = ({ setlist }) => {
+const Browse = ({setlist}) => {
   const styles = useStyles();
-
+  console.log('setlist', setlist)
   if (setlist) {
     return (
       <Paper className={styles.root}>

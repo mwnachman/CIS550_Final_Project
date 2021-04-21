@@ -2,16 +2,44 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   AppBar,
+  Box,
   Paper,
   Tab,
-  TabPanel,
-  Tabs
+  Tabs,
+  Typography
 } from '@material-ui/core'
 
 import Browse from './Browse.jsx'
 import Home from './Home.jsx'
 import Recommendations from './Recommendations.jsx'
 import Search from './Search.jsx'
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <div>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
 
 
 function a11yProps(index) {
@@ -37,6 +65,8 @@ class TabComponent extends React.Component {
 
   render() {
     const { value } = this.state
+    const { setlist } = this.props
+    console.log('setlist in tabs', setlist)
     return (
       <div>
         <AppBar position="static">
@@ -55,7 +85,16 @@ class TabComponent extends React.Component {
           </Paper>
         </AppBar>
         <TabPanel value={value} index={0}>
-        hi
+          <Home/>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Browse setlist={setlist}/>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <Search/>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <Home/>
         </TabPanel>
       </div>
     )
