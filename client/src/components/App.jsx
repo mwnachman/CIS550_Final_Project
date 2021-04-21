@@ -10,7 +10,7 @@ import axios from 'axios'
 import { CssBaseline } from '@material-ui/core'
 
 import Navbar from './Navbar.jsx'
-import Popular from './Popular.jsx'
+import TabComponent from './Tabs.jsx'
 import * as config from '../../../config/server.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
@@ -65,8 +65,8 @@ class App extends React.Component {
         <CssBaseline />
         <Navbar band={band} date={date} venue={venue}/>
         <Switch>
-          <Route path='/popular' render={() => (<Popular setlist={setlist}/>)}/>
-          <Route path="*" component={() => <Redirect to="/popular"/>}/>
+          <Route exact path='/' render={() => (<TabComponent setlist={setlist}/>)}/>
+          <Route path="*" component={() => <Redirect to="/"/>}/>
         </Switch>
       </Router>
     )

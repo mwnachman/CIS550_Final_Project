@@ -5,17 +5,17 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   lightBlue: {
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#5AA2BE',
   },
   title: {
-    color: 'gray',
+    color: '#1A1628',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
   },
   search: {
-    color: 'black',
+    color: '#1A1628',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.25),
