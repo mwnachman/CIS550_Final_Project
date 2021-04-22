@@ -19,16 +19,12 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      band: '',
-      date: '',
-      venue: '',
       albums: []
     }
   }
 
   componentDidMount() {
     this.fetchAllAlbums()
-    this.fetchLastBeatlesSetlist()
   }
 
   async fetchAllAlbums() {
@@ -40,32 +36,14 @@ class App extends React.Component {
     }
   }
 
-  async fetchLastBeatlesSetlist() {
-    const beatlesID = 'b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d'
-    const promise = await axios.get(`${APIRoot}/setlists/${beatlesID}`)
-    const status = promise.status
-    if (status == 200) {
-      const setlist = promise.data.setlist[0]
-      this.saveSetlistInfo(setlist)
-    }
-  }
-
-  saveSetlistInfo(setlist) {
-    this.setState({ setlist: setlist['sets']['set'][0],
-                    band: setlist['artist']['name'],
-                    date: setlist['eventDate'],
-                    venue: setlist['venue']['name']
-                  })
-  }
-
   render() {
-    const { setlist, band, date,venue } = this.state
+    const { albums } = this.state
     return (
       <Router>
         <CssBaseline />
-        <Navbar band={band} date={date} venue={venue}/>
+        <Navbar />
         <Switch>
-          <Route exact path='/' render={() => (<TabComponent setlist={setlist}/>)}/>
+          <Route exact path='/' render={() => (<TabComponent albums={albums}/>)}/>
           <Route path="*" component={() => <Redirect to="/"/>}/>
         </Switch>
       </Router>
