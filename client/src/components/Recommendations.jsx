@@ -11,7 +11,7 @@ import {
   TableRow
 } from '@material-ui/core'
 
-import useStyles from '../style/popular'
+import useStyles from '../style/recommendations'
 
 const columns = [
   { id: 'name', label: 'Song', minWidth: 170 },

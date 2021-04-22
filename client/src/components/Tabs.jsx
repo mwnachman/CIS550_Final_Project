@@ -53,8 +53,9 @@ class TabComponent extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+    this.changeTab = this.changeTab.bind(this)
     this.state = {
-      value: 0
+      value: 2
     }
   }
 
@@ -63,10 +64,13 @@ class TabComponent extends React.Component {
     this.setState({value: newValue})
   }
 
+  changeTab(newValue) {
+    this.setState({value: newValue})
+  }
+
   render() {
     const { value } = this.state
     const { setlist } = this.props
-    console.log('setlist in tabs', setlist)
     return (
       <div>
         <AppBar position="static">
@@ -85,7 +89,7 @@ class TabComponent extends React.Component {
           </Paper>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <Home/>
+          <Home changeTab={this.changeTab}/>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Browse setlist={setlist}/>
@@ -94,7 +98,7 @@ class TabComponent extends React.Component {
           <Search/>
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <Home/>
+          <Recommendations/>
         </TabPanel>
       </div>
     )

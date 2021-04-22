@@ -13,18 +13,9 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+import useStyles from '../style/home'
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 700,
-  },
-  media: {
-    height: 140,
-  },
-});
-
-
-const Home = () => {
+const Home = ({changeTab}) => {
   const styles = useStyles();
   return (
     <Grid container
@@ -32,9 +23,9 @@ const Home = () => {
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: '70vh' }}>
+          className={styles.exterior_grid}>
 
-      <Grid item xs={8}>
+      <Grid item xs={8} className={styles.interior_grid}>
 
         <Card className={styles.root}>
           <CardActionArea>
@@ -47,8 +38,8 @@ const Home = () => {
                 About Us
               </Typography>
               <Typography variant="body2" color="textSecondary" variant="h6" component="p">
-                Welcome to [APP NAME].  <Link>Browse</Link> or <Link>Search</Link> by artist, album or song.
-                Want to find new music?  Check out <Link>Recommendations</Link>.
+                Welcome to [APP NAME].  <Link onClick={() => changeTab(1)}>Browse</Link> or <Link onClick={() => changeTab(2)}>Search</Link> by artist, album or song.
+                Want to find new music?  Check out <Link onClick={() => changeTab(3)}>Recommendations</Link>.
               </Typography>
             </CardContent>
           </CardActionArea>
