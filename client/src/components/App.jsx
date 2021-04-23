@@ -11,7 +11,7 @@ import { CssBaseline } from '@material-ui/core'
 
 import Navbar from './Navbar.jsx'
 import TabComponent from './Tabs.jsx'
-import * as config from '../../../config/server.json'
+import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
