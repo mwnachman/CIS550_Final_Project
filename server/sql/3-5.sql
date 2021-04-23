@@ -4,6 +4,21 @@ SELECT * FROM Song LIMIT 20;
 
 
 
+/* 
+Query 3
+
+Search a song by keyword. This will be used in our Search tab. 
+Exact matches are listed first.
+Input: 		Keyword to represent song name
+Return: 	song_name, song_id, album_name, artist_name, album_release_year
+ 
+Note:	Change Hello (t1.name, song_name) with ${user_keyword} for final report, 
+		note that some order by statements have spaces in them.
+
+ADD FUZZY SEARCH
+*/
+
+
 /* 3 slow */
 SELECT
 	t1.name AS song_name
@@ -24,7 +39,6 @@ ORDER BY
     
     
     
-
 /* 3 fast */
 SELECT
 	t1.name AS song_name
@@ -50,7 +64,26 @@ ORDER BY
 	, length(song_name);
   
   
-    
+ 
+/* 
+Query 4
+
+Search for an artist by keyword. Include the number of songs and albums they have. 
+This will be used in our Search tab. Exact matches are listed first.
+Input: 		Keyword to represent artist name
+Return: 	artist_name, artist_id, album_count, song_count
+ 
+Note:	Change Michael (t3.name, artist) with ${user_keyword} for final report,
+		note that some order by statements have spaces in them.
+
+ADD FUZZY SEARCH
+ADD HIGHEST RATED ALBUM? OR MOST RECENT RECORD LABEL?
+NEEDS OPTIMIZATION
+CHANGE artist to artist_name
+*/
+  
+
+
 
 /* 4 */
 SELECT 
@@ -77,6 +110,23 @@ ORDER BY
 	, song_count DESC;
     
     
+
+/* 
+Query 5
+
+Search for an album by keyword. This will be used in our Search tab.
+Exact matches are listed first.
+Input: 		Keyword to represent album name
+Return: 	album_name, album_id, artist_name, album_release_year,
+			album_format, record_label_name
+
+Note:	Change Night (t1.title, album_name) with ${user_keyword} for final report, 
+		note that some order by statements have spaces in them.
+ 
+ADD FUZZY SEARCH
+NEEDS OPTIMIZATION
+UPDATE table numbers to match guide
+*/
 
 
 /* 5 */
