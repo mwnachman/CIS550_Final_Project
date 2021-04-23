@@ -3,11 +3,30 @@ use project;
 SELECT * FROM Song LIMIT 20;
 
 
+/* 
+Query 9
+
+Identify songs with most similar attributes of the input attributes,
+with a valuing system that changes with user input.  
+User inputs tailor the algorithm to put more/less value on specific song traits. 
+This will be used in our Song Reccomender.
+Input: 		song_id,  user values on a 0-10 scale for each song attribute
+Return: 	
+
+Note:	Change "2LqoYvMudv9xoTqNLFKILj" (t1.id) with ${user_keyword} for final report, 
+		note that some order by statements have spaces in them.
+
+CHANGE IT SO ALGORITHM IS CHANGED BY USER INPUT FROM SCALE OF 0 to 10
+UPDATE THE SLOW/FAST VERSIONS BASED ON GOOD PRINCIPLES:
+	Push selection and projections ahead of joins
+	Use indexing for faster joins and selections
+	Use the smaller dataset as the outer loop in joins
+NEEDS MORE OPTIMIZATION
+*/
 
 
 
-
-/* 9A slow*/
+/* 9 slow */
 CREATE TEMPORARY TABLE Similar_genres (
 	genre_code INT NOT NULL,
 	genre_matches INT NOT NULL,
@@ -104,7 +123,7 @@ DROP TEMPORARY TABLE  Similar_genres;
 
 
 
-/* 9A fast*/
+/* 9 fast */
 CREATE TEMPORARY TABLE Similar_genres (
 	genre_code INT NOT NULL,
 	genre_matches INT NOT NULL,
@@ -199,4 +218,47 @@ ORDER BY score ASC
 LIMIT 50;
 DROP TEMPORARY TABLE  Similar_genres;
 
+
+/* 
+Query 10
+
+Identify artist with most similarity.
+This will be used in our Reccomender tab. 
+Input is an artist
+Input: 	
+Return: 	
+
+NEEDS MORE OPTIMIZATION
+*/
+
+
+
+/* 10 fast */
+
+
+/* 10 slow */
+
+
+
+
+
+
+/* 
+Query 11
+
+Identify album with most similarity. 
+This will be used in our Reccomender tab. 
+Input is an album.
+Input: 	
+Return: 	
+
+NEEDS MORE OPTIMIZATION
+*/
+
+
+
+/* 11 fast */
+
+
+/* 11 slow */
 
