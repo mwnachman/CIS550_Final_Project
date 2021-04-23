@@ -97,47 +97,99 @@ WHERE t3.id = '3fMbdgg4jU18AjLCKBhRSm';
  
  
 /* 
-Query 7
+Query 7A
 
-Search an album and display all songs in the album.
+Search an album and display all songs in the album,
+ordered by track number.
 This will be used for the Album display page.
 Input: 		album_id
-Return: 	DISPLAY A LOT OF INFO FOR PAGE
+Return: 	disc_number, track_number, song_name, 
+			total_duration_ms, time_minutes, time_seconds,
+			danceability, energy, song_key, loudness,
+			acousticness, speechiness, instrumentalness,
+			liveness, valence, tempo, major_minor_mode,
+			time_signature
 
-Note: Change "???"" (album_id) to ${album_id} for final report.
+Note: Change "0oX4SealMgNXrvRDhqqOKg" (album_id) to ${album_id} for final report.
 
-UPDATE DESCRIPTION
 NEEDS OPTIMIZATION
-UPDATE TABLE NUMBERS
-CHANGE INPUT TO ARTIST ID
-NEED TO DECIDE WHAT TO RETURN AND WHAT NEEDS TO BE DISPLAYED ON THIS PAGE
 */
 
 
-/* 7 */
+/* 7A */
 SELECT 
-	track_number as Track_Number
-   	, FLOOR(duration_ms/60000) AS time_minutes
-  	, ROUND((duration_ms/60000 % 1)*60) AS time_seconds
-    	, name AS Name
-   	, danceability as Danceability
-	, energy as Energy
-	, loudness as Loudness
-	, acousticness as Acousticness
-	, speechiness as Speechiness
-	, instrumentalness as Instrumentalness
-	, liveness as Liveness
-	, tempo as Tempo
-	, explicit as Explicit
-FROM Song
-WHERE album_id IN (
-	SELECT id
-	FROM Album
-	WHERE title = '${user_keyword}'
-) 
-ORDER BY track_number;
+	t1.disc_number AS disc_number
+	, t1.track_number AS track_number
+    , t1.name AS song_name
+    , t1.duration_ms AS total_duration_ms
+   	, FLOOR(t1.duration_ms/60000) AS time_minutes
+  	, ROUND((t1.duration_ms/60000 % 1)*60) AS time_seconds
+   	, t1.danceability AS danceability
+	, t1.energy AS energy
+    , t1.song_key AS song_key
+	, t1.loudness AS loudness
+	, t1.acousticness AS acousticness
+	, t1.speechiness AS speechiness
+	, t1.instrumentalness AS instrumentalness
+	, t1.liveness AS liveness
+    , t1.valence AS valence
+	, t1.tempo AS tempo
+    , t1.mode AS major_minor_mode
+    , t1.time_signature AS time_signature
+FROM Song t1
+WHERE album_id = '0oX4SealMgNXrvRDhqqOKg'
+ORDER BY disc_number, track_number;
  
  
+/* 
+Query 7B
+
+Search an album and dislay album information 
+and summary stats for all of the songs in the album.
+This will be used for the Album display page.
+Input: 		album_id
+Return: 	
+
+Note: Change "0oX4SealMgNXrvRDhqqOKg" (album_id) to ${album_id} for final report.
+
+NEEDS OPTIMIZATION
+*/
+
+
+/* 7B */
+SELECT
+	t2.title AS album_name
+	, t2.id AS album_id
+	, t3.name AS artist_name
+    , t3.id AS artist_id
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+    , t5.name AS genre_name
+	, t2.aoty_critic_score*.1 AS album_critic_score
+    , t2.aoty_user_score*.1 AS album_user_score
+	, t2.num_atoy_critic_reviews AS num_aoty_critic_reviews
+    , t2.num_aoty_user_reviews AS num_aoty_user_reviews
+	, AVG(t1.danceability)*10 AS avg_danceability
+	, AVG(t1.energy)*10 AS avg_energy
+	, AVG(t1.acousticness)*10 AS avg_acousticness
+	, AVG(t1.speechiness)*10 AS avg_speechiness
+	, AVG(t1.instrumentalness)*10 AS avg_instrumentalness
+	, AVG(t1.liveness)*10 AS avg_liveness
+    , AVG(t1.valence)*10 AS avg_valence
+    , AVG(t1.loudness) AS avg_loudness_db
+	, AVG(t1.tempo) AS avg_tempo_bpm
+    , AVG(t1.duration_ms) AS avg_duration_ms
+FROM  Song t1
+	LEFT JOIN Album t2 ON t1.album_id = t2.id
+	LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+	LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
+    JOIN Genre t5 ON t2.genre_id = t5.id
+WHERE t2.id = '0oX4SealMgNXrvRDhqqOKg';
+
+    
+ 
+
 
 
 /* 
