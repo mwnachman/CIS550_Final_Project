@@ -12,7 +12,7 @@ Input: 		Integer representing genre code (0-8)
 Return: 	song_name, song_id, artist_name, artist_id, album_name,
 			album_id, album_release_year, album_format, record_label_name
 
-Note: Change 2 (genre_id) to ${genre_id} for final report.
+Note: Change "2" (genre_id) to ${genre_id} for final report.
 
 NEEDS OPTIMIZATION
 */
@@ -55,7 +55,7 @@ Input: 		Integer representing genre code (0-8)
 Return: 	album_release_year, score_rank, album_name, album_id,
 			artist_name, artist_id, album_format, record_label_name
 
-Note: Change 2 (genre_id) to ${genre_id} for final report.
+Note: Change "2" (genre_id) to ${genre_id} for final report.
 
 NEEDS OPTIMIZATION
 */
@@ -76,9 +76,9 @@ FROM (
 		, t4.name AS record_label_name
 	FROM 
 		Album t2 
-		JOIN Genre t5 ON t2.genre_id = t5.id
 		JOIN Artist t3 ON t2.artist_id = t3.id
 		JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+		JOIN Genre t5 ON t2.genre_id = t5.id
 	WHERE genre_id = 2
 ) x
 WHERE x.score_rank <= 5
@@ -112,9 +112,9 @@ Get the most popular album from each genre
 within a range of years (user input). 
 This will be used for the Landing/ Browsing by Popularity tab.
 Input:   	Two integers: representing start_year and end_year
-Return: 	album_name, album_name, release_year
+Return: 	genre_name, album_name, release_year
 
-Note: Change 1950 and 2020 (release_year) to ${start_year} and ${end_year} for final report.
+Note: Change "1950" and "2020" (release_year) to ${start_year} and ${end_year} for final report.
 
 RETURN MORE INFORMATION?
 DELETE THIS QUERY?
