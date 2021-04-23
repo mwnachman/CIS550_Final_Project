@@ -75,7 +75,7 @@ FROM (
 		, t2.artist_id
 		, t2.format AS album_format
 		, t4.name AS record_label_name
-        , t2.aoty_critic_score*.1 AS album_critic_score
+		, t2.aoty_critic_score*.1 AS album_critic_score
 		, t2.aoty_user_score*.1 AS album_user_score
 	FROM 
 		Album t2 
@@ -96,7 +96,7 @@ FROM (
 	SELECT 
 		t1.release_year
 		, t2.id AS genre_id
-        , t2.name AS genre_name
+		, t2.name AS genre_name
 		, t1.title AS album
 		, ROW_NUMBER() OVER (PARTITION BY t1.release_year ORDER BY t1.aoty_user_score DESC) AS score_rank
 FROM Album t1 JOIN Genre t2 ON t1.genre_id = t2.id
