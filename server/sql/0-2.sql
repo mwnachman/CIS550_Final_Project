@@ -3,7 +3,23 @@ use project;
 SELECT * FROM Song LIMIT 20;
 
 
-/* 0 needs optimization */
+/* 
+Query 0
+
+Randomly generate 5 song/album/artist entries in a selected genre. 
+This is for the Homepage.
+Input: 		Integer representing genre code (0-8)
+Return: 	song_name, song_id, artist_name, artist_id, album_name,
+			album_id, album_release_year, album_format, record_label_name
+
+Note: Change 2 (genre_id) to ${genre_id} for final report.
+
+NEEDS OPTIMIZATION
+*/
+
+
+
+/* 0 */
 SELECT 
 	t1.name AS song_name
 	, t1.id AS song_id
@@ -28,7 +44,25 @@ LIMIT 5;
 
 
 
-/* 1 needs optimization */
+
+/* 
+Query 1
+
+Get the top 5 popular albums from each year ranked by AOTY User Score. 
+Input is a specific genre. 
+This will be used for the Browsing by Popularity tab.
+Input: 		Integer representing genre code (0-8)
+Return: 	album_release_year, score_rank, album_name, album_id,
+			artist_name, artist_id, album_format, record_label_name
+
+Note: Change 2 (genre_id) to ${genre_id} for final report.
+
+NEEDS OPTIMIZATION
+*/
+
+
+
+/* Query 1  updated */
 SELECT *
 FROM (
 	SELECT 
@@ -52,7 +86,8 @@ ORDER BY album_release_year DESC, score_rank;
 
 
     
-/*1 andrew version with some added columns*/
+/* Query 1 andrew version with some added columns 
+Previous version, No further optimization */
 SELECT *
 FROM (
 	SELECT 
@@ -67,7 +102,26 @@ WHERE score_rank <= 5
 ORDER BY genre_id, release_year, score_rank;
 
 
-/* 2 fast */
+
+
+
+/* 
+Query 2
+
+Get the most popular album from each genre 
+within a range of years (user input). 
+This will be used for the Landing/ Browsing by Popularity tab.
+Input:   	Two integers: representing start_year and end_year
+Return: 	album_name, album_name, release_year
+
+Note: Change 1950 and 2020 (release_year) to ${start_year} and ${end_year} for final report.
+
+RETURN MORE INFORMATION?
+DELETE THIS QUERY?
+*/
+
+
+/* 2 fast: Selection and Projects are pushed as close to the leaves */
 SELECT *
 FROM (
 	SELECT 
