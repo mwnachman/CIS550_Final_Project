@@ -73,7 +73,7 @@ Search for an artist by keyword. Include the number of songs and albums they hav
 This will be used in our Search tab. Exact matches are listed first.
 Input: 		Keyword to represent artist name
 Return: 	artist_name, artist_id, album_count, song_count
-			, most_frequent_genre_name
+		, most_frequent_genre_name
  
 Note:	Change "Michael" (t3.name, artist) with ${user_keyword} for final report,
 	note that some ORDER BY statements have spaces in them.
@@ -132,13 +132,13 @@ most_frequent_genre AS (
 )
 SELECT 
 	similar_artists.artist_name
-    , similar_artists.artist_id
-    , similar_artists.album_count
-    , similar_artists.song_count
-    , t5.name AS most_frequent_genre_name
+	, similar_artists.artist_id
+	, similar_artists.album_count
+	, similar_artists.song_count
+	, t5.name AS most_frequent_genre_name
 FROM similar_artists 
 	LEFT JOIN most_frequent_genre ON similar_artists.artist_id = most_frequent_genre.artist_id
-    LEFT JOIN Genre t5 ON most_frequent_genre.genre_id = t5.id
+	LEFT JOIN Genre t5 ON most_frequent_genre.genre_id = t5.id
 ORDER BY 
 		(artist_name LIKE 'Michael %') DESC 
 		, (artist_name LIKE '% Michael') DESC 
@@ -183,6 +183,7 @@ ORDER BY
 		OR (album_name LIKE '% Night %') DESC
 	, length(album_name);
     
+
 
 
     
