@@ -13,7 +13,7 @@ Input: 		Keyword to represent song name
 Return: 	song_name, song_id, album_name, artist_name, album_release_year
  
 Note:	Change "Hello" (t1.name, song_name) with ${user_keyword} for final report, 
-		note that some order by statements have spaces in them.
+	note that some ORDER BY statements have spaces in them.
 
 ADD FUZZY SEARCH
 */
@@ -76,7 +76,7 @@ Return: 	artist_name, artist_id, album_count, song_count
 			, most_frequent_genre_name
  
 Note:	Change "Michael" (t3.name, artist) with ${user_keyword} for final report,
-		note that some order by statements have spaces in them.
+	note that some ORDER BY statements have spaces in them.
 
 ADD FUZZY SEARCH
 NEEDS OPTIMIZATION
@@ -157,7 +157,7 @@ Return: 	album_name, album_id, artist_name, album_release_year,
 			album_format, record_label_name
 
 Note:	Change "Night" (t1.title, album_name) with ${user_keyword} for final report, 
-		note that some order by statements have spaces in them.
+	note that some ORDER BY statements have spaces in them.
  
 ADD FUZZY SEARCH
 NEEDS OPTIMIZATION
