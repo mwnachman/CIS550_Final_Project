@@ -4,6 +4,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
   },
+  content: {
+    minHeight: '300px',
+    minWidth: '100%',
+    display: '-webkit-box',
+  },
   exterior_grid: {
     minHeight: '70vh'
   },
@@ -25,8 +30,7 @@ const useStyles = makeStyles(theme => ({
     // '&:hover': {
     //   backgroundColor: fade(theme.palette.common.white, 0.35),
     // },
-    marginTop: theme.spacing(20),
-    marginLeft: theme.spacing(10),
+    marginLeft: theme.spacing(0),
     // width: '100%',
     // [theme.breakpoints.up('sm')]: {
     //   marginLeft: theme.spacing(3),
@@ -46,13 +50,18 @@ const useStyles = makeStyles(theme => ({
   inputRoot: {
     color: 'inherit',
   },
+  form: {
+    display: '-webkit-box',
+  },
   inputTypeSearch: {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(3)}px)`,
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '27ch',
     },
+  },
+  radio: {
   },
   paper: {
     width: 225,

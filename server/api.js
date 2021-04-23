@@ -1,7 +1,7 @@
 const config = require('./config/server-template.json')
 const mysql = require('mysql');
 
-aws_config = config['aws-mysql']
+const aws_config = config['aws-mysql']
 aws_config.connectionLimit = 10;
 aws_config.waitForConnections = true;
 const con = mysql.createPool(aws_config);
@@ -46,8 +46,8 @@ LIMIT 5;
 };
 
 /*-- q1: Get the top 5 popular albums from each year or genre ranked by AOTY User Score.  This will be used for the Landing/ Browsing by Popularity tab --*/
-function top5(req, res) {
-  var query = `
+async function top5(req, res) {
+  const query = `
   SELECT *
   FROM (
     SELECT t1.release_year, t2.name AS genre, t1.title AS album, ROW_NUMBER() OVER (PARTITION BY t1.release_year ORDER BY t1.aoty_user_score DESC) AS score_rank
@@ -63,9 +63,9 @@ function top5(req, res) {
 };
 
 /*-- q2: Get the most popular album from each genre within a range of years (user input). This will be used for the Landing/ Browsing by Popularity tab. --*/
-function popularByGenre(req, res) {
-  var dateRange = (req.params.years).split("-");
-  var query = `
+async function popularByGenre(req, res) {
+  const dateRange = (req.params.years).split("-");
+  const query = `
   SELECT *
   FROM
     (SELECT t1.release_year, t2.name AS genre, t1.title AS album, ROW_NUMBER() OVER (PARTITION BY t2.name ORDER BY t1.aoty_user_score DESC) AS score_rank
@@ -81,8 +81,8 @@ function popularByGenre(req, res) {
 };
 
 /*-- q3: Search a song by keyword. Include information for the Song’s Album and Artist. This will be used in our Search tab. --*/
-function searchSong(req, res) {
-  var query = `
+async function searchSong(req, res) {
+  const query = `
   SELECT t1.name AS Song, t2.title AS Album, t3.name AS Artist
   FROM Song t1
   LEFT JOIN Album t2 ON t1.album_id = t2.id
@@ -98,8 +98,8 @@ function searchSong(req, res) {
 };
 
 /*-- q4: Search for an artist by keyword. Include the number of songs and albums they have. This will be used in our Search tab. --*/
-function searchArtist(req, res) {
-  var query = `
+async function searchArtist(req, res) {
+  const query = `
   SELECT Artist, COUNT(DISTINCT Album) AS Album_count, COUNT(DISTINCT Song) AS Song_count
   FROM (
     SELECT t3.name AS Artist, t2.title AS Album, t1.name AS Song
@@ -119,8 +119,8 @@ function searchArtist(req, res) {
 };
 
 /*-- q5: Search for an album by keyword. Include the Artist, Record Label, and Format. This will be used in our Search tab. --*/
-function searchAlbum(req, res) {
-  var query = `
+async function searchAlbum(req, res) {
+  const query = `
   SELECT t1.title AS Album, t2.name AS Artist, t1.format AS Format, t3.name AS Record_Label
   FROM Album t1
   LEFT JOIN Artist t2 ON t1.artist_id = t2.id
@@ -137,8 +137,8 @@ function searchAlbum(req, res) {
 
 
 /*-- q6: Search an artist and display top 10 most popular albums by AOTY User Score. This will be used for the Artist display page. --*/
-function searchArtistTop10(req, res) {
-  var query = `
+async function searchArtistTop10(req, res) {
+  const query = `
   SELECT t1.name AS Artist, t2.title AS Album, t2.release_year AS Year, t3.name AS Genre, t2.aoty_critic_score AS AOTY_Critic_Score, t2.aoty_user_score AS AOTY_User_Score
   FROM Artist t1
   LEFT JOIN Album t2 ON t1.id = t2.artist_id
@@ -156,8 +156,8 @@ function searchArtistTop10(req, res) {
 };
 
 /*-- q7:  --*/
-function searchAlbumAllSongs(req, res) {
-  var query = `
+async function searchAlbumAllSongs(req, res) {
+  const query = `
   SELECT
     track_number as Track_Number, 
     FLOOR(duration_ms/60000) AS time_minutes,
@@ -186,13 +186,13 @@ function searchAlbumAllSongs(req, res) {
       res.json(rows);
     }
   });
-};
+}
 
 /*-- q8: Identify songs with most similar attributes of the input attributes. This will be used in our Recommender tab. --*/
-function recommendSongs(req, res) {
+async function recommendSongs(req, res) {
   let release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre;
   [release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre] = (req.params.input).split("-");
-  var query = `
+  const query = `
   SELECT
     t1.id AS song_id,
     t1.name AS song_name,
@@ -216,16 +216,16 @@ function recommendSongs(req, res) {
       res.json(rows);
     }
   });
-};
+}
 
 module.exports = {
-  homepage: homepage,
-  top5: top5,
-  popularByGenre: popularByGenre,
-  searchSong: searchSong,
-  searchArtist: searchArtist,
-  searchAlbum: searchAlbum,
-  searchArtistTop10: searchArtistTop10,
-  searchAlbumAllSongs: searchAlbumAllSongs,
-  recommendSongs: recommendSongs
+  homepage,
+  top5,
+  popularByGenre,
+  searchSong,
+  searchArtist,
+  searchAlbum,
+  searchArtistTop10,
+  searchAlbumAllSongs,
+  recommendSongs
 }
