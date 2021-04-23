@@ -1,26 +1,30 @@
 /* global process:false */
-const bodyParser = require('body-parser')
-const express = require('express')
-const api = require('./api')
 const cors = require('cors')
-const config = require('../config/server.json')
-
-
-const app = express()
+const serverless = require('serverless-http');
+const express = require('express');
+var routes = require('./api.js');
+const config = require('./config/server.json')
+const app = express();
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
-
 app.use(cors({credentials: true, origin: {APIRoot}}))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+/* -- PROJECT QUERIES -- */
+
+app.get('/albums', routes.getAllAlbums);
+app.get('/top5', routes.top5);
+app.get('/popularByGenre/:years', routes.popularByGenre);
+app.get('/searchSong/:song', routes.searchSong);
+app.get('/searchArtist/:artist', routes.searchArtist);
+app.get('/searchAlbum/:album', routes.searchArtist);
+app.get('/searchArtistTop10/:artist', routes.searchArtistTop10);
+app.get('/searchAlbumAllSongs/:album', routes.searchAlbumAllSongs);
+app.get('/recommendSongs/:input', routes.recommendSongs);
 
 
-app.get('/albums', api.getAllAlbums)
-
-app.get('/setlists/:artist_id', api.getSetlists)
-
-
-app.listen(3000, () => {
-  console.log('Server listening on PORT 3000');
-});
+// comment out line below for lambda deployment
+app.listen(3000, () => console.log(`Listening on: 3000`));
+// module.exports.handler = serverless(app);

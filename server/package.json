@@ -8,12 +8,11 @@
     "watch": "NODE_ENV=development nodemon --exec npm run serve"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mysql2": "^2.2.5",
-    "node": "^12.16.0"
+    "mysql": "^2.18.1",
+    "node": "^12.16.0",
+    "serverless-http": "^2.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.12.5"
