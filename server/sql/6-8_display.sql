@@ -148,8 +148,21 @@ Search an album and dislay album information
 and summary stats for all of the songs in the album.
 This will be used for the Album display page.
 Input: 		album_id
-Return: 	
-
+Return: 	album_name, album_id, artist_name,
+			artist_id, album_release_year, 
+            album_format, record_label_name, genre_name, 
+            album_critic_score, album_user_score
+			num_aoty_critic_reviews, num_aoty_user_reviews
+			avg_danceability (score 0-10),
+			avg_energy (score 0-10),
+			avg_acousticness (score 0-10),
+			avg_speechiness (score 0-10),
+			avg_instrumentalness (score 0-10),
+			avg_liveness (score 0-10),
+			avg_valence (score 0-10),
+			avg_loudness_db (decibels),
+			avg_tempo_bpm (beats per minute),
+			avg_duration_ms (milliseconds)
 Note: Change "0oX4SealMgNXrvRDhqqOKg" (album_id) to ${album_id} for final report.
 
 NEEDS OPTIMIZATION
