@@ -6,21 +6,20 @@ SELECT * FROM Song LIMIT 20;
 /* 
 Query 9
 
-Identify songs with most similar attributes of the input attributes,
-with a valuing system that changes with user input.  
-User inputs tailor the algorithm to put more/less value on specific song traits. 
+Identify songs with most similar attributes of the input song. 
+User inputs determine the weight that the algorithm assigns to specific song traits. 
 This will be used in our Song Reccomender.
 Input: 		song_id,  user values on a 0-10 scale for each song attribute
 Return: 	
 
 Note:	Change "2LqoYvMudv9xoTqNLFKILj" (t1.id) with ${user_keyword} for final report, 
-		note that some order by statements have spaces in them.
+		Change 5 (multiplied by song attributes in score) with corresponding user inputs (between 0 and 10)
+Note:	You must execute CREATE TEMPORARY TABLE Similar_genres &
+		INSERT INTO Similar_genres, in order for this to work
+
 
 CHANGE IT SO ALGORITHM IS CHANGED BY USER INPUT FROM SCALE OF 0 to 10
-UPDATE THE SLOW/FAST VERSIONS BASED ON GOOD PRINCIPLES:
-	Push selection and projections ahead of joins
-	Use indexing for faster joins and selections
-	Use the smaller dataset as the outer loop in joins
+
 NEEDS MORE OPTIMIZATION
 */
 
@@ -49,22 +48,23 @@ SELECT
 	, t3.name AS artist_name
 	, t2.title AS album_name
 	, t2.genre_id AS genre_id
-	, ABS(( Input_song.danceability - t1.danceability) * 3)
-		+ ABS(( Input_song.energy - t1.energy) * 2)
-		+ ABS(( Input_song.loudness - t1.loudness) * 0.0157)
-		+ ABS(( Input_song.acousticness - t1.acousticness) *.5)
-		+ ABS( Input_song.speechiness - t1.speechiness)
-		+ ABS(( Input_song.instrumentalness - t1.instrumentalness) * 2)
-		+ ABS( Input_song.liveness - t1.liveness)
-		+ ABS(( Input_song.tempo - t1.tempo ) * .004)
-		+ CASE WHEN (Input_song.artist_id = t2.artist_id) THEN -0.2 ELSE 0 END
-		+ CASE WHEN (Input_song.album_id = t1.album_id) THEN -.1 ELSE 0 END
-		+ CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -.5 ELSE 0 END
-		+ CASE WHEN (Input_song.record_label_id = t2.record_label_id ) THEN -0.2 ELSE 0 END
-		+ CASE WHEN (Input_song.album_format = t2.format ) THEN -.005 ELSE 0 END
-		+ ABS(( Input_song.album_release_year - t2.release_year)*.0725)
-		+ ABS(( Input_song.album_aoty_critic_score - t2.aoty_critic_score) *.01)
-		+ ABS(( Input_song.album_aoty_user_score - t2.aoty_user_score) *.01)
+	, ABS(( Input_song.danceability - t1.danceability) * 5)
+		+ ABS(( Input_song.energy - t1.energy) * 5)
+		+ ABS(( Input_song.loudness - t1.loudness) * 0.0157 * 5)
+		+ ABS(( Input_song.acousticness - t1.acousticness) * 5)
+		+ ABS(( Input_song.speechiness - t1.speechiness) * 5)
+		+ ABS(( Input_song.instrumentalness - t1.instrumentalness) * 5)
+		+ ABS(( Input_song.liveness - t1.liveness) * 5)
+		+ ABS(( Input_song.tempo - t1.tempo ) * 0.0041 * 5)
+		+ ABS(( Input_song.valence - t1.valence ) * 5)
+		+ ABS(( Input_song.album_release_year - t2.release_year)* 0.0145 * 5)
+		+ ABS(( Input_song.album_aoty_critic_score - t2.aoty_critic_score) * 0.01 * 5)
+		+ ABS(( Input_song.album_aoty_user_score - t2.aoty_user_score) * 0.01 * 5)
+		+ CASE WHEN (Input_song.artist_id = t2.artist_id) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.album_id = t1.album_id) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.record_label_id = t2.record_label_id ) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.album_format = t2.format ) THEN -0.1 * 5 ELSE 0 END
     AS score
 FROM 
 	Song t1 
@@ -83,6 +83,7 @@ FROM
 			, t1.instrumentalness AS instrumentalness
 			, t1.liveness AS liveness
 			, t1.tempo AS tempo
+			, t1.valence AS valence
 			, t2.title AS album_name
 			, t2.artist_id AS artist_id
 			, t2.genre_id AS genre_id
@@ -154,6 +155,7 @@ WITH Input_song AS (
 		, t1.instrumentalness AS instrumentalness
 		, t1.liveness AS liveness
 		, t1.tempo AS tempo
+		, t1.valence AS valence
 		, t2.title AS album_name
 		, t2.artist_id AS artist_id
 		, t2.genre_id AS genre_id
@@ -174,22 +176,23 @@ SELECT
 	, t3.name AS artist_name
 	, t2.title AS album_name
 	, t2.genre_id AS genre_id
-	, ABS(( Input_song.danceability - t1.danceability) * 3)
-		+ ABS(( Input_song.energy - t1.energy) * 2)
-		+ ABS(( Input_song.loudness - t1.loudness) * 0.0157)
-		+ ABS(( Input_song.acousticness - t1.acousticness) *.5)
-		+ ABS( Input_song.speechiness - t1.speechiness)
-		+ ABS(( Input_song.instrumentalness - t1.instrumentalness) * 2)
-		+ ABS( Input_song.liveness - t1.liveness)
-		+ ABS(( Input_song.tempo - t1.tempo ) * .004)
-		+ CASE WHEN (Input_song.artist_id = t2.artist_id) THEN -0.2 ELSE 0 END
-		+ CASE WHEN (Input_song.album_id = t1.album_id) THEN -.1 ELSE 0 END
-		+ CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -.5 ELSE 0 END
-		+ CASE WHEN (Input_song.record_label_id = t2.record_label_id ) THEN -0.2 ELSE 0 END
-		+ CASE WHEN (Input_song.album_format = t2.format ) THEN -.005 ELSE 0 END
-		+ ABS(( Input_song.album_release_year - t2.release_year)*.0725)
-		+ ABS(( Input_song.album_aoty_critic_score - t2.aoty_critic_score) *.01)
-		+ ABS(( Input_song.album_aoty_user_score - t2.aoty_user_score) *.01)
+	, ABS(( Input_song.danceability - t1.danceability) * 5)
+		+ ABS(( Input_song.energy - t1.energy) * 5)
+		+ ABS(( Input_song.loudness - t1.loudness) * 0.0157 * 5)
+		+ ABS(( Input_song.acousticness - t1.acousticness) * 5)
+		+ ABS(( Input_song.speechiness - t1.speechiness) * 5)
+		+ ABS(( Input_song.instrumentalness - t1.instrumentalness) * 5)
+		+ ABS(( Input_song.liveness - t1.liveness) * 5)
+		+ ABS(( Input_song.tempo - t1.tempo ) * 0.0041 * 5)
+		+ ABS(( Input_song.valence - t1.valence ) * 5)
+		+ ABS(( Input_song.album_release_year - t2.release_year)* 0.0145 * 5)
+		+ ABS(( Input_song.album_aoty_critic_score - t2.aoty_critic_score) * 0.01 * 5)
+		+ ABS(( Input_song.album_aoty_user_score - t2.aoty_user_score) * 0.01 * 5)
+		+ CASE WHEN (Input_song.artist_id = t2.artist_id) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.album_id = t1.album_id) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.record_label_id = t2.record_label_id ) THEN -0.1 * 5 ELSE 0 END
+		+ CASE WHEN (Input_song.album_format = t2.format ) THEN -0.1 * 5 ELSE 0 END
     AS score
 FROM 
 	Song t1 
