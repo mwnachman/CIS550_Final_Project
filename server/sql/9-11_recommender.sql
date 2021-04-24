@@ -8,19 +8,18 @@ Query 9
 
 Identify songs with most similar attributes to the input song. 
 User inputs determine the weight that the algorithm assigns to specific song traits. 
-User inputs should be numbers (not necessarily integers) between 0 and 10.
 This will be used in our Song Recommender on the Song display page.
-Input: 		song_id,  user values on a 0-10 scale for each song attribute
+User inputs should be numbers (not necessarily integers) between 0 and 10.
+Input: 		song_id, user values on a 0-10 scale for each song attribute
 Return: 	song_name, song_id, artist_name, artist_id, album_name, album_id, score
 
-Note:	Change "2LqoYvMudv9xoTqNLFKILj" (t1.id) with ${user_keyword} for final report, 
+Note:	Change "2LqoYvMudv9xoTqNLFKILj" (t1.id) with ${song_id} for final report, 
 	Change 5 (multiplied by song attributes in score) with corresponding user inputs (each 5 represents a seperate input variable)
 Note:	You must execute CREATE TEMPORARY TABLE Similar_genres &
 	INSERT INTO Similar_genres, in order for this to work
 
 NEEDS MORE OPTIMIZATION
 */
-
 
 
 /* 9 slow */
@@ -223,21 +222,21 @@ DROP TEMPORARY TABLE  Similar_genres;
 
 
 
+
 /* 
 Query 10
 
 Identify album with most similarity to the input album,
-by comparing the average scores of the albums.
-
+by comparing the album traits and average song scores.
 This will be used in our Album Recommender on the Album display page.
-Input: 	album_id
+User inputs should be numbers (not necessarily integers) between 0 and 10.
+Input: 	album_id, user values on a 0-10 scale for each song attribute
 Return:	album_name, album_id, artist_name, artist_id, score
 
-Note:	Change "0oX4SealMgNXrvRDhqqOKg" (t1.id) with ${user_keyword} for final report, 
+Note:	Change "0oX4SealMgNXrvRDhqqOKg" (t2.id) with ${album_id} for final report, 
 	Change 5 (multiplied by song attributes in score) with corresponding user inputs (each 5 represents a seperate input variable)
 Note:	You must execute CREATE TEMPORARY TABLE Similar_genres &
 	INSERT INTO Similar_genres, in order for this to work
-
 
 NEEDS OPTIMIZATION
 */
@@ -372,29 +371,126 @@ DROP TEMPORARY TABLE  Similar_genres;
 /* 
 Query 11
 
-Identify artist with most similarity to the input artist.
+Identify artist with most similarity to the input artist,
+by comparing the average song scores and artist traits.
 This will be used in our Artist Recommender on the Artist display page.
+User inputs should be numbers (not necessarily integers) between 0 and 10.
 
-Input: 	artist_id
+Input: 	artist_id, user values on a 0-10 scale for each song attribute
 Return: artist_name, artist_id, score
 
-NEEDS OPTIMIZATION
-*/
+Note:	Change "3fMbdgg4jU18AjLCKBhRSm" (t3.id) with ${artist_id} for final report, 
+	Change 5 (multiplied by song attributes in score) with corresponding user inputs (each 5 represents a seperate input variable)
+Note:	You must execute CREATE TEMPORARY TABLE Similar_genres &
+	INSERT INTO Similar_genres, in order for this to work
 
+NEEDS OPTIMIZATION
+SAME RECORD LABELS?
+AVG RELEASE YEAR?
+COUNT OF GENRE MATCHES?
+*/
 
 
 /* 11 */
-
-/*
-identify artist with most similar average album rating
-use album ratings
-similarity ratings of songs in album
-*/
-
-
-
-
-
-
-
-
+CREATE TEMPORARY TABLE Similar_genres (
+	genre_code INT NOT NULL,
+	genre_matches INT NOT NULL,
+	PRIMARY KEY(genre_code, genre_matches)
+);
+INSERT INTO Similar_genres(genre_code, genre_matches) VALUES 
+	(0,0), (0,8), (0,3), (0,7), (0,2),
+	(1,1), (1,2), (1,5),
+	(2,2), (2,1),
+	(3,3), (3,0), (3,8), (3,2),
+	(4,4), (4,0), (4,8),
+	(5,5), (5,1),
+	(6,0), (6,1), (6,2), (6,3), (6,4), (6,5), (6,6), (6,7), (6,8),
+	(7,7), (7,8),
+	(8,8), (8,0), (8,3)
+;
+Select * from Similar_genres;
+WITH Input_artist AS (
+	SELECT
+		t2.id AS album_id
+		, t3.id AS artist_id
+		, t2.aoty_critic_score AS album_critic_score
+		, t2.aoty_user_score AS album_user_score
+		, AVG(t1.danceability) AS avg_danceability
+		, AVG(t1.energy) AS avg_energy
+		, AVG(t1.loudness) AS avg_loudness
+		, AVG(t1.acousticness) AS avg_acousticness
+		, AVG(t1.speechiness) AS avg_speechiness
+		, AVG(t1.instrumentalness) AS avg_instrumentalness
+		, AVG(t1.liveness) AS avg_liveness
+		, AVG(t1.tempo) AS avg_tempo
+		, AVG(t1.valence) AS avg_valence
+		, AVG(t1.duration_ms) AS avg_duration
+	FROM  Song t1
+		LEFT JOIN Album t2 ON t1.album_id = t2.id
+		LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+	WHERE t3.id = '3fMbdgg4jU18AjLCKBhRSm'
+),
+Input_album_genres AS (
+	SELECT DISTINCT t5.id AS genre_id
+	FROM  Album t2 
+		LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+        LEFT JOIN Genre t5 ON t2.genre_id = t5.id
+	WHERE t3.id = '3fMbdgg4jU18AjLCKBhRSm'
+),
+Other_artist AS (
+	SELECT 
+			t3.name AS artist_name
+			, t3.id AS artist_id
+			, t2.aoty_critic_score AS album_critic_score
+			, t2.aoty_user_score AS album_user_score
+			, AVG(t1.danceability) AS avg_danceability
+			, AVG(t1.energy) AS avg_energy
+			, AVG(t1.loudness) AS avg_loudness
+			, AVG(t1.acousticness) AS avg_acousticness
+			, AVG(t1.speechiness) AS avg_speechiness
+			, AVG(t1.instrumentalness) AS avg_instrumentalness
+			, AVG(t1.liveness) AS avg_liveness
+			, AVG(t1.tempo) AS avg_tempo
+			, AVG(t1.valence) AS avg_valence
+			, AVG(t1.duration_ms) AS avg_duration
+		FROM  Song t1
+			LEFT JOIN Album t2 ON t1.album_id = t2.id
+			LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+		GROUP BY t3.id
+) 
+SELECT *
+FROM (
+	SELECT
+		Other_artist.artist_name AS artist_name
+		, Other_artist.artist_id AS artist_id
+		, ABS(( Input_artist.avg_danceability - Other_artist.avg_danceability) * 5)
+			+ ABS(( Input_artist.avg_energy - Other_artist.avg_energy) * 5)
+			+ ABS(( Input_artist.avg_loudness - Other_artist.avg_loudness) * 0.0157 * 5)
+			+ ABS(( Input_artist.avg_acousticness - Other_artist.avg_acousticness) * 5)
+			+ ABS(( Input_artist.avg_speechiness - Other_artist.avg_speechiness) * 5)
+			+ ABS(( Input_artist.avg_instrumentalness - Other_artist.avg_instrumentalness) * 5)
+			+ ABS(( Input_artist.avg_liveness - Other_artist.avg_liveness) * 5)
+			+ ABS(( Input_artist.avg_tempo - Other_artist.avg_tempo ) * 0.0041 * 5)
+			+ ABS(( Input_artist.avg_valence - Other_artist.avg_valence ) * 5)
+			+ ABS(( Input_artist.avg_duration - Other_artist.avg_duration ) /5000000 * 5)
+			+ ABS(( Input_artist.album_critic_score - Other_artist.album_critic_score) * 0.01 * 5)
+			+ ABS(( Input_artist.album_user_score - Other_artist.album_user_score) * 0.01 * 5)
+		AS score
+	FROM Other_artist JOIN Input_artist
+	WHERE Other_artist.artist_id != Input_artist.artist_id 
+		AND EXISTS (
+			SELECT DISTINCT t5.id AS genre_id
+			FROM  Album t2 
+				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
+			WHERE t3.id = Other_artist.artist_id
+				AND genre_id IN (
+					SELECT genre_matches
+					FROM Input_album_genres JOIN Similar_genres ON Input_album_genres.genre_id=Similar_genres.genre_code
+				) 
+		) 
+) x 
+WHERE score IS NOT NULL 
+ORDER BY score ASC
+LIMIT 50;
+DROP TEMPORARY TABLE  Similar_genres;
