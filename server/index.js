@@ -19,7 +19,7 @@ app.get('/top5', routes.top5);
 app.get('/popularByGenre/:years', routes.popularByGenre);
 app.get('/searchSong/:song', routes.searchSong);
 app.get('/searchArtist/:artist', routes.searchArtist);
-app.get('/searchAlbum/:album', routes.searchArtist);
+app.get('/searchAlbum/:album', routes.searchAlbum);
 app.get('/searchArtistTop10/:artist', routes.searchArtistTop10);
 app.get('/searchAlbumAllSongs/:album', routes.searchAlbumAllSongs);
 app.get('/recommendSongs/:input', routes.recommendSongs);

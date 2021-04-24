@@ -1,8 +1,12 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles'
+
 
 const useStyles = makeStyles(theme => ({
   root: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(6),
     width: '100%',
+    disableRipple: true
   },
   content: {
     minHeight: '300px',
@@ -13,29 +17,21 @@ const useStyles = makeStyles(theme => ({
     minHeight: '70vh'
   },
   interior_grid: {
-    minWidth: '80%'
+    minWidth: '80%',
   },
   header: {
     fontSize: 22,
     color: '#5c5855',
   },
   media: {
-    height: 140,
+    height: '50vh',
   },
   search: {
     color: '#1A1628',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.25),
-    // '&:hover': {
-    //   backgroundColor: fade(theme.palette.common.white, 0.35),
-    // },
+    border: '1px solid black',
     marginLeft: theme.spacing(0),
-    // width: '100%',
-    // [theme.breakpoints.up('sm')]: {
-    //   marginLeft: theme.spacing(3),
-    //   width: 'auto',
-    // },
   },
   searchIcon: {
     color: 'gray',
@@ -52,6 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
   form: {
     display: '-webkit-box',
+    minHeight: '40vh'
   },
   inputTypeSearch: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -61,12 +58,10 @@ const useStyles = makeStyles(theme => ({
       width: '27ch',
     },
   },
-  radio: {
-  },
   paper: {
     width: 225,
     marginTop: 2,
-  }
+  },
 }))
 
 export default useStyles
