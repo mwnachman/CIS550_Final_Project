@@ -8,17 +8,15 @@ Query 9
 
 Identify songs with most similar attributes of the input song. 
 User inputs determine the weight that the algorithm assigns to specific song traits. 
+User inputs should be numbers (not necessarily integers) between 0 and 10.
 This will be used in our Song Reccomender.
 Input: 		song_id,  user values on a 0-10 scale for each song attribute
-Return: 	
+Return: 	song_name, song_id, artist_name, artist_id, album_name, album_id, score
 
 Note:	Change "2LqoYvMudv9xoTqNLFKILj" (t1.id) with ${user_keyword} for final report, 
-		Change 5 (multiplied by song attributes in score) with corresponding user inputs (between 0 and 10)
+	Change 5 (multiplied by song attributes in score) with corresponding user inputs (each 5 represents a seperate input variable)
 Note:	You must execute CREATE TEMPORARY TABLE Similar_genres &
-		INSERT INTO Similar_genres, in order for this to work
-
-
-CHANGE IT SO ALGORITHM IS CHANGED BY USER INPUT FROM SCALE OF 0 to 10
+	INSERT INTO Similar_genres, in order for this to work
 
 NEEDS MORE OPTIMIZATION
 */
@@ -43,11 +41,12 @@ INSERT INTO Similar_genres(genre_code, genre_matches) VALUES
 	(8,8), (8,0), (8,3)
 ;
 SELECT 
-	t1.id AS song_id
-	, t1.name AS song_name
+	 t1.name AS song_name
+	, t1.id AS song_id
 	, t3.name AS artist_name
+	, t3.id AS artist_id
 	, t2.title AS album_name
-	, t2.genre_id AS genre_id
+	, t2.id AS album_id
 	, ABS(( Input_song.danceability - t1.danceability) * 5)
 		+ ABS(( Input_song.energy - t1.energy) * 5)
 		+ ABS(( Input_song.loudness - t1.loudness) * 0.0157 * 5)
@@ -171,11 +170,12 @@ WITH Input_song AS (
 	WHERE t1.id =  "2LqoYvMudv9xoTqNLFKILj"
 )
 SELECT 
+	t1.name AS song_name,
 	t1.id AS song_id
-	, t1.name AS song_name
 	, t3.name AS artist_name
+	, t3.id AS artist_id
 	, t2.title AS album_name
-	, t2.genre_id AS genre_id
+	, t2.id AS album_id
 	, ABS(( Input_song.danceability - t1.danceability) * 5)
 		+ ABS(( Input_song.energy - t1.energy) * 5)
 		+ ABS(( Input_song.loudness - t1.loudness) * 0.0157 * 5)
