@@ -1,10 +1,10 @@
-const config = require('./config/server.json')
+const config = require('./config/server-template.json')
 const mysql = require('mysql');
 
 aws_config = config['aws-mysql']
 aws_config.connectionLimit = 10;
 aws_config.waitForConnections = true;
-const connection = mysql.createPool(aws_config);
+const con = mysql.createPool(aws_config);
 
 // const setlist_APIRoot = config.setlistFM.API_ROOT
 // const setlist_API_KEY = config.setlistFM.API_KEY
@@ -13,20 +13,6 @@ const connection = mysql.createPool(aws_config);
 /* -------------------------------------------------- */
 /* ------------------- Route Handlers --------------- */
 /* -------------------------------------------------- */
-
-async function getAllAlbums(req, res) {
-  console.log('in get albums')
-  let query = `
-    SELECT *
-    FROM Album;
-  `;
-  connection.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      res.json(rows);
-    }
-  });
-}
 
 /*-- q1: Get the top 5 popular albums from each year or genre ranked by AOTY User Score.  This will be used for the Landing/ Browsing by Popularity tab --*/
 function top5(req, res) {

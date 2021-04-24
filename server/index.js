@@ -3,7 +3,7 @@ const cors = require('cors')
 const serverless = require('serverless-http');
 const express = require('express');
 var routes = require('./api.js');
-const config = require('./config/server.json')
+const config = require('./config/server-template.json')
 const app = express();
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
