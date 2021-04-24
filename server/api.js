@@ -14,6 +14,37 @@ const con = mysql.createPool(aws_config);
 /* ------------------- Route Handlers --------------- */
 /* -------------------------------------------------- */
 
+/*-- q0: Randomly generate 5 song/album/artist entries in a selected genre for homepage --*/
+function homepage(req, res) {
+  var query = `
+  SELECT 
+	  t1.name AS song_name,
+    t1.id AS song_id,
+    t3.name AS artist_name,
+    t2.artist_id,
+    t2.title AS album_name,
+    t2.id AS album_id,
+    t2.release_year AS album_release_year,
+    t2.format AS album_format,
+    t4.name AS record_label_name
+FROM 
+	Song t1 
+	LEFT JOIN Album t2 ON t1.album_id = t2.id
+	LEFT JOIN Artist t3 ON t2.artist_id = t3.id 
+	LEFT JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+	LEFT JOIN Genre t5 ON t2.genre_id = t5.id
+WHERE genre_id = `+req.params.genreId+`
+ORDER BY RAND()
+LIMIT 5;
+  `;
+  con.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      res.json(rows);
+    }
+  });
+};
+
 /*-- q1: Get the top 5 popular albums from each year or genre ranked by AOTY User Score.  This will be used for the Landing/ Browsing by Popularity tab --*/
 function top5(req, res) {
   var query = `
@@ -188,7 +219,7 @@ function recommendSongs(req, res) {
 };
 
 module.exports = {
-  getAllAlbums: getAllAlbums,
+  homepage: homepage,
   top5: top5,
   popularByGenre: popularByGenre,
   searchSong: searchSong,
