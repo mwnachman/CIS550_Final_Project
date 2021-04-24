@@ -1,13 +1,10 @@
-const config = require('./config/server-template.json')
-const mysql = require('mysql');
+const config = require('./config/server.json')
+const mysql = require('mysql')
 
-aws_config = config['aws-mysql']
-aws_config.connectionLimit = 10;
-aws_config.waitForConnections = true;
-const con = mysql.createPool(aws_config);
-
-// const setlist_APIRoot = config.setlistFM.API_ROOT
-// const setlist_API_KEY = config.setlistFM.API_KEY
+const aws_config = config['aws-mysql']
+aws_config.connectionLimit = 10
+aws_config.waitForConnections = true
+const con = mysql.createPool(aws_config)
 
 
 /* -------------------------------------------------- */
@@ -15,10 +12,10 @@ const con = mysql.createPool(aws_config);
 /* -------------------------------------------------- */
 
 /*-- q0: Randomly generate 5 song/album/artist entries in a selected genre for homepage --*/
-function homepage(req, res) {
+function getGenre(req, res) {
   var query = `
-  SELECT 
-	  t1.name AS song_name,
+  SELECT
+    t1.name AS song_name,
     t1.id AS song_id,
     t3.name AS artist_name,
     t2.artist_id,
@@ -27,15 +24,15 @@ function homepage(req, res) {
     t2.release_year AS album_release_year,
     t2.format AS album_format,
     t4.name AS record_label_name
-FROM 
-	Song t1 
-	LEFT JOIN Album t2 ON t1.album_id = t2.id
-	LEFT JOIN Artist t3 ON t2.artist_id = t3.id 
-	LEFT JOIN RecordLabel t4 ON t2.record_label_id = t4.id
-	LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-WHERE genre_id = `+req.params.genreId+`
-ORDER BY RAND()
-LIMIT 5;
+  FROM
+    Song t1
+    LEFT JOIN Album t2 ON t1.album_id = t2.id
+    LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+    LEFT JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+    LEFT JOIN Genre t5 ON t2.genre_id = t5.id
+  WHERE genre_id = `+req.params.genreId+`
+  ORDER BY RAND()
+  LIMIT 5;
   `;
   con.query(query, function(err, rows, fields) {
     if (err) console.log(err);
@@ -43,63 +40,76 @@ LIMIT 5;
       res.json(rows);
     }
   });
-};
+}
+
+async function getAllAlbums(req, res) {
+  let query = `
+    SELECT *
+    FROM Album;
+  `;
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
+    else {
+      res.json(rows);
+    }
+  });
+}
 
 /*-- q1: Get the top 5 popular albums from each year or genre ranked by AOTY User Score.  This will be used for the Landing/ Browsing by Popularity tab --*/
-function top5(req, res) {
-  var query = `
+async function top5(req, res) {
+  const query = `
   SELECT *
   FROM (
     SELECT t1.release_year, t2.name AS genre, t1.title AS album, ROW_NUMBER() OVER (PARTITION BY t1.release_year ORDER BY t1.aoty_user_score DESC) AS score_rank
     FROM Album t1 JOIN Genre t2 ON t1.genre_id = t2.id) x
   WHERE score_rank <= 5;
   `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 /*-- q2: Get the most popular album from each genre within a range of years (user input). This will be used for the Landing/ Browsing by Popularity tab. --*/
-function popularByGenre(req, res) {
-  var dateRange = (req.params.years).split("-");
-  var query = `
+async function popularByGenre(req, res) {
+  const dateRange = (req.params.years).split("-");
+  const query = `
   SELECT *
   FROM
     (SELECT t1.release_year, t2.name AS genre, t1.title AS album, ROW_NUMBER() OVER (PARTITION BY t2.name ORDER BY t1.aoty_user_score DESC) AS score_rank
     FROM Album t1 JOIN Genre t2 ON t1.genre_id = t2.id) x
   WHERE release_year BETWEEN '`+dateRange[0]+`' AND '`+dateRange[1]+`' AND score_rank = 1;
   `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 /*-- q3: Search a song by keyword. Include information for the Song’s Album and Artist. This will be used in our Search tab. --*/
-function searchSong(req, res) {
-  var query = `
+async function searchSong(req, res) {
+  const query = `
   SELECT t1.name AS Song, t2.title AS Album, t3.name AS Artist
   FROM Song t1
   LEFT JOIN Album t2 ON t1.album_id = t2.id
   LEFT JOIN Artist t3 ON t2.artist_id = t3.id
   WHERE t1.name LIKE '`+req.params.song+`';
   `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 /*-- q4: Search for an artist by keyword. Include the number of songs and albums they have. This will be used in our Search tab. --*/
-function searchArtist(req, res) {
-  var query = `
+async function searchArtist(req, res) {
+  const query = `
   SELECT Artist, COUNT(DISTINCT Album) AS Album_count, COUNT(DISTINCT Song) AS Song_count
   FROM (
     SELECT t3.name AS Artist, t2.title AS Album, t1.name AS Song
@@ -110,54 +120,54 @@ function searchArtist(req, res) {
     ) x
   GROUP BY Artist;
   `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 /*-- q5: Search for an album by keyword. Include the Artist, Record Label, and Format. This will be used in our Search tab. --*/
-function searchAlbum(req, res) {
-  var query = `
+async function searchAlbum(req, res) {
+  const query = `
   SELECT t1.title AS Album, t2.name AS Artist, t1.format AS Format, t3.name AS Record_Label
   FROM Album t1
   LEFT JOIN Artist t2 ON t1.artist_id = t2.id
   LEFT JOIN RecordLabel t3 ON t1.record_label_id = t3.id
   WHERE t1.title LIKE '`+req.params.album+`';
   `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 
 /*-- q6: Search an artist and display top 10 most popular albums by AOTY User Score. This will be used for the Artist display page. --*/
-function searchArtistTop10(req, res) {
-  var query = `
-  SELECT t1.name AS Artist, t2.title AS Album, t2.release_year AS Year, t3.name AS Genre, t2.aoty_critic_score AS AOTY_Critic_Score, t2.aoty_user_score AS AOTY_User_Score
-  FROM Artist t1
-  LEFT JOIN Album t2 ON t1.id = t2.artist_id
-  LEFT JOIN Genre t3 ON t2.genre_id = t3.id
-  WHERE t1.name LIKE '`+req.params.artist+`'
-  ORDER BY t2.aoty_user_score DESC
-  LIMIT 10;
-  `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+async function searchArtistTop10(req, res) {
+  const query = `
+    SELECT t1.name AS Artist, t2.title AS Album, t2.release_year AS Year, t3.name AS Genre, t2.aoty_critic_score AS AOTY_Critic_Score, t2.aoty_user_score AS AOTY_User_Score
+    FROM Artist t1
+    LEFT JOIN Album t2 ON t1.id = t2.artist_id
+    LEFT JOIN Genre t3 ON t2.genre_id = t3.id
+    WHERE t1.name LIKE '`+req.params.artist+`'
+    ORDER BY t2.aoty_user_score DESC
+    LIMIT 10;
+    `;
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 /*-- q7:  --*/
-function searchAlbumAllSongs(req, res) {
-  var query = `
+async function searchAlbumAllSongs(req, res) {
+  const query = `
   SELECT
     track_number as Track_Number, 
     FLOOR(duration_ms/60000) AS time_minutes,
@@ -180,19 +190,19 @@ function searchAlbumAllSongs(req, res) {
   )
   ORDER BY track_number;
   `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 /*-- q8: Identify songs with most similar attributes of the input attributes. This will be used in our Recommender tab. --*/
-function recommendSongs(req, res) {
+async function recommendSongs(req, res) {
   let release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre;
   [release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre] = (req.params.input).split("-");
-  var query = `
+  const query = `
   SELECT
     t1.id AS song_id,
     t1.name AS song_name,
@@ -210,22 +220,23 @@ function recommendSongs(req, res) {
   ORDER BY score ASC
   LIMIT 50;
   `;
-  con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
   });
-};
+}
 
 module.exports = {
-  homepage: homepage,
-  top5: top5,
-  popularByGenre: popularByGenre,
-  searchSong: searchSong,
-  searchArtist: searchArtist,
-  searchAlbum: searchAlbum,
-  searchArtistTop10: searchArtistTop10,
-  searchAlbumAllSongs: searchAlbumAllSongs,
-  recommendSongs: recommendSongs
+  getGenre,
+  getAllAlbums,
+  top5,
+  popularByGenre,
+  searchSong,
+  searchArtist,
+  searchAlbum,
+  searchArtistTop10,
+  searchAlbumAllSongs,
+  recommendSongs
 }

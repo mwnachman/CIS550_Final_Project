@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   async fetchAllAlbums() {
-    const promise = await axios.get(`${APIRoot}/albums`)
+    const promise = await axios.get(`${APIRoot}/top5`)
     const status = promise.status
     if (status == 200) {
       const albums = promise.data

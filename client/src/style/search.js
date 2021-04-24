@@ -1,37 +1,37 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles'
+
 
 const useStyles = makeStyles(theme => ({
   root: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(6),
     width: '100%',
+    disableRipple: true
+  },
+  content: {
+    minHeight: '300px',
+    minWidth: '100%',
+    display: '-webkit-box',
   },
   exterior_grid: {
     minHeight: '70vh'
   },
   interior_grid: {
-    minWidth: '80%'
+    minWidth: '80%',
   },
   header: {
     fontSize: 22,
     color: '#5c5855',
   },
   media: {
-    height: 140,
+    height: '50vh',
   },
   search: {
     color: '#1A1628',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.25),
-    // '&:hover': {
-    //   backgroundColor: fade(theme.palette.common.white, 0.35),
-    // },
-    marginTop: theme.spacing(20),
-    marginLeft: theme.spacing(10),
-    // width: '100%',
-    // [theme.breakpoints.up('sm')]: {
-    //   marginLeft: theme.spacing(3),
-    //   width: 'auto',
-    // },
+    border: '1px solid black',
+    marginLeft: theme.spacing(0),
   },
   searchIcon: {
     color: 'gray',
@@ -46,18 +46,21 @@ const useStyles = makeStyles(theme => ({
   inputRoot: {
     color: 'inherit',
   },
+  form: {
+    display: '-webkit-box',
+  },
   inputTypeSearch: {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(3)}px)`,
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '27ch',
     },
   },
   paper: {
     width: 225,
     marginTop: 2,
-  }
+  },
 }))
 
 export default useStyles
