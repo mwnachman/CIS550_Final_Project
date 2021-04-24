@@ -14,7 +14,7 @@ app.use(express.json());
 
 /* -- PROJECT QUERIES -- */
 
-app.get('/:genreId', routes.homepage);
+app.get('/genre/:genreId', routes.getGenre);
 app.get('/top5', routes.top5);
 app.get('/popularByGenre/:years', routes.popularByGenre);
 app.get('/searchSong/:song', routes.searchSong);

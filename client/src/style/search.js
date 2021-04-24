@@ -48,7 +48,6 @@ const useStyles = makeStyles(theme => ({
   },
   form: {
     display: '-webkit-box',
-    minHeight: '40vh'
   },
   inputTypeSearch: {
     padding: theme.spacing(1, 1, 1, 0),
