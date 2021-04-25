@@ -26,6 +26,7 @@ import {
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
+import {GetRecs} from './Recommendations.jsx'
 import useStyles from '../style/search'
 import * as config from '../../config/client.json'
 
@@ -91,13 +92,20 @@ const columns = {
   ]
 }
 
-const Headers = ({styles, resultType}) => (
+export const NoResult = () => (
+  <TableRow>
+    <TableCell style={{borderBottom: 'none'}}>
+      No Results
+    </TableCell>
+  </TableRow>
+)
+
+export const Headers = ({styles, columns}) => (
   <TableRow>
     {
-      columns[resultType] &&
-      columns[resultType].map(column => (
+      columns && columns.map((column, i) => (
         <TableCell className={styles}
-                   key={column.label}
+                   key={i}
                    style={{ minWidth: column.minWidth }}>
           {column.header}
         </TableCell>
@@ -105,25 +113,66 @@ const Headers = ({styles, resultType}) => (
     }
   </TableRow>
 )
+Headers.propTypes = {
+  styles: PropTypes.string,
+  resultType: PropTypes.string
+}
 
-const SearchResult = ({result, headers}) => (
+
+export const SearchResult = ({result, headers}) => (
   <TableRow>
     {headers.map((header, i) => {
       return (
       <TableCell key={i} style={{minWidth: headers.minWidth}}>
-        {result[header['label']]}
+        {!!header['label'] ?
+          result[header['label']] :
+          <GetRecs songId={result.songId}/>
+        }
       </TableCell>
       )
     })}
   </TableRow>
 )
+SearchResult.propTypes = {
+  result: PropTypes.object,
+  headers: PropTypes.array
+}
+
+
+export const Search = ({styles,
+                       handleChange,
+                       searchTerm}) => (
+  <div className={styles.search} >
+    <div className={styles.searchIcon}>
+      <SearchIcon />
+    </div>
+    <InputBase placeholder='Search...'
+               id='search-field'
+               autoComplete='off'
+               value={searchTerm}
+               classes={{
+                 root: styles.inputRoot,
+                 input: styles.inputTypeSearch
+               }}
+               inputProps={{ 'aria-label': 'search' }}
+               onChange={handleChange}
+              />
+  </div>
+)
+Search.propTypes = {
+  handleChange: PropTypes.func,
+  search: PropTypes.func,
+  searchTerm: PropTypes.string,
+  styles: PropTypes.string
+}
+
 
 const SearchWrapper = props => {
   const styles = useStyles()
-  return <Search styles={styles} {...props} />
+  return <SearchCard styles={styles} {...props} />
 }
 
-class Search extends React.Component {
+class SearchCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -202,37 +251,36 @@ class Search extends React.Component {
             resultType,
             searchTerm,
             searchResults } = this.state
-    if (true) {
-      return (
-        <Grid container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justify="center"
-          className={styles.exterior_grid}>
+    return (
+      <Grid container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        className={styles.exterior_grid}>
+        <Grid item xs={12} className={styles.interior_grid}>
+          
+          <Card className={styles.root}>
+            <CardActionArea>
 
-          <Grid item xs={12} className={styles.interior_grid}>
-            
-            <Card className={styles.root}>
-              <CardActionArea>
-                <CardMedia
-                  className={styles.media}
-                  image="/assets/search_music.jpg"
-                />
+              <CardMedia
+                className={styles.media}
+                image="/assets/search_music.jpg"
+              />
 
-                <CardContent>
-
-                  <Grid container
-                        direction="column"
-                        alignItems="flex-start"
-                        justify="flex-start">
-                    <Grid item xs={12}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Search for an album, artist or song...
-                      </Typography>
-                    </Grid>
+              <CardContent>
+                <Grid container
+                      direction="column"
+                      alignItems="flex-start"
+                      justify="flex-start">
+                  <Grid item xs={12}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Search for an album, artist or song...
+                    </Typography>
                   </Grid>
-                  <Grid container
+                </Grid>
+
+                <Grid container
                         direction="row"
                         alignItems="flex-start"
                         justify="flex-start">
@@ -244,22 +292,9 @@ class Search extends React.Component {
                         <form onSubmit={this.query}>
                           <FormControl className={styles.form}>
                             <Grid item xs={6} >
-                              <div className={styles.search} >
-                                <div className={styles.searchIcon}>
-                                  <SearchIcon />
-                                </div>
-                                <InputBase placeholder='Search...'
-                                           id='search-field'
-                                           autoComplete='off'
-                                           value={searchTerm}
-                                           classes={{
-                                             root: styles.inputRoot,
-                                             input: styles.inputTypeSearch
-                                           }}
-                                           inputProps={{ 'aria-label': 'search' }}
-                                           onChange={this.handleChange}
-                                           />
-                              </div>
+                              <Search styles={styles}
+                                      handleChange={this.handleChange}
+                                      searchTerm={searchTerm}/>
                             </Grid>
                             <Grid item xs={6} style={{minWidth: "100%"}}>
                               <RadioGroup row
@@ -292,51 +327,46 @@ class Search extends React.Component {
                       </Grid>
                     </Grid>
                   </Grid>
+                
+                <Grid container
+                      direction="row"
+                      alignItems="flex-start"
+                      justify="flex-start">
+                  <Grid item xs={12}>
 
-                  <Grid container
-                        direction="row"
-                        alignItems="flex-start"
-                        justify="flex-start">
-                    <Grid item xs={12}>
+                    <TableContainer className={styles.container}>
+                      <Table aria-label="sticky table">
 
-                      <TableContainer className={styles.container}>
-                        <Table aria-label="sticky table">
+                        <TableHead>
+                          <Headers styles={styles.header} columns={columns[resultType]}/>
+                        </TableHead>
 
-                          <TableHead>
-                            <Headers styles={styles.header} resultType={resultType}/>
-                          </TableHead>
+                        <TableBody>
+                          {searchResults.map((result, i) => (
+                            <SearchResult result={result}
+                                          headers={columns[resultType]}
+                                          key={i}/>
+                          ))}
+                          {!!resultType && !searchResults.length && (
+                            <NoResult/>
+                          )}
+                        </TableBody>
 
-                          <TableBody>
-                            {searchResults.map((result, i) => (
-                              <SearchResult result={result}
-                                            headers={columns[resultType]}
-                                            key={i}/>
-                            ))}
-                            {!!resultType && !searchResults.length && (
-                              <TableRow>
-                                <TableCell style={{borderBottom: 'none'}}>
-                                  No Results
-                                </TableCell>
-                              </TableRow>
-                            )}
-                          </TableBody>
-
-                        </Table>
-                      </TableContainer>
-
-                    </Grid>
+                      </Table>
+                    </TableContainer>
                   </Grid>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>   
-        </Grid> 
-      )
-    }
-    <LinearProgress />
+                </Grid>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>   
+      </Grid> 
+    )
   }
 }
 
-Search.propTypes = {}
+Search.propTypes = {
+  styles: PropTypes.object
+}
 
 export default SearchWrapper

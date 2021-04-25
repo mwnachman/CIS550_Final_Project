@@ -2,11 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   AppBar,
-  Box,
   Paper,
   Tab,
   Tabs,
-  Typography
 } from '@material-ui/core'
 
 import Browse from './Browse.jsx'
@@ -55,7 +53,7 @@ class TabComponent extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.changeTab = this.changeTab.bind(this)
     this.state = {
-      value: 2
+      value: 3
     }
   }
 
@@ -104,6 +102,8 @@ class TabComponent extends React.Component {
     )
   }
 }
-TabComponent.propTypes = {}
+TabComponent.propTypes = {
+  setlist: PropTypes.array
+}
 
 export default TabComponent

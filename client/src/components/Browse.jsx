@@ -16,6 +16,8 @@ const Browse = ({albums}) => {
     )
   } return <LinearProgress />
 }
-Browse.propTypes = {}
+Browse.propTypes = {
+  albums: PropTypes.array
+}
 
 export default Browse
