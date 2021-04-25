@@ -1,12 +1,10 @@
-import { createMuiTheme, makeStyles } from '@material-ui/core/styles'
-
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(6),
     width: '100%',
-    disableRipple: true
   },
   content: {
     minHeight: '300px',

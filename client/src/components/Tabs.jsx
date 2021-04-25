@@ -53,7 +53,7 @@ class TabComponent extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.changeTab = this.changeTab.bind(this)
     this.state = {
-      value: 2
+      value: 3
     }
   }
 
