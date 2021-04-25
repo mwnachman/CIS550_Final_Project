@@ -105,6 +105,12 @@ const Headers = ({styles, resultType}) => (
     }
   </TableRow>
 )
+Headers.propTypes = {
+  styles: PropTypes.object,
+  resultType: PropTypes.string
+}
+
+
 
 const SearchResult = ({result, headers}) => (
   <TableRow>
@@ -117,11 +123,17 @@ const SearchResult = ({result, headers}) => (
     })}
   </TableRow>
 )
+SearchResult.propTypes = {
+  result: PropTypes.array,
+  headers: PropTypes.array
+}
+
 
 const SearchWrapper = props => {
   const styles = useStyles()
   return <Search styles={styles} {...props} />
 }
+
 
 class Search extends React.Component {
   constructor(props) {
@@ -337,6 +349,8 @@ class Search extends React.Component {
   }
 }
 
-Search.propTypes = {}
+Search.propTypes = {
+  styles: PropTypes.object
+}
 
 export default SearchWrapper

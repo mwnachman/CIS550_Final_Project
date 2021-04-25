@@ -13,15 +13,10 @@ import {
 
 import useStyles from '../style/recommendations'
 
-const columns = [
-  { id: 'name', label: 'Song', minWidth: 170 },
-  { id: 'info', label: 'Additional Info', minWidth: 100 }
-]
-
-const Recommendations = ({ setlist }) => {
+const Recommendations = () => {
   const styles = useStyles();
 
-  if (setlist) {
+  if (true) {
     return (
       <Paper className={styles.root}>
         <TableContainer className={styles.container}>

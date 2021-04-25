@@ -58,6 +58,8 @@ const Home = ({changeTab}) => {
     </Grid> 
   )
 }
-Home.propTypes = {}
+Home.propTypes = {
+  changeTab: PropTypes.func
+}
 
 export default Home
