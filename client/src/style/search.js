@@ -55,10 +55,7 @@ const useStyles = makeStyles(theme => ({
       width: '27ch',
     },
   },
-  paper: {
-    width: 225,
-    marginTop: 2,
-  },
+  
 }))
 
 export default useStyles

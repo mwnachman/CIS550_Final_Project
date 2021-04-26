@@ -9,7 +9,6 @@ import {
 
 import Browse from './Browse.jsx'
 import Home from './Home.jsx'
-import Recommendations from './Recommendations.jsx'
 import Search from './Search.jsx'
 
 
@@ -53,7 +52,7 @@ class TabComponent extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.changeTab = this.changeTab.bind(this)
     this.state = {
-      value: 3
+      value: 2
     }
   }
 
@@ -82,7 +81,6 @@ class TabComponent extends React.Component {
               <Tab label="Home" {...a11yProps(0)}/>
               <Tab label="Browse" {...a11yProps(1)}/>
               <Tab label="Search" {...a11yProps(2)}/>
-              <Tab label="Recommendations" {...a11yProps(3)}/>
             </Tabs>
           </Paper>
         </AppBar>
@@ -94,9 +92,6 @@ class TabComponent extends React.Component {
         </TabPanel>
         <TabPanel value={value} index={2}>
           <Search/>
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <Recommendations/>
         </TabPanel>
       </div>
     )
