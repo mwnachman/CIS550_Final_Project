@@ -3,6 +3,7 @@ import axios from 'axios'
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -13,7 +14,6 @@ import {
   InputBase,
   LinearProgress,
   MenuItem,
-  Paper,
   Radio,
   RadioGroup,
   Table,
@@ -26,73 +26,14 @@ import {
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
-import {GetRecs} from './Recommendations.jsx'
+import Recommendations from './Recommendations.jsx'
+import {columns} from '../constants/constants'
 import useStyles from '../style/search'
 import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
-
-const columns = {
-  artist: [
-    {
-      header:'Artist Name',
-      label: 'Artist',
-      minWidth: '30vh'
-    },
-    {
-      header: 'Number of Albums',
-      label: 'Album_count',
-      minWidth: '10vh'
-    },
-    {
-      header: 'Number of Songs',
-      label: 'Song_count',
-      minWidth: '10vh'
-    }
-  ],
-  song: [
-    {
-      header: 'Song',
-      label: 'Song',
-      minWidth: '30vh'
-    },
-    {
-      header: 'Artist',
-      label: 'Artist',
-      minWidth: '30vh'
-    },
-    {
-      header: 'Album',
-      label: 'Album',
-      minWidth: '30vh'
-    }
-  ],
-  album: [
-    {
-      header: 'Album',
-      label: 'Album',
-      minWidth: '30vh'
-    },
-    {
-      header: 'Artist',
-      label: 'Artist',
-      minWidth: '30vh'
-    },
-    {
-      header: 'Format',
-      label: 'Format',
-      minWidth: '30vh'
-    },
-    {
-      header: 'Record Label',
-      label: 'Record_Label',
-      minWidth: '30vh'
-    }
-  ]
-}
-
-export const NoResult = () => (
+const NoResult = () => (
   <TableRow>
     <TableCell style={{borderBottom: 'none'}}>
       No Results
@@ -100,17 +41,42 @@ export const NoResult = () => (
   </TableRow>
 )
 
-export const Headers = ({styles, columns}) => (
+class GetRecs extends React.Component {
+  constructor(props) {
+    super(props)
+    this.selectSong = this.selectSong.bind(this)
+  }
+
+  selectSong(e) {
+    e.preventDefault()
+    this.props.handleClick(this.props.song)
+  }
+
+  render() {
+    return (
+      <Button variant="outlined"
+              color="primary"
+              disableElevation
+              disableRipple
+              onClick={this.selectSong}>
+        Get Recs
+      </Button>
+    )
+  }
+}
+GetRecs.propTypes = {
+  handleClick: PropTypes.func
+}
+
+const Headers = ({styles, columns}) => (
   <TableRow>
-    {
-      columns && columns.map((column, i) => (
-        <TableCell className={styles}
-                   key={i}
-                   style={{ minWidth: column.minWidth }}>
-          {column.header}
-        </TableCell>
-      ))
-    }
+    {columns && columns.map((column, i) => (
+      <TableCell className={styles}
+                 key={i}
+                 style={{ minWidth: column.minWidth }}>
+        {column.header}
+      </TableCell>
+    ))}
   </TableRow>
 )
 Headers.propTypes = {
@@ -118,15 +84,14 @@ Headers.propTypes = {
   resultType: PropTypes.string
 }
 
-
-export const SearchResult = ({result, headers}) => (
+const SearchResult = ({result, headers, getRecs}) => (
   <TableRow>
     {headers.map((header, i) => {
       return (
       <TableCell key={i} style={{minWidth: headers.minWidth}}>
         {!!header['label'] ?
           result[header['label']] :
-          <GetRecs songId={result.songId}/>
+          <GetRecs song={result} handleClick={getRecs}/>
         }
       </TableCell>
       )
@@ -135,13 +100,75 @@ export const SearchResult = ({result, headers}) => (
 )
 SearchResult.propTypes = {
   result: PropTypes.object,
-  headers: PropTypes.array
+  headers: PropTypes.array,
+  getRecs: PropTypes.func,
+  isSong: PropTypes.bool
 }
 
+const SearchForm = ({query,
+                    styles,
+                    handleChange,
+                    searchTerm,
+                    radioValue,
+                    handleRadioChange}) => (
+  <Grid container
+        direction="row"
+        alignItems="flex-start"
+        justify="flex-start">
+    <Grid item xs={12}>
+      <Grid container
+        direction="row"
+        alignItems="flex-start"
+        justify="flex-start">
+        <form onSubmit={query}>
+          <FormControl className={styles.form}>
+            <Grid item xs={6} >
+              <SearchBase styles={styles}
+                          handleChange={handleChange}
+                          searchTerm={searchTerm}/>
+            </Grid>
+            <Grid item xs={6} style={{minWidth: "100%"}}>
+              <RadioGroup row
+                          name="search"
+                          value={radioValue}
+                          onChange={handleRadioChange}>
+                <FormControlLabel
+                  value="song"
+                  control={<Radio color="primary" />}
+                  label="Song"
+                  labelPlacement="start"
+                />
+                <FormControlLabel
+                  value="artist"
+                  control={<Radio color="primary" />}
+                  label="Artist"
+                  labelPlacement="start"
+                />
+                <FormControlLabel
+                  value="album"
+                  control={<Radio color="primary" />}
+                  label="Album"
+                  labelPlacement="start"
+                />
+              </RadioGroup>
+            </Grid>
+          </FormControl>
+        </form>
 
-export const Search = ({styles,
-                       handleChange,
-                       searchTerm}) => (
+      </Grid>
+    </Grid>
+  </Grid>
+)
+SearchForm.propTypes = {
+  query: PropTypes.func,
+  styles: PropTypes.object,
+  handleChange: PropTypes.func,
+  searchTerm: PropTypes.string,
+  radioValue: PropTypes.string,
+  handleRadioChange: PropTypes.func
+}
+
+const SearchBase = ({styles, handleChange, searchTerm}) => (
   <div className={styles.search} >
     <div className={styles.searchIcon}>
       <SearchIcon />
@@ -159,11 +186,55 @@ export const Search = ({styles,
               />
   </div>
 )
-Search.propTypes = {
+SearchBase.propTypes = {
   handleChange: PropTypes.func,
   search: PropTypes.func,
   searchTerm: PropTypes.string,
-  styles: PropTypes.string
+  styles: PropTypes.object
+}
+
+const ResultContainer = ({styles,
+                          columns,
+                          searchResults,
+                          getRecs,
+                          resultType,
+                          selectSong}) => (
+  <Grid container
+        direction="row"
+        alignItems="flex-start"
+        justify="flex-start">
+    <Grid item xs={12}>
+
+      <TableContainer>
+        <Table aria-label="sticky table">
+
+          <TableHead>
+            <Headers styles={styles.header} columns={columns[resultType]}/>
+          </TableHead>
+
+          <TableBody>
+            {searchResults.map((result, i) => (
+              <SearchResult result={result}
+                            headers={columns[resultType]}
+                            key={i}
+                            getRecs={getRecs}/>
+            ))}
+            {!!resultType && !searchResults.length && (
+              <NoResult/>
+            )}
+          </TableBody>
+
+        </Table>
+      </TableContainer>
+    </Grid>
+  </Grid>
+)
+ResultContainer.propTypes = {
+  getRecs: PropTypes.func,
+  columns: PropTypes.object,
+  resultType: PropTypes.string,
+  searchResults: PropTypes.array,
+  styles: PropTypes.object
 }
 
 
@@ -179,7 +250,9 @@ class SearchCard extends React.Component {
       searchTerm: '',
       searchResults: [],
       resultsType: "",
-      radioValue: "artist"
+      radioValue: "song",
+      showRecs: false,
+      selectedSong: {}
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleRadioChange = this.handleRadioChange.bind(this)
@@ -187,6 +260,7 @@ class SearchCard extends React.Component {
     this.searchAlbums = this.searchAlbums.bind(this)
     this.searchSongs = this.searchSongs.bind(this)
     this.searchArtists = this.searchArtists.bind(this)
+    this.getRecs = this.getRecs.bind(this)
   }
 
   handleChange({target: {value}}) {
@@ -195,6 +269,14 @@ class SearchCard extends React.Component {
 
   handleRadioChange({target: {value}}) {
     this.setState({radioValue: value})
+  }
+
+  getRecs(selectedSong) {
+    console.log('in get recs search', selectedSong)
+    this.setState({
+      showRecs: true,
+      selectedSong
+    })
   }
 
   query(e) {
@@ -212,7 +294,10 @@ class SearchCard extends React.Component {
       default:
         console.error(`Error`);
     }
-    this.setState({searchTerm: ""})
+    this.setState({
+      searchTerm: "",
+      showRecs: false
+    })
   }
 
   async searchArtists() {
@@ -250,7 +335,9 @@ class SearchCard extends React.Component {
     const { radioValue,
             resultType,
             searchTerm,
-            searchResults } = this.state
+            searchResults,
+            showRecs,
+            selectedSong } = this.state
     return (
       <Grid container
         spacing={0}
@@ -265,7 +352,7 @@ class SearchCard extends React.Component {
 
               <CardMedia
                 className={styles.media}
-                image="/assets/search_music.jpg"
+                image="/assets/recommendations.jpg"
               />
 
               <CardContent>
@@ -280,82 +367,24 @@ class SearchCard extends React.Component {
                   </Grid>
                 </Grid>
 
-                <Grid container
-                        direction="row"
-                        alignItems="flex-start"
-                        justify="flex-start">
-                    <Grid item xs={12}>
-                      <Grid container
-                        direction="row"
-                        alignItems="flex-start"
-                        justify="flex-start">
-                        <form onSubmit={this.query}>
-                          <FormControl className={styles.form}>
-                            <Grid item xs={6} >
-                              <Search styles={styles}
-                                      handleChange={this.handleChange}
-                                      searchTerm={searchTerm}/>
-                            </Grid>
-                            <Grid item xs={6} style={{minWidth: "100%"}}>
-                              <RadioGroup row
-                                          name="search"
-                                          value={radioValue}
-                                          onChange={this.handleRadioChange}>
-                                <FormControlLabel
-                                  value="artist"
-                                  control={<Radio color="primary" />}
-                                  label="Artist"
-                                  labelPlacement="start"
-                                />
-                                <FormControlLabel
-                                  value="song"
-                                  control={<Radio color="primary" />}
-                                  label="Song"
-                                  labelPlacement="start"
-                                />
-                                <FormControlLabel
-                                  value="album"
-                                  control={<Radio color="primary" />}
-                                  label="Album"
-                                  labelPlacement="start"
-                                />
-                              </RadioGroup>
-                            </Grid>
-                          </FormControl>
-                        </form>
-
-                      </Grid>
-                    </Grid>
-                  </Grid>
+                <SearchForm query={this.query}
+                            styles={styles}
+                            handleChange={this.handleChange}
+                            searchTerm={searchTerm}
+                            radioValue={radioValue}
+                            handleRadioChange={this.handleRadioChange}/>
                 
-                <Grid container
-                      direction="row"
-                      alignItems="flex-start"
-                      justify="flex-start">
-                  <Grid item xs={12}>
+                {showRecs ?
+                  <Recommendations getRecs={this.getRecs}
+                                   selectedSong={selectedSong}/> 
+                  :
+                  <ResultContainer styles={styles}
+                                   columns={columns}
+                                   searchResults={searchResults}
+                                   getRecs={this.getRecs}
+                                   resultType={resultType}/>
+                }
 
-                    <TableContainer className={styles.container}>
-                      <Table aria-label="sticky table">
-
-                        <TableHead>
-                          <Headers styles={styles.header} columns={columns[resultType]}/>
-                        </TableHead>
-
-                        <TableBody>
-                          {searchResults.map((result, i) => (
-                            <SearchResult result={result}
-                                          headers={columns[resultType]}
-                                          key={i}/>
-                          ))}
-                          {!!resultType && !searchResults.length && (
-                            <NoResult/>
-                          )}
-                        </TableBody>
-
-                      </Table>
-                    </TableContainer>
-                  </Grid>
-                </Grid>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -364,8 +393,7 @@ class SearchCard extends React.Component {
     )
   }
 }
-
-Search.propTypes = {
+SearchCard.propTypes = {
   styles: PropTypes.object
 }
 

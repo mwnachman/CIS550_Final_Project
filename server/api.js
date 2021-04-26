@@ -107,6 +107,21 @@ async function searchSong(req, res) {
   });
 }
 
+async function getSongDetails(req, res) {
+  const query = `
+    SELECT *
+    FROM Song
+    WHERE id = '`+req.params.songId+`'
+  `;
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
+    else {
+      console.log("ROWS ", rows)
+      res.json(rows);
+    }
+  });
+}
+
 /*-- q4: Search for an artist by keyword. Include the number of songs and albums they have. This will be used in our Search tab. --*/
 async function searchArtist(req, res) {
   const query = `
@@ -232,6 +247,7 @@ module.exports = {
   getGenre,
   getAllAlbums,
   top5,
+  getSongDetails,
   popularByGenre,
   searchSong,
   searchArtist,

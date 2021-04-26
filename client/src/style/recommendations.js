@@ -6,60 +6,26 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(6),
     width: '100%',
   },
-  content: {
-    minHeight: '300px',
-    minWidth: '100%',
-    display: '-webkit-box',
-  },
   exterior_grid: {
     minHeight: '70vh'
   },
   interior_grid: {
     minWidth: '80%',
   },
-  header: {
-    fontSize: 22,
-    color: '#5c5855',
+  recsWording: {
+    marginTop: theme.spacing(4)
   },
-  media: {
-    height: '50vh',
+  input: {
+    width: 80
   },
-  search: {
-    color: '#1A1628',
-    position: 'relative',
-    minWidth: '50vh',
-    borderRadius: theme.shape.borderRadius,
-    border: '1px solid black',
-    marginLeft: theme.spacing(0),
+  slider: {
+    width: 150,
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0)
   },
-  searchIcon: {
-    color: 'gray',
-    padding: theme.spacing(0, 1),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  form: {
-    display: '-webkit-box',
-  },
-  inputTypeSearch: {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(3)}px)`,
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '27ch',
-    },
-  },
-  paper: {
-    width: 225,
-    marginTop: 2,
-  },
+  description: {
+    maxWidth: 250
+  }
 }))
 
 export default useStyles
