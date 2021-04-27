@@ -101,7 +101,6 @@ LIMIT 50;
 /* Query 1 FAST: 
 JOINs instead of LEFT JOIN, 
 elmiminate Genre from JOIN,  
-pushing "genre_id = 1" and "num_aoty_user_reviews >= 15" selections before JOIN,
 use smaller dataset as the outer loop in joins*/
 SELECT
 	t2.title AS album_name
@@ -114,20 +113,10 @@ SELECT
 	, t2.aoty_critic_score*.1 AS album_critic_score
 	, t2.aoty_user_score*.1 AS album_user_score
 FROM
-	(SELECT 
-		 release_year 
-		, title 
-		, id 
-	 	, artist_id
-		, format
-        	, record_label_id
-        	, aoty_critic_score
-        	, aoty_user_score
-	FROM Album 
-	WHERE genre_id = 1 AND num_aoty_user_reviews >= 15
-    ) t2
-    	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+	Album t2
+	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
 	JOIN Artist t3 ON t2.artist_id = t3.id 
+WHERE t2.genre_id = 1 AND t2.num_aoty_user_reviews >= 15
 ORDER BY t2.aoty_user_score DESC
 LIMIT 50;
 
