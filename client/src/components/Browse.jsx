@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from "react";
 import PropTypes from "prop-types";
 import {
@@ -15,6 +16,12 @@ import {
   FormHelperText,
   FormControl,
   Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useStyles from "../style/browse";
@@ -23,18 +30,19 @@ import * as config from "../../config/client.json";
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
 
-const BrowseResult = ({ result }) => (
+const BrowseResult = ({ rank, result }) => (
   <TableRow>
     <TableCell style={{ minWidth: "30vh" }}>{result.artist_name}</TableCell>
     <TableCell style={{ minWidth: "30vh" }}>{result.album_name}</TableCell>
     <TableCell style={{ minWidth: "30vh" }}>{result.album_release_year}</TableCell>
     <TableCell style={{ minWidth: "20vh" }}>
-      {result.rank}
+      {rank}
     </TableCell>
   </TableRow>
 );
 BrowseResult.propTypes = {
   result: PropTypes.object,
+  rank: PropTypes.number
 };
 
 const BrowseResultContainer = ({ styles, results }) => (
@@ -73,7 +81,7 @@ const BrowseResultContainer = ({ styles, results }) => (
 
           <TableBody>
             {results.map((result, i) => (
-              <BrowseResult key={i} result={result} />
+              <BrowseResult key={i} result={result} rank={i+1} />
             ))}
           </TableBody>
         </Table>
@@ -84,6 +92,7 @@ const BrowseResultContainer = ({ styles, results }) => (
 BrowseResultContainer.propTypes = {
   styles: PropTypes.object,
   results: PropTypes.array,
+  key: PropTypes.number
 };
 
 const BrowseWrapper = (props) => {
@@ -118,10 +127,30 @@ class Browse extends React.Component {
     );
   }
 
-  grabResults() {
+  async grabResults() {
     // check to make sure both selects have values
     if (this.state.selectedGenre > -1 && this.state.selectedTrait.length > 0) {
       this.displayResults()
+      // determine which endpoint to call based on selectedTrait value
+      if (this.state.selectedTrait == "top") {
+        const promise = await axios.get(
+          `${APIRoot}/top5/${this.state.selectedGenre}`
+        );
+        const status = promise.status;
+        if (status == 200) {
+          const results = promise.data;
+          this.setState({ results: results });
+        }
+      } else {
+        const promise = await axios.get(
+          `${APIRoot}/traitByGenre/${this.state.selectedGenre}/${this.state.selectedTrait}`
+        );
+        const status = promise.status;
+        if (status == 200) {
+          const results = promise.data;
+          this.setState({ results: results });
+        }
+      }
     }
   }
 
@@ -131,7 +160,7 @@ class Browse extends React.Component {
 
   render() {
     const { styles } = this.props;
-    const { selectedGenre, selectedTrait, displayResults } = this.state;
+    const { selectedGenre, selectedTrait, displayResults, results } = this.state;
     return (
       <Grid
         container
@@ -158,7 +187,7 @@ class Browse extends React.Component {
                   variant="h6"
                   component="p"
                 >
-                  Check out some of the top albums from each year by genre.
+                  Check out some of the top albums from each year by genre and your specified criteria.
                 </Typography>
                 <FormControl className={styles.formControl}>
                   <InputLabel id="demo-simple-select-label">Genre</InputLabel>
@@ -198,9 +227,9 @@ class Browse extends React.Component {
                 </FormControl>
                 
                 {displayResults ?
-                <Typography>Results Displayed</Typography>
+                <BrowseResultContainer results={results} />
                 :
-                <Typography>No results</Typography>
+                <Typography></Typography>
                 }
               </CardContent>
             </CardActionArea>
