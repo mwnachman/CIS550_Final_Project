@@ -13,6 +13,13 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  formControl: {
+    margin: 10,
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: 10,
+  }
 })
 
 export default useStyles
