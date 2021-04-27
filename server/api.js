@@ -66,7 +66,7 @@ async function top5(req, res) {
 	, t2.format AS album_format
 	, t4.name AS record_label_name
 	, t2.aoty_critic_score*.1 AS album_critic_score
-	, t2.aoty_user_score*.1 AS album_user_score
+	, t2.aoty_user_score*.1 AS rank
 FROM
 	RecordLabel t4 
 	JOIN Album t2 ON t2.record_label_id = t4.id
@@ -96,7 +96,7 @@ async function traitByGenre(req, res) {
 	, t4.name AS record_label_name
 	, t2.aoty_critic_score*.1 AS album_critic_score
 	, t2.aoty_user_score*.1 AS album_user_score
-	, AVG(t1.`+req.params.trait+`) AS avg_trait
+	, AVG(t1.`+req.params.trait+`) AS rank
 FROM (
 	SELECT 
 		release_year
@@ -114,7 +114,7 @@ FROM (
 	JOIN Artist t3 ON t2.artist_id = t3.id
 	JOIN Song t1 ON t1.album_id = t2.id
 GROUP BY album_id
-ORDER BY avg_trait DESC
+ORDER BY rank DESC
 LIMIT 50;
   `;
   con.query(query, function(err, rows) {
