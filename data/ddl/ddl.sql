@@ -1,12 +1,8 @@
-DROP DATABASE project;
-CREATE DATABASE project;
-
-USE project;
-
 CREATE TABLE Artist (
   id      CHAR(22),
   name    VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  INDEX artist_name_ind(name)
 );
 
 CREATE TABLE Genre (
@@ -31,12 +27,13 @@ CREATE TABLE Album (
   release_year            INT NOT NULL,
   aoty_critic_score       INT NOT NULL,
   aoty_user_score         INT NOT NULL,
-  num_atoy_critic_reviews INT NOT NULL,
+  num_aoty_critic_reviews INT NOT NULL,
   num_aoty_user_reviews   INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (artist_id) REFERENCES Artist (id),
   FOREIGN KEY (genre_id) REFERENCES Genre (id),
-  FOREIGN KEY (record_label_id) REFERENCES RecordLabel (id)
+  FOREIGN KEY (record_label_id) REFERENCES RecordLabel (id),
+  INDEX album_name_ind(title)
 );
 
 CREATE TABLE Song (
@@ -60,27 +57,23 @@ CREATE TABLE Song (
   duration_ms         INT NOT NULL,
   time_signature      FLOAT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (album_id) REFERENCES Album(id)
+  FOREIGN KEY (album_id) REFERENCES Album(id),
+  INDEX song_name_ind(name)
 );
-
--- CREATE TABLE Author (
---   id      INT,
---   name    VARCHAR(255) NOT NULL,
---   type    VARCHAR(100) NOT NULL,
---   PRIMARY KEY (id)
--- );
 
 CREATE TABLE PitchforkReviews (
   id              INT,
   album_id        CHAR(22),
   url             VARCHAR(255) NOT NULL,
-  score           DECIMAL(1,1) NOT NULL,
-  best_new_music  BOOL NOT NULL,
+  score           FLOAT NOT NULL,
   pub_date        DATE NOT NULL,
-  -- author_id       INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (album_id) REFERENCES Album (id)
-  -- FOREIGN KEY (author_id) REFERENCES Author (id)
 );
 
-DROP DATABASE project;
+CREATE TABLE SimilarGenres (
+  id            INT,
+  genre_code    INT NOT NULL,
+  genre_matches INT NOT NULL,
+  PRIMARY KEY (id)
+);
