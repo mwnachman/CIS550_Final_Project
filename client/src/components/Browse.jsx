@@ -19,6 +19,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import useStyles from "../style/browse";
 
+
+import Artist from './Artist.jsx'
 import * as config from "../../config/client.json";
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
@@ -70,7 +72,6 @@ const BrowseResultContainer = ({ styles, results }) => (
               </TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody>
             {results.map((result, i) => (
               <BrowseResult key={i} result={result} />
@@ -149,6 +150,8 @@ class Browse extends React.Component {
                 image="/assets/albums_background.jpg"
               />
               <CardContent>
+                <Artist/>
+
                 <Typography gutterBottom variant="h5" component="h2">
                   Browse
                 </Typography>
@@ -196,7 +199,6 @@ class Browse extends React.Component {
                     <MenuItem value="acousticness">Most Acoustic</MenuItem>
                   </Select>
                 </FormControl>
-                
                 {displayResults ?
                 <Typography>Results Displayed</Typography>
                 :

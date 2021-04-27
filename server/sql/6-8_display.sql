@@ -65,8 +65,8 @@ FROM (
 	JOIN RecordLabel t4 ON  t2.record_label_id = t4.id
 ORDER BY t2.aoty_user_score DESC
 LIMIT 50;
- 
- 
+
+
 /* 
 Query 6B
 

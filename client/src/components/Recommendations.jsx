@@ -120,9 +120,8 @@ class Recommendations extends React.Component {
 
   componentDidMount() {
     const {selectedSong} = this.props
-    console.log('selected sonf year ', selectedSong)
     if (selectedSong) {
-      this.getSongDetails(selectedSong.songId)
+      this.getSongDetails(selectedSong.song_id)
     }
   }
 
@@ -156,16 +155,16 @@ class Recommendations extends React.Component {
   }
 
   async getRecommendations(params) {
-    const promise = await axios.get(`${APIRoot}/recommendSongs/${id}`)
-    const status = promise.status
-    if (status == 200) {
-      const songDetails = promise.data[0]
-      let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
+    // const promise = await axios.get(`${APIRoot}/recommendSongs/${id}`)
+    // const status = promise.status
+    // if (status == 200) {
+    //   const songDetails = promise.data[0]
+    //   let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
 
-      this.setState({songDetails,
-                    initialValues,
-                    values: initialValues})
-    }
+    //   this.setState({songDetails,
+    //                 initialValues,
+    //                 values: initialValues})
+    // }
   }
 
   render() {
@@ -192,13 +191,13 @@ class Recommendations extends React.Component {
               <TableHead>
                 <TableRow>
                   <TableCell>
-                    "{selectedSong.Song}"
+                    "{selectedSong.song_name}"
                   </TableCell>
                   <TableCell>
-                    {selectedSong.Artist}
+                    {selectedSong.artist_name}
                   </TableCell>
                   <TableCell>
-                    {selectedSong.Album}
+                    {selectedSong.album_name}
                   </TableCell>
                   <TableCell className={styles.buttonCell}>
                     <Button size="small"
