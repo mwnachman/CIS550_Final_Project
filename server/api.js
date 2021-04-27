@@ -57,11 +57,23 @@ async function getAllAlbums(req, res) {
 /*-- q1: Get the top 5 popular albums from each year or genre ranked by AOTY User Score.  This will be used for the Landing/ Browsing by Popularity tab --*/
 async function top5(req, res) {
   const query = `
-  SELECT *
-  FROM (
-    SELECT t1.release_year, t2.name AS genre, t1.title AS album, ROW_NUMBER() OVER (PARTITION BY t1.release_year ORDER BY t1.aoty_user_score DESC) AS score_rank
-    FROM Album t1 JOIN Genre t2 ON t1.genre_id = t2.id) x
-  WHERE score_rank <= 5;
+  SELECT
+	t2.title AS album_name
+	, t2.id AS album_id
+	, t3.name AS artist_name
+	, t2.artist_id
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+	, t2.aoty_critic_score*.1 AS album_critic_score
+	, t2.aoty_user_score*.1 AS album_user_score
+FROM
+	RecordLabel t4 
+	JOIN Album t2 ON t2.record_label_id = t4.id
+	JOIN Artist t3 ON t2.artist_id = t3.id 
+WHERE t2.genre_id = `+req.params.genreId+` AND t2.num_aoty_user_reviews >= 15
+ORDER BY t2.aoty_user_score DESC
+LIMIT 50;
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -71,7 +83,7 @@ async function top5(req, res) {
   });
 }
 
-/*-- q2: Get the most popular album from each genre within a range of years (user input). This will be used for the Landing/ Browsing by Popularity tab. --*/
+/*-- DISREGARD: q2: Get the most popular album from each genre within a range of years (user input). This will be used for the Landing/ Browsing by Popularity tab. --*/
 async function popularByGenre(req, res) {
   const dateRange = (req.params.years).split("-");
   const query = `
