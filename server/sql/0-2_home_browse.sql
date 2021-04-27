@@ -6,7 +6,7 @@ SELECT * FROM Song LIMIT 20;
 /* 
 Query 0
 
-Randomly generate 5 song/album/artist entries in a selected genre. 
+Randomly generate 5 album entries in a selected genre. 
 This is for the Homepage.
 Input: 		Integer representing genre code (0-8)
 Return: 	song_name, song_id, artist_name, artist_id, album_name,
@@ -156,7 +156,7 @@ Return: 	album_name, album_id, artist_name, artist_id,
 		avg_danceability
         
 Note: 	Change "2" (genre_id) to ${genre_id} for final report.
-Note: 	Replace "danceability" with "speechiness", "energy", "tempo", 
+Note: 	We can interchange "danceability" with "speechiness", "energy", "tempo", 
 	"loudness", "liveness", "acousticness", "instrumentalness",
         "valence", or "duration_ms"
 */
