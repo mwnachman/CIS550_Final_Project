@@ -83,15 +83,39 @@ LIMIT 50;
   });
 }
 
-/*-- DISREGARD: q2: Get the most popular album from each genre within a range of years (user input). This will be used for the Landing/ Browsing by Popularity tab. --*/
-async function popularByGenre(req, res) {
-  const dateRange = (req.params.years).split("-");
+/*-- q2: Most "Trait" By Genre --*/
+async function traitByGenre(req, res) {
   const query = `
-  SELECT *
-  FROM
-    (SELECT t1.release_year, t2.name AS genre, t1.title AS album, ROW_NUMBER() OVER (PARTITION BY t2.name ORDER BY t1.aoty_user_score DESC) AS score_rank
-    FROM Album t1 JOIN Genre t2 ON t1.genre_id = t2.id) x
-  WHERE release_year BETWEEN '`+dateRange[0]+`' AND '`+dateRange[1]+`' AND score_rank = 1;
+  SELECT 
+	t2.title AS album_name
+	, t2.id AS album_id
+	, t3.name AS artist_name
+	, t2.artist_id AS artist_id
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+	, t2.aoty_critic_score*.1 AS album_critic_score
+	, t2.aoty_user_score*.1 AS album_user_score
+	, AVG(t1.`+req.params.trait+`) AS avg_trait
+FROM (
+	SELECT 
+		release_year
+		, title 
+		, id
+		, format
+		, aoty_critic_score
+		, aoty_user_score
+        	, record_label_id
+       		, artist_id
+	FROM Album 
+	WHERE genre_id = `+req.params.genreId+`
+)t2
+	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+	JOIN Artist t3 ON t2.artist_id = t3.id
+	JOIN Song t1 ON t1.album_id = t2.id
+GROUP BY album_id
+ORDER BY avg_trait DESC
+LIMIT 50;
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -258,7 +282,7 @@ module.exports = {
   getAllAlbums,
   top5,
   getSongDetails,
-  popularByGenre,
+  traitByGenre,
   searchSong,
   searchArtist,
   searchAlbum,

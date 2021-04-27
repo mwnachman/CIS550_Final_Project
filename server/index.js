@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.get('/getGenre/:genreId', routes.getGenre);
 app.get('/top5', routes.top5);
-app.get('/popularByGenre/:years', routes.popularByGenre);
+app.get('/traitByGenre/:genreId/:trait', routes.traitByGenre);
 app.get('/songDetails/:songId', routes.getSongDetails);
 app.get('/searchSong/:song', routes.searchSong);
 app.get('/searchArtist/:artist', routes.searchArtist);
