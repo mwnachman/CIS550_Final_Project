@@ -19,8 +19,6 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import useStyles from "../style/browse";
 
-
-import Artist from './Artist.jsx'
 import * as config from "../../config/client.json";
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
@@ -150,8 +148,6 @@ class Browse extends React.Component {
                 image="/assets/albums_background.jpg"
               />
               <CardContent>
-                <Artist/>
-
                 <Typography gutterBottom variant="h5" component="h2">
                   Browse
                 </Typography>
