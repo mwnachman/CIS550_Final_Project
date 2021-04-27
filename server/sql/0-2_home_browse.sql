@@ -75,7 +75,7 @@ LIMIT 5;
 /* 
 Query 1
 
-Get the top 5 popular albums ranked by AOTY User Score. 
+Get the top 5 highly rated albums ranked by AOTY User Score. 
 Input is a specific genre. 
 This will be used for the Browsing tab.
 Input: 		Integer representing genre code (0-8)
