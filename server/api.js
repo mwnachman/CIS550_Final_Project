@@ -66,7 +66,7 @@ async function top5(req, res) {
 	, t2.format AS album_format
 	, t4.name AS record_label_name
 	, t2.aoty_critic_score*.1 AS album_critic_score
-	, t2.aoty_user_score*.1 AS rank
+	, t2.aoty_user_score*.1 AS aoty_user_score
 FROM
 	RecordLabel t4 
 	JOIN Album t2 ON t2.record_label_id = t4.id
@@ -96,7 +96,7 @@ async function traitByGenre(req, res) {
 	, t4.name AS record_label_name
 	, t2.aoty_critic_score*.1 AS album_critic_score
 	, t2.aoty_user_score*.1 AS album_user_score
-	, AVG(t1.`+req.params.trait+`) AS rank
+	, AVG(t1.`+req.params.trait+`) AS avg_danceability
 FROM (
 	SELECT 
 		release_year
@@ -114,7 +114,7 @@ FROM (
 	JOIN Artist t3 ON t2.artist_id = t3.id
 	JOIN Song t1 ON t1.album_id = t2.id
 GROUP BY album_id
-ORDER BY rank DESC
+ORDER BY avg_danceability DESC
 LIMIT 50;
   `;
   con.query(query, function(err, rows) {
@@ -298,31 +298,31 @@ ORDER BY
 }
 
 
-/*-- q6: Search an artist and display top 10 most popular albums by AOTY User Score. This will be used for the Artist display page. --*/
+/*-- q6: Search an artist and display all albums by AOTY User Score. This will be used for the Artist display page. --*/
 async function searchArtistAlbums(req, res) {
   const query = `
-    SELECT
-      t1.name AS artist_name
-      , t2.id AS album_id
-      , t2.title AS album_name
-      , t2.format AS album_format
-      , t2.release_year AS release_year
-      , t2.aoty_critic_score AS aoty_critic_score
-      , t2.aoty_user_score AS aoty_user_score
-      , t2.num_aoty_critic_reviews AS num_aoty_critic_reviews
-      , t2.num_aoty_user_reviews AS num_aoty_user_reviews
-      , t3.name AS record_label_name
-      , t4.name AS genre_name
-    FROM (
-      SELECT name, id
-      FROM Artist
-      WHERE id = '`+req.params.artist_id+`'
-    ) t1
-      JOIN Album t2 ON t2.artist_id = t1.id
-      JOIN Genre t4 ON t2.genre_id = t4.id
-      JOIN RecordLabel t3 ON  t2.record_label_id = t3.id
-    ORDER BY t2.aoty_user_score DESC
-    LIMIT 50;
+  SELECT
+  t1.name AS artist_name
+  , t2.id AS album_id
+  , t2.title AS album_name
+  , t2.format AS album_format
+  , t2.release_year AS release_year
+  , t2.aoty_critic_score AS aoty_critic_score
+  , t2.aoty_user_score AS aoty_user_score
+  , t2.num_aoty_critic_reviews AS num_aoty_critic_reviews
+  , t2.num_aoty_user_reviews AS num_aoty_user_reviews
+  , t3.name AS record_label_name
+  , t4.name AS genre_name
+FROM (
+  SELECT name, id
+  FROM Artist
+  WHERE id = '`+req.params.artist_id+`'
+) t1
+  JOIN Album t2 ON t2.artist_id = t1.id
+  JOIN Genre t4 ON t2.genre_id = t4.id
+  JOIN RecordLabel t3 ON  t2.record_label_id = t3.id
+ORDER BY t2.aoty_user_score DESC
+LIMIT 50;
     `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
