@@ -128,11 +128,30 @@ LIMIT 50;
 /*-- q3: Search a song by keyword. Include information for the Song’s Album and Artist. This will be used in our Search tab. --*/
 async function searchSong(req, res) {
   const query = `
-  SELECT t1.name AS Song, t1.id as songId, t2.title AS Album, t3.name AS Artist, t2.release_year AS release_year
-  FROM Song t1
-  LEFT JOIN Album t2 ON t1.album_id = t2.id
-  LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-  WHERE t1.name LIKE '`+req.params.song+`';
+  SELECT
+	t1.name AS song_name
+	, t1.id AS song_id
+	, t2.title AS album_name
+	, t3.name AS artist_name
+	, t2.release_year AS album_release_year
+FROM (
+	SELECT
+		album_id
+		, name
+		, id 
+	FROM Song
+	WHERE Song.name LIKE '%`+req.params.song+`%'
+		OR SOUNDEX(Song.name) = SOUNDEX('`+req.params.song+`')
+) t1 
+    JOIN Album t2 ON t1.album_id = t2.id
+    JOIN Artist t3 ON t2.artist_id = t3.id
+ORDER BY 
+	(song_name = '`+req.params.song+`') DESC 
+	, (song_name LIKE '`+req.params.song+` %') 
+		OR (song_name LIKE '% `+req.params.song+`') 
+		OR (song_name LIKE '% `+req.params.song+` %') DESC
+	, (song_name LIKE '%`+req.params.song+`%') DESC
+	, length(song_name);
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -159,15 +178,75 @@ async function getSongDetails(req, res) {
 /*-- q4: Search for an artist by keyword. Include the number of songs and albums they have. This will be used in our Search tab. --*/
 async function searchArtist(req, res) {
   const query = `
-  SELECT Artist, COUNT(DISTINCT Album) AS Album_count, COUNT(DISTINCT Song) AS Song_count
-  FROM (
-    SELECT t3.name AS Artist, t2.title AS Album, t1.name AS Song
-    FROM Song t1
-    LEFT JOIN Album t2 ON t1.album_id = t2.id
-    LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-    WHERE t3.name LIKE '`+req.params.artist+`'
+  WITH similar_artists  AS (
+    SELECT 
+      artist_name
+      , artist_id
+      , COUNT(DISTINCT album_name) AS album_count
+      , COUNT(DISTINCT song_name) AS song_count
+    FROM (
+      SELECT 
+        t3.name AS artist_name
+        , t3.id AS artist_id
+        , t2.title AS album_name
+        , t1.name AS song_name
+      FROM (
+        SELECT id, name
+              FROM Artist
+              WHERE name LIKE '%`+req.params.artist+`%' 
+      OR SOUNDEX(name) = SOUNDEX('`+req.params.artist+`')
+          ) t3
+          JOIN Album t2 ON t2.artist_id = t3.id
+          JOIN Song t1 ON t1.album_id = t2.id
     ) x
-  GROUP BY Artist;
+    GROUP BY artist_name
+  )
+  SELECT 
+    similar_artists.artist_name
+    , similar_artists.artist_id
+    , similar_artists.album_count
+    , similar_artists.song_count
+    , t5.name AS most_frequent_genre_name
+  FROM similar_artists 
+    JOIN (
+      SELECT
+        artist_id
+        , genre_id
+      FROM (
+        SELECT  
+          artist_id
+          , genre_id
+          , genre_count
+          , ROW_NUMBER() OVER (PARTITION BY artist_id ORDER BY genre_count DESC) AS score_rank
+        FROM (
+          SELECT 
+            artist_id
+            , genre_id
+            , COUNT(*) AS genre_count
+          FROM (
+            SELECT
+              t2.artist_id AS artist_id
+              , t2.genre_id AS genre_id
+            FROM Album t2
+                              WHERE t2.artist_id IN (
+              SELECT artist_id
+              FROM similar_artists
+            ) 
+          ) x
+          GROUP BY artist_id, genre_id
+          ORDER BY artist_id
+        ) y
+      ) z
+      WHERE score_rank < 2
+    ) most_frequent_genre ON similar_artists.artist_id = most_frequent_genre.artist_id
+    JOIN Genre t5 ON most_frequent_genre.genre_id = t5.id
+  ORDER BY 
+    (artist_name LIKE '`+req.params.artist+`') DESC 
+    , (artist_name LIKE '`+req.params.artist+` %') DESC 
+    , (artist_name LIKE '% `+req.params.artist+`') DESC
+    , (artist_name LIKE '%`+req.params.artist+`%') DESC
+    , album_count DESC 
+    , song_count DESC;
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -180,11 +259,34 @@ async function searchArtist(req, res) {
 /*-- q5: Search for an album by keyword. Include the Artist, Record Label, and Format. This will be used in our Search tab. --*/
 async function searchAlbum(req, res) {
   const query = `
-  SELECT t1.title AS Album, t2.name AS Artist, t1.format AS Format, t3.name AS Record_Label
-  FROM Album t1
-  LEFT JOIN Artist t2 ON t1.artist_id = t2.id
-  LEFT JOIN RecordLabel t3 ON t1.record_label_id = t3.id
-  WHERE t1.title LIKE '`+req.params.album+`';
+  SELECT
+	t2.title AS album_name
+	, t2.id AS album_id
+	, t3.name AS artist_name
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+FROM (
+	SELECT 
+	title
+        , id
+        , release_year
+        , format
+        , record_label_id
+        , artist_id
+    FROM Album 
+    WHERE title LIKE '%`+req.params.album+`%'
+	OR SOUNDEX(title) = SOUNDEX('`+req.params.album+`')
+)t2
+	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+	JOIN Artist t3 ON t2.artist_id = t3.id
+ORDER BY 
+	(album_name = '`+req.params.album+`') DESC 
+	, (album_name LIKE '`+req.params.album+` %') 
+		OR (album_name LIKE '% `+req.params.album+`') 
+		OR (album_name LIKE '% `+req.params.album+` %') DESC
+	, (album_name LIKE '%`+req.params.album+`%')  DESC
+	, length(album_name);
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
