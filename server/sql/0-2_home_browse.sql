@@ -40,32 +40,23 @@ LIMIT 5;
 /* Query 0 FAST: 
 JOINs instead of LEFT JOIN, 
 elmiminate Genre from Join, 
-pushing genre_id = 1 selection before JOIN,
 use smaller dataset as the outer loop in joins */
-SELECT
+SELECT 
 	t1.name AS song_name
 	, t1.id AS song_id
 	, t3.name AS artist_name
-	, t2.artist_id AS artist_id
+	, t2.artist_id
 	, t2.title AS album_name
 	, t2.id AS album_id
 	, t2.release_year AS album_release_year
 	, t2.format AS album_format
 	, t4.name AS record_label_name
-FROM
-	(SELECT 
-		artist_id
-		, title 
-		, id 
-		, release_year 
-		, format
-	 , record_label_id
-	FROM Album 
-	WHERE genre_id = 2
-    ) t2
-	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
-	JOIN Artist t3 ON t2.artist_id = t3.id 
-	JOIN Song t1  ON  t1.album_id = t2.id
+FROM 
+	RecordLabel t4
+    JOIN Album t2 ON t2.record_label_id = t4.id
+    JOIN Artist t3 ON t2.artist_id = t3.id 
+    JOIN Song t1 ON t1.album_id = t2.id
+WHERE t2.genre_id = 1
 ORDER BY RAND()
 LIMIT 5;
 
