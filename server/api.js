@@ -35,7 +35,7 @@ function getGenre(req, res) {
   LIMIT 5;
   `;
   con.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
+    if (err) console.error(err);
     else {
       res.json(rows);
     }
@@ -93,7 +93,7 @@ async function popularByGenre(req, res) {
 /*-- q3: Search a song by keyword. Include information for the Song’s Album and Artist. This will be used in our Search tab. --*/
 async function searchSong(req, res) {
   const query = `
-  SELECT t1.name AS Song, t1.id as songId, t2.title AS Album, t3.name AS Artist
+  SELECT t1.name AS Song, t1.id as songId, t2.title AS Album, t3.name AS Artist, t2.release_year AS release_year
   FROM Song t1
   LEFT JOIN Album t2 ON t1.album_id = t2.id
   LEFT JOIN Artist t3 ON t2.artist_id = t3.id
@@ -116,7 +116,6 @@ async function getSongDetails(req, res) {
   con.query(query, function(err, rows) {
     if (err) console.error(err);
     else {
-      console.log("ROWS ", rows)
       res.json(rows);
     }
   });
