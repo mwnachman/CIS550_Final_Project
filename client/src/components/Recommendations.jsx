@@ -1,9 +1,11 @@
 /* global process:false */
 import axios from 'axios'
+import clsx from 'clsx';
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Button,
+  Checkbox,
   Grid,
   Input,
   Slider,
@@ -171,12 +173,23 @@ class Recommendations extends React.Component {
                   <TableCell>
                     {selectedSong.Album}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={styles.buttonCell}>
                     <Button size="small"
                             variant="contained"
                             color="primary">
                       Show Similar
                     </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Checkbox
+                      className={styles.checkbox}
+                      disableRipple
+                      color="default"
+                      checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
+                      icon={<span className={styles.icon} />}
+                      inputProps={{ 'aria-label': 'decorative checkbox' }}
+                    />
+                    Match Genre
                   </TableCell>
                 </TableRow>
               </TableHead>
