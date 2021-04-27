@@ -13,13 +13,9 @@ Return: 	song_name, song_id, artist_name, artist_id, album_name,
 		album_id, album_release_year, album_format, record_label_name
 
 Note: Change "1" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
 */
 
-
-
-/* 0 */
+/* Query 0 SLOW */
 SELECT 
 	t1.name AS song_name
 	, t1.id AS song_id
@@ -36,109 +32,151 @@ FROM
 	LEFT JOIN Artist t3 ON t2.artist_id = t3.id 
 	LEFT JOIN RecordLabel t4 ON t2.record_label_id = t4.id
 	LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-WHERE genre_id = 1
+WHERE t2.genre_id = 1
 ORDER BY RAND()
 LIMIT 5;
  
 
+/* Query 0 FAST: 
+JOINs instead of LEFT JOIN, 
+elmiminate Genre from Join, 
+pushing genre_id = 1 selection before JOIN,
+use smaller dataset as the outer loop in joins */
+SELECT
+	t1.name AS song_name
+	, t1.id AS song_id
+	, t3.name AS artist_name
+	, t2.artist_id AS artist_id
+	, t2.title AS album_name
+	, t2.id AS album_id
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+FROM
+	(SELECT 
+		artist_id
+		, title 
+		, id 
+		, release_year 
+		, format
+	 , record_label_id
+	FROM Album 
+	WHERE genre_id = 2
+    ) t2
+	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+	JOIN Artist t3 ON t2.artist_id = t3.id 
+	JOIN Song t1  ON  t1.album_id = t2.id
+ORDER BY RAND()
+LIMIT 5;
 
 
 
 
 /* 
-Query 1A
+Query 1
 
-Get the top 5 popular albums from each year ranked by AOTY User Score. 
+Get the top 5 popular albums ranked by AOTY User Score. 
 Input is a specific genre. 
-This will be used for the Browsing by Popularity tab.
+This will be used for the Browsing tab.
 Input: 		Integer representing genre code (0-8)
-Return: 	album_release_year, score_rank, album_name, album_id,
-		artist_name, artist_id, album_format, record_label_name,
+Return: 	album_name, album_id, artist_name, artist_id, 
+		album_release_year, album_format, record_label_name,
 		album_critic_score (0-10), album_user_score(0-10)
 
 Note: Change "1" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
 */
 
+/* Query 1 SLOW*/
+SELECT 
+	t2.title AS album_name
+	, t2.id AS album_id
+	, t3.name AS artist_name
+	, t2.artist_id
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+	, t2.aoty_critic_score*.1 AS album_critic_score
+	, t2.aoty_user_score*.1 AS album_user_score
+FROM 
+	Album t2 
+	LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+	LEFT JOIN Genre t5 ON t2.genre_id = t5.id
+	LEFT JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+WHERE genre_id = 1 AND num_aoty_user_reviews >= 15
+ORDER BY t2.aoty_user_score DESC
+LIMIT 50;
 
 
-/* Query 1A  updated */
-SELECT *
-FROM (
-	SELECT 
-		t2.release_year AS album_release_year
-		, ROW_NUMBER() OVER (PARTITION BY t2.release_year ORDER BY t2.aoty_user_score DESC) AS score_rank
-		, t2.title AS album_name
-		, t2.id AS album_id
-		, t3.name AS artist_name
-		, t2.artist_id
-		, t2.format AS album_format
-		, t4.name AS record_label_name
-		, t2.aoty_critic_score*.1 AS album_critic_score
-		, t2.aoty_user_score*.1 AS album_user_score
-	FROM 
-		Album t2 
-		JOIN Artist t3 ON t2.artist_id = t3.id
-		JOIN RecordLabel t4 ON t2.record_label_id = t4.id
-		JOIN Genre t5 ON t2.genre_id = t5.id
-	WHERE genre_id = 1
-) x
-WHERE x.score_rank <= 5
-ORDER BY album_release_year DESC, score_rank;
+/* Query 1 FAST: 
+JOINs instead of LEFT JOIN, 
+elmiminate Genre from JOIN,  
+pushing "genre_id = 1" and "num_aoty_user_reviews >= 15" selections before JOIN,
+use smaller dataset as the outer loop in joins*/
+SELECT
+	t2.title AS album_name
+	, t2.id AS album_id
+	, t3.name AS artist_name
+	, t2.artist_id
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+	, t2.aoty_critic_score*.1 AS album_critic_score
+	, t2.aoty_user_score*.1 AS album_user_score
+FROM
+	(SELECT 
+		 release_year 
+		, title 
+		, id 
+	 	, artist_id
+		, format
+        	, record_label_id
+        	, aoty_critic_score
+        	, aoty_user_score
+	FROM Album 
+	WHERE genre_id = 1 AND num_aoty_user_reviews >= 15
+    ) t2
+    	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+	JOIN Artist t3 ON t2.artist_id = t3.id 
+ORDER BY t2.aoty_user_score DESC
+LIMIT 50;
 
-
-    
-/* Query 1A andrew version with some added columns 
-Previous version, No further optimization */
-SELECT *
-FROM (
-	SELECT 
-		t1.release_year
-		, t2.id AS genre_id
-		, t2.name AS genre_name
-		, t1.title AS album
-		, ROW_NUMBER() OVER (PARTITION BY t1.release_year ORDER BY t1.aoty_user_score DESC) AS score_rank
-FROM Album t1 JOIN Genre t2 ON t1.genre_id = t2.id
-) x
-WHERE score_rank <= 5
-ORDER BY genre_id, release_year, score_rank;
 
 
 
 /* 
-Query 1B
+Query 2
 
 Get the top 5 danceability albums from each year. 
 Input is a specific genre. 
-This will be used for the Browsing by Popularity tab.
+This will be used for the Browsing tab.
 Input: 		Integer representing genre code (0-8)
-Return: 	album_release_year, score_rank, album_name, album_id,
-		artist_name, artist_id, album_format, record_label_name,
+Return: 	album_name, album_id, artist_name, artist_id, 
+		album_release_year, album_format, record_label_name,
 		album_critic_score (0-10), album_user_score(0-10),
-        	genre_id, avg_danceability
-	
-Note: Change "2" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
+		avg_danceability
+        
+Note: 	Change "2" (genre_id) to ${genre_id} for final report.
+Note: 	Replace "danceability" with "speechiness", "energy", "tempo", 
+	"loudness", "liveness", "acousticness", "instrumentalness",
+        "valence", or "duration_ms"
 */
 
-/* Query 1B*/
+/* Query 2 SLOW*/
 SELECT *
 FROM (
 	SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, avg_danceability
-			, ROW_NUMBER() OVER (PARTITION BY album_release_year ORDER BY avg_danceability DESC) AS score_rank
+		 album_name
+		, album_id
+		, artist_name
+		, artist_id
+		, album_release_year
+		, album_format
+		, record_label_name
+		, album_critic_score
+		, album_user_score
+		, genre_id
+		, avg_danceability
+		, ROW_NUMBER() OVER (PARTITION BY album_release_year ORDER BY avg_danceability DESC) AS score_rank
 	FROM (
 		SELECT 
 			album_release_year
@@ -150,7 +188,7 @@ FROM (
 			, record_label_name
 			, album_critic_score
 			, album_user_score
-            		, genre_id
+			, genre_id
 			, AVG(danceability) AS avg_danceability
 		FROM (
 			SELECT 
@@ -164,82 +202,6 @@ FROM (
 				, t2.aoty_critic_score*.1 AS album_critic_score
 				, t2.aoty_user_score*.1 AS album_user_score
 				, t1.danceability AS danceability
-                		, t2.genre_id AS genre_id
-			FROM 
-				Song t1
-				LEFT JOIN Album t2 ON t1.album_id = t2.id
-				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-				LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
-				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-			WHERE genre_id = 1
-		)x
-		GROUP BY album_id
-	)y
-)z
-WHERE score_rank <= 5
-ORDER BY album_release_year, score_rank
-;
-
-
-
-/* 
-Query 1C
-
-Get the top 5 speechiness albums from each year. 
-Input is a specific genre. 
-This will be used for the Browsing by Popularity tab.
-Input: 		Integer representing genre code (0-8)
-Return: 	album_release_year, score_rank, album_name, album_id,
-		artist_name, artist_id, album_format, record_label_name,
-		album_critic_score (0-10), album_user_score(0-10),
-         	genre_id, avg_speechiness
-
-Note: Change "1" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
-*/
-
-/* Query 1C*/
-SELECT *
-FROM (
-	SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, avg_speechiness
-			, ROW_NUMBER() OVER (PARTITION BY album_release_year ORDER BY avg_speechiness DESC) AS score_rank
-	FROM (
-		SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, AVG(speechiness) AS avg_speechiness
-		FROM (
-			SELECT 
-				t2.release_year AS album_release_year
-				, t2.title AS album_name
-				, t2.id AS album_id
-				, t3.name AS artist_name
-				, t2.artist_id
-				, t2.format AS album_format
-				, t4.name AS record_label_name
-				, t2.aoty_critic_score*.1 AS album_critic_score
-				, t2.aoty_user_score*.1 AS album_user_score
-				, t1.energy AS speechiness
 				, t2.genre_id AS genre_id
 			FROM 
 				Song t1
@@ -247,317 +209,49 @@ FROM (
 				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
 				LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
 				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-			WHERE genre_id = 1
 		)x
 		GROUP BY album_id
+        	HAVING x.genre_id = 2
 	)y
 )z
 WHERE score_rank <= 5
-ORDER BY album_release_year, score_rank
-;
+ORDER BY album_release_year, score_rank;
 
 
-/* 
-Query 1D
 
-Get the top 5 energy albums from each year. 
-Input is a specific genre. 
-This will be used for the Browsing by Popularity tab.
-Input: 		Integer representing genre code (0-8)
-Return: 	album_release_year, score_rank, album_name, album_id,
-		artist_name, artist_id, album_format, record_label_name,
-		album_critic_score (0-10), album_user_score(0-10), 
-		genre_id, avg_energy
-
-Note: Change "2" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
-*/
-
-/* Query 1D*/
-SELECT *
+/* Query 2 FAST: 
+JOINs instead of LEFT JOIN, 
+elmiminate Genre from JOIN, 
+pushing "genre_id = 1" selection before JOIN,
+deleting top 5 per year restriction,
+use smaller dataset as the outer loop in joins*/
+SELECT 
+	t2.title AS album_name
+	, t2.id AS album_id
+	, t3.name AS artist_name
+	, t2.artist_id AS artist_id
+	, t2.release_year AS album_release_year
+	, t2.format AS album_format
+	, t4.name AS record_label_name
+	, t2.aoty_critic_score*.1 AS album_critic_score
+	, t2.aoty_user_score*.1 AS album_user_score
+	, AVG(t1.danceability) AS avg_danceability
 FROM (
 	SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, avg_energy
-			, ROW_NUMBER() OVER (PARTITION BY album_release_year ORDER BY avg_energy DESC) AS score_rank
-	FROM (
-		SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, AVG(energy) AS avg_energy
-		FROM (
-			SELECT 
-				t2.release_year AS album_release_year
-				, t2.title AS album_name
-				, t2.id AS album_id
-				, t3.name AS artist_name
-				, t2.artist_id
-				, t2.format AS album_format
-				, t4.name AS record_label_name
-				, t2.aoty_critic_score*.1 AS album_critic_score
-				, t2.aoty_user_score*.1 AS album_user_score
-				, t1.energy AS energy
-				, t2.genre_id AS genre_id
-			FROM 
-				Song t1
-				LEFT JOIN Album t2 ON t1.album_id = t2.id
-				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-				LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
-				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-			WHERE genre_id = 1
-		)x
-		GROUP BY album_id
-	)y
-)z
-WHERE score_rank <= 5
-ORDER BY album_release_year, score_rank
-;
-
-
-
-
-/* 
-Query 1E
-
-Get the top 5 tempo albums from each year. 
-Input is a specific genre. 
-This will be used for the Browsing by Popularity tab.
-Input: 		Integer representing genre code (0-8)
-Return: 	album_release_year, score_rank, album_name, album_id,
-		artist_name, artist_id, album_format, record_label_name,
-		album_critic_score (0-10), album_user_score(0-10),
-         	genre_id, avg_tempo
-
-Note: Change "1" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
-*/
-
-/* Query 1E*/
-SELECT *
-FROM (
-	SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, avg_tempo
-			, ROW_NUMBER() OVER (PARTITION BY album_release_year ORDER BY avg_tempo DESC) AS score_rank
-	FROM (
-		SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            , genre_id
-			, AVG(tempo) AS avg_tempo
-		FROM (
-			SELECT 
-				t2.release_year AS album_release_year
-				, t2.title AS album_name
-				, t2.id AS album_id
-				, t3.name AS artist_name
-				, t2.artist_id
-				, t2.format AS album_format
-				, t4.name AS record_label_name
-				, t2.aoty_critic_score*.1 AS album_critic_score
-				, t2.aoty_user_score*.1 AS album_user_score
-				, t1.tempo AS tempo
-				, t2.genre_id AS genre_id
-			FROM 
-				Song t1
-				LEFT JOIN Album t2 ON t1.album_id = t2.id
-				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-				LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
-				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-			WHERE genre_id = 1
-		)x
-		GROUP BY album_id
-	)y
-)z
-WHERE score_rank <= 5
-ORDER BY album_release_year, score_rank
-;
-
-
-/* 
-Query 1F
-
-Get the top 5 loudness albums from each year. 
-Input is a specific genre. 
-This will be used for the Browsing by Popularity tab.
-Input: 		Integer representing genre code (0-8)
-Return: 	album_release_year, score_rank, album_name, album_id,
-		artist_name, artist_id, album_format, record_label_name,
-		album_critic_score (0-10), album_user_score(0-10),
-         	genre_id, avg_loudness
-
-Note: Change "1" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
-*/
-
-/* Query 1F*/
-SELECT *
-FROM (
-	SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, avg_loudness
-			, ROW_NUMBER() OVER (PARTITION BY album_release_year ORDER BY avg_loudness DESC) AS score_rank
-	FROM (
-		SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-           		 , genre_id
-			, AVG(loudness) AS avg_loudness
-		FROM (
-			SELECT 
-				t2.release_year AS album_release_year
-				, t2.title AS album_name
-				, t2.id AS album_id
-				, t3.name AS artist_name
-				, t2.artist_id
-				, t2.format AS album_format
-				, t4.name AS record_label_name
-				, t2.aoty_critic_score*.1 AS album_critic_score
-				, t2.aoty_user_score*.1 AS album_user_score
-				, t1.loudness AS loudness
-                		, t2.genre_id AS genre_id
-			FROM 
-				Song t1
-				LEFT JOIN Album t2 ON t1.album_id = t2.id
-				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-				LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
-				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-			WHERE genre_id = 1
-		)x
-		GROUP BY album_id
-	)y
-)z
-WHERE score_rank <= 5
-ORDER BY album_release_year, score_rank
-;
-
-
-/* 
-Query 1G
-
-Get the top 5 liveness albums from each year. 
-Input is a specific genre. 
-This will be used for the Browsing by Popularity tab.
-Input: 		Integer representing genre code (0-8)
-Return: 	album_release_year, score_rank, album_name, album_id,
-		artist_name, artist_id, album_format, record_label_name,
-		album_critic_score (0-10), album_user_score(0-10),
-         	genre_id, avg_liveness
-
-Note: Change "1" (genre_id) to ${genre_id} for final report.
-
-NEEDS OPTIMIZATION
-*/
-
-/* Query 1G*/
-SELECT *
-FROM (
-	SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-            		, genre_id
-			, avg_liveness
-			, ROW_NUMBER() OVER (PARTITION BY album_release_year ORDER BY avg_liveness DESC) AS score_rank
-	FROM (
-		SELECT 
-			album_release_year
-			, album_name
-			, album_id
-			, artist_name
-			, artist_id
-			, album_format
-			, record_label_name
-			, album_critic_score
-			, album_user_score
-			, genre_id
-			, AVG(liveness) AS avg_liveness
-		FROM (
-			SELECT 
-				t2.release_year AS album_release_year
-				, t2.title AS album_name
-				, t2.id AS album_id
-				, t3.name AS artist_name
-				, t2.artist_id
-				, t2.format AS album_format
-				, t4.name AS record_label_name
-				, t2.aoty_critic_score*.1 AS album_critic_score
-				, t2.aoty_user_score*.1 AS album_user_score
-				, t1.liveness AS liveness
-				, t2.genre_id AS genre_id
-			FROM 
-				Song t1
-				LEFT JOIN Album t2 ON t1.album_id = t2.id
-				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-				LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
-				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-			WHERE genre_id = 1
-		)x
-		GROUP BY album_id
-	)y
-)z
-WHERE score_rank <= 5
-ORDER BY album_release_year, score_rank
-;
-
-
-
-
+		release_year
+		, title 
+		, id
+		, format
+		, aoty_critic_score
+		, aoty_user_score
+        	, record_label_id
+       		, artist_id
+	FROM Album 
+	WHERE genre_id = 2
+)t2
+	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+	JOIN Artist t3 ON t2.artist_id = t3.id
+	JOIN Song t1 ON t1.album_id = t2.id
+GROUP BY album_id
+ORDER BY avg_danceability DESC
+LIMIT 50;
