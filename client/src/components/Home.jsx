@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import React from "react";
 import PropTypes from "prop-types";
 import {
@@ -26,53 +26,62 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import useStyles from "../style/home";
-import * as config from '../../config/client.json'
+import * as config from "../../config/client.json";
 
-const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
+const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
 
-// const RandomResult = ({result}) => (
-//   <TableRow>
-//     {result.map((res, i) => {
-//       return (
-//       <TableCell key={i} style={{minWidth: '30vh'}}>
-//       </TableCell>
-//       )
-//     })}
-//   </TableRow>
-// )
-// RandomResult.propTypes = {
-//   result: PropTypes.object
-// }
+const RandomResult = ({ result }) => (
+  <TableRow>
+    <TableCell style={{ minWidth: "30vh" }}>{result.artist_name}</TableCell>
+    <TableCell style={{ minWidth: "30vh" }}>{result.album_name}</TableCell>
+    <TableCell style={{ minWidth: "30vh" }}>{result.song_name}</TableCell>
+    <TableCell style={{ minWidth: "20vh" }}>
+      {result.album_release_year}
+    </TableCell>
+  </TableRow>
+);
+RandomResult.propTypes = {
+  result: PropTypes.object,
+};
 
-const ResultContainer = ({
-  styles,
-  results
-}) => (
+const ResultContainer = ({ styles, results }) => (
   <Grid container direction="row" alignItems="flex-start" justify="flex-start">
     <Grid item xs={12}>
       <TableContainer>
         <Table aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell className={styles} style={{minWidth: '30vh'}}>
+              <TableCell
+                className={styles}
+                style={{ minWidth: "30vh", fontWeight: "bold" }}
+              >
                 Artist
               </TableCell>
-              <TableCell className={styles} style={{minWidth: '30vh'}}>
+              <TableCell
+                className={styles}
+                style={{ minWidth: "30vh", fontWeight: "bold" }}
+              >
                 Album
               </TableCell>
-              <TableCell className={styles} style={{minWidth: '30vh'}}>
+              <TableCell
+                className={styles}
+                style={{ minWidth: "30vh", fontWeight: "bold" }}
+              >
                 Song Title
               </TableCell>
-              <TableCell className={styles} style={{minWidth: '20vh'}}>
+              <TableCell
+                className={styles}
+                style={{ minWidth: "20vh", fontWeight: "bold" }}
+              >
                 Release Year
               </TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
-            {/* {results.map((result, i) => (
-              <RandomResult result={result} />
-            ))} */}
+            {results.map((result, i) => (
+              <RandomResult key={i} result={result} />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -80,63 +89,65 @@ const ResultContainer = ({
   </Grid>
 );
 ResultContainer.propTypes = {
-  styles: PropTypes.object
+  styles: PropTypes.object,
+  results: PropTypes.array,
 };
 
-const HomeWrapper = props => {
-  const styles = useStyles()
-  return <Home styles={styles} {...props} />
-}
+const HomeWrapper = (props) => {
+  const styles = useStyles();
+  return <Home styles={styles} {...props} />;
+};
 
 class Home extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       selectedGenre: "",
-      results: []
-    }
-    this.handleChange = this.handleChange.bind(this)
+      results: [],
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange({target: {value}}) {
-    this.setState({selectedGenre: value},
-      this.getRandom
-    )
+  handleChange({ target: { value } }) {
+    this.setState({ selectedGenre: value }, this.getRandom);
   }
 
   async getRandom() {
-    const promise = await axios.get(`${APIRoot}/getGenre/${this.state.selectedGenre}`)
-    const status = promise.status
+    const promise = await axios.get(
+      `${APIRoot}/getGenre/${this.state.selectedGenre}`
+    );
+    const status = promise.status;
     if (status == 200) {
-      const randomResults = promise.data
-      this.setState({results: randomResults})
+      const randomResults = promise.data;
+      this.setState({ results: randomResults });
     }
   }
 
   render() {
-  const { styles } = this.props
-  const { selectedGenre, results } = this.state;
-  return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
-      justify="center"
-      className={styles.exterior_grid}
-    >
-      <Grid item xs={8} className={styles.interior_grid}>
-        <Card className={styles.root}>
-          <CardActionArea>
-            <CardMedia
-              className={styles.media}
-              image="/assets/albums_background.jpg"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                Welcome to [APP NAME]. Not sure where to start? Choose a genre to get random recommendations.
-              </Typography>
-              <FormControl className={styles.formControl}>
+    const { styles } = this.props;
+    const { selectedGenre, results } = this.state;
+    return (
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        className={styles.exterior_grid}
+      >
+        <Grid item xs={8} className={styles.interior_grid}>
+          <Card className={styles.root}>
+            <CardActionArea>
+              <CardMedia
+                className={styles.media}
+                image="/assets/albums_background.jpg"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Welcome to [APP NAME]. Not sure where to start? Choose a genre
+                  to get random recommendations.
+                </Typography>
+                <FormControl className={styles.formControl}>
                   <InputLabel id="demo-simple-select-label">Genre</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -155,13 +166,13 @@ class Home extends React.Component {
                     <MenuItem value={8}>Alternative Rock &amp; Pop</MenuItem>
                   </Select>
                 </FormControl>
-              <ResultContainer results={results} />
-            </CardContent>
-          </CardActionArea>
-        </Card>
+                <ResultContainer results={results} />
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
   }
 }
 
