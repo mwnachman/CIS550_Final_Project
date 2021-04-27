@@ -2,34 +2,34 @@ export const columns = {
   artist: [
     {
       header:'Artist Name',
-      label: 'Artist',
+      label: 'artist_name',
       minWidth: '30vh'
     },
     {
       header: 'Number of Albums',
-      label: 'Album_count',
+      label: 'album_count',
       minWidth: '10vh'
     },
     {
       header: 'Number of Songs',
-      label: 'Song_count',
+      label: 'song_count',
       minWidth: '10vh'
     }
   ],
   song: [
     {
       header: 'Song',
-      label: 'Song',
+      label: 'song_name',
       minWidth: '30vh'
     },
     {
       header: 'Artist',
-      label: 'Artist',
+      label: 'artist_name',
       minWidth: '30vh'
     },
     {
       header: 'Album',
-      label: 'Album',
+      label: 'album_name',
       minWidth: '25vh'
     },
     {
@@ -40,22 +40,22 @@ export const columns = {
   album: [
     {
       header: 'Album',
-      label: 'Album',
+      label: 'album_name',
       minWidth: '30vh'
     },
     {
       header: 'Artist',
-      label: 'Artist',
+      label: 'artist_name',
       minWidth: '30vh'
     },
     {
       header: 'Format',
-      label: 'Format',
+      label: 'album_format',
       minWidth: '30vh'
     },
     {
       header: 'Record Label',
-      label: 'Record_Label',
+      label: 'record_label_name',
       minWidth: '30vh'
     }
   ]
@@ -66,7 +66,7 @@ export const songAttributes = [
     min: 1940,
     max: 2020,
     step: 1,
-    dbName: 'release_year',
+    dbName: 'album_release_year',
     label: 'Release Year',
     description: 'Year in which the track was released'
   },
