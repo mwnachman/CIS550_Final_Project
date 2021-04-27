@@ -22,6 +22,21 @@ import * as config from "../../config/client.json";
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
 
+const AlbumListing = ({ album, headers }) => (
+  <TableRow>
+    {headers.map((header, i) => { 
+       return (
+        <TableCell key={i} style={{minWidth: headers.minWidth}}>
+          {album[header['label']]}
+        </TableCell>
+        )
+    })}
+  </TableRow>
+);
+AlbumListing.propTypes = {
+  album: PropTypes.object,
+  headers: PropTypes.array
+};
 
 const ArtistWrapper = props => {
   const styles = useStyles()
@@ -74,6 +89,11 @@ class Artist extends React.Component {
                     <TableHead>
                       <Headers styles={styles.headers} columns={artistModalColumns}/>
                     </TableHead>
+                    <TableBody>
+                    {this.state.albums.map((album, i) => (
+                      <AlbumListing key={i} album={album} headers={artistModalColumns} />
+                    ))}
+                    </TableBody>
                   </Table>
                 </TableContainer>
               </Grid>

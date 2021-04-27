@@ -151,5 +151,10 @@ export const artistModalColumns = [
     header: 'Record Label',
     label: 'record_label_name',
     minWidth: '30vh'
+  },
+  {
+    header: 'Release Year',
+    label: 'release_year',
+    minWidth: '20vh'
   }
 ]
