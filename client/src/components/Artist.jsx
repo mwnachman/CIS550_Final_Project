@@ -6,9 +6,17 @@ import {
   Fade,
   Grid,
   Modal,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography
 } from '@material-ui/core'
 
+import {Headers} from './Search.jsx'
+import {artistModalColumns} from '../constants/constants'
 import useStyles from '../style/artist'
 import * as config from "../../config/client.json";
 
@@ -30,7 +38,7 @@ class Artist extends React.Component {
   }
 
   componentDidMount() {
-    this.getAlbums()
+    this.getAlbums(this.props.artistId)
   }
 
   async getAlbums(artistId) {
@@ -59,6 +67,15 @@ class Artist extends React.Component {
                 <Typography gutterBottom variant="h5" component="h2">
                   Albums
                 </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <Headers styles={styles.headers} columns={artistModalColumns}/>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
               </Grid>
             </Grid>
 

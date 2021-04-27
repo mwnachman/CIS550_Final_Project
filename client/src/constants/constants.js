@@ -136,3 +136,20 @@ export const songAttributes = [
   }
 ]
 
+export const artistModalColumns = [
+  {
+    header: 'Album',
+    label: 'album_name',
+    minWidth: '30vh'
+  },
+  {
+    header: 'Format',
+    label: 'album_format',
+    minWidth: '30vh'
+  },
+  {
+    header: 'Record Label',
+    label: 'record_label_name',
+    minWidth: '30vh'
+  }
+]

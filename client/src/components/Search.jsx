@@ -70,7 +70,7 @@ GetRecs.propTypes = {
   handleClick: PropTypes.func
 }
 
-const Headers = ({styles, columns}) => (
+export const Headers = ({styles, columns}) => (
   <TableRow>
     {columns && columns.map((column, i) => (
       <TableCell className={styles}
@@ -298,7 +298,10 @@ class SearchCard extends React.Component {
   }
 
   handleClose() {
-    this.setState({modalOpen: false})
+    this.setState({
+      modalOpen: false,
+      artistId: ""
+    })
   }
 
   handleClick(artistId) {
@@ -314,10 +317,7 @@ class SearchCard extends React.Component {
   }
 
   getRecs(selectedSong) {
-    this.setState({
-      showRecs: true,
-      selectedSong
-    })
+    this.setState({selectedSong, showRecs: true})
   }
 
   query(e) {
@@ -389,10 +389,14 @@ class SearchCard extends React.Component {
         justify="center"
         className={styles.exterior_grid}>
         <Grid item xs={12} className={styles.interior_grid}>
-          <Artist open={modalOpen}
-                  className={styles.modal}
-                  handleClose={this.handleClose}
-                  artistId={artistId}/>
+          
+          {modalOpen &&
+            <Artist open={modalOpen}
+                    className={styles.modal}
+                    handleClose={this.handleClose}
+                    artistId={artistId}/>
+            
+          }
           <Card className={styles.root}>
             <CardActionArea>
 
