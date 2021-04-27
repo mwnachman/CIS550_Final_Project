@@ -272,7 +272,6 @@ class SearchCard extends React.Component {
   }
 
   getRecs(selectedSong) {
-    console.log('in get recs search', selectedSong)
     this.setState({
       showRecs: true,
       selectedSong

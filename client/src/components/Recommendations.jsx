@@ -107,15 +107,20 @@ class Recommendations extends React.Component {
     super(props)
     this.state = {
       songDetails: {},
-      values: [0,0,0,0,0,0,0,0],
-      initialValues: [0,0,0,0,0,0,0,0]
+      values: [0,0,0,0,0,0,0,0,0],
+      initialValues: [0,0,0,0,0,0,0,0,0],
+      checked: true
     }
     this.getSongDetails = this.getSongDetails.bind(this)
     this.setParameterValues = this.setParameterValues.bind(this)
+    this.submit = this.submit.bind(this)
+    this.getRecommendations = this.getRecommendations.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
   }
 
   componentDidMount() {
     const {selectedSong} = this.props
+    console.log('selected sonf year ', selectedSong)
     if (selectedSong) {
       this.getSongDetails(selectedSong.songId)
     }
@@ -127,6 +132,12 @@ class Recommendations extends React.Component {
 
   submit(e) {
     e.preventDefault()
+    let params = 
+    this.getRecommendations(params)
+  }
+
+  handleCheckboxChange() {
+    this.setState({checked: !this.state.checked})
   }
 
   async getSongDetails(id) {
@@ -135,17 +146,33 @@ class Recommendations extends React.Component {
     if (status == 200) {
       const songDetails = promise.data[0]
       let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
+      initialValues.unshift(this.props.selectedSong['release_year'])
       this.setState({
                     songDetails,
                     initialValues,
                     values: initialValues
                    })
     }
-  }  
+  }
+
+  async getRecommendations(params) {
+    const promise = await axios.get(`${APIRoot}/recommendSongs/${id}`)
+    const status = promise.status
+    if (status == 200) {
+      const songDetails = promise.data[0]
+      let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
+
+      this.setState({songDetails,
+                    initialValues,
+                    values: initialValues})
+    }
+  }
 
   render() {
     const {selectedSong, styles} = this.props
-    const {values, initialValues} = this.state
+    const {values,
+          initialValues,
+          checked} = this.state
     return (
       <Grid container
             direction="column"
@@ -183,8 +210,9 @@ class Recommendations extends React.Component {
                   <TableCell>
                     <Checkbox
                       className={styles.checkbox}
-                      disableRipple
                       color="default"
+                      checked={checked}
+                      onChange={this.handleCheckboxChange}
                       checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
                       icon={<span className={styles.icon} />}
                       inputProps={{ 'aria-label': 'decorative checkbox' }}

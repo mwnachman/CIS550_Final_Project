@@ -63,6 +63,14 @@ export const columns = {
 
 export const songAttributes = [
   {
+    min: 1940,
+    max: 2020,
+    step: 1,
+    dbName: 'release_year',
+    label: 'Release Year',
+    description: 'Year in which the track was released'
+  },
+  {
     min: 0,
     max: 1,
     step: 0.1,
