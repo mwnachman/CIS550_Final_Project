@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: '70vh'
   },
   interior_grid: {
-    minWidth: '80%',
+    width: '90%',
   },
   header: {
     fontSize: 22,
@@ -55,7 +55,6 @@ const useStyles = makeStyles(theme => ({
       width: '27ch',
     },
   },
-  
 }))
 
 export default useStyles

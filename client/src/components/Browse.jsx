@@ -78,7 +78,6 @@ const BrowseResultContainer = ({ styles, results }) => (
               </TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody>
             {results.map((result, i) => (
               <BrowseResult key={i} result={result} rank={i+1} />
@@ -225,7 +224,6 @@ class Browse extends React.Component {
                     <MenuItem value="acousticness">Most Acoustic</MenuItem>
                   </Select>
                 </FormControl>
-                
                 {displayResults ?
                 <BrowseResultContainer results={results} />
                 :

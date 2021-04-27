@@ -15,13 +15,13 @@ app.use(express.json());
 /* -- PROJECT QUERIES -- */
 
 app.get('/getGenre/:genreId', routes.getGenre);
-app.get('/top5', routes.top5);
+app.get('/top5/:genreId', routes.top5);
 app.get('/traitByGenre/:genreId/:trait', routes.traitByGenre);
 app.get('/songDetails/:songId', routes.getSongDetails);
 app.get('/searchSong/:song', routes.searchSong);
 app.get('/searchArtist/:artist', routes.searchArtist);
 app.get('/searchAlbum/:album', routes.searchAlbum);
-app.get('/searchArtistTop10/:artist', routes.searchArtistTop10);
+app.get('/searchArtistAlbums/:artist_id', routes.searchArtistAlbums);
 app.get('/searchAlbumAllSongs/:album', routes.searchAlbumAllSongs);
 app.get('/recommendSongs/:input', routes.recommendSongs);
 

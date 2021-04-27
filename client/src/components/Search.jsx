@@ -13,6 +13,7 @@ import {
   Grid,
   InputBase,
   LinearProgress,
+  Link,
   MenuItem,
   Radio,
   RadioGroup,
@@ -26,6 +27,7 @@ import {
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
+import Artist from './Artist.jsx'
 import Recommendations from './Recommendations.jsx'
 import {columns} from '../constants/constants'
 import useStyles from '../style/search'
@@ -82,27 +84,6 @@ const Headers = ({styles, columns}) => (
 Headers.propTypes = {
   styles: PropTypes.string,
   resultType: PropTypes.string
-}
-
-const SearchResult = ({result, headers, getRecs}) => (
-  <TableRow>
-    {headers.map((header, i) => {
-      return (
-      <TableCell key={i} style={{minWidth: headers.minWidth}}>
-        {!!header['label'] ?
-          result[header['label']] :
-          <GetRecs song={result} handleClick={getRecs}/>
-        }
-      </TableCell>
-      )
-    })}
-  </TableRow>
-)
-SearchResult.propTypes = {
-  result: PropTypes.object,
-  headers: PropTypes.array,
-  getRecs: PropTypes.func,
-  isSong: PropTypes.bool
 }
 
 const SearchForm = ({query,
@@ -198,7 +179,8 @@ const ResultContainer = ({styles,
                           searchResults,
                           getRecs,
                           resultType,
-                          selectSong}) => (
+                          selectSong,
+                          handleClick}) => (
   <Grid container
         direction="row"
         alignItems="flex-start"
@@ -217,7 +199,8 @@ const ResultContainer = ({styles,
               <SearchResult result={result}
                             headers={columns[resultType]}
                             key={i}
-                            getRecs={getRecs}/>
+                            getRecs={getRecs}
+                            handleClick={handleClick}/>
             ))}
             {!!resultType && !searchResults.length && (
               <NoResult/>
@@ -237,6 +220,53 @@ ResultContainer.propTypes = {
   styles: PropTypes.object
 }
 
+class SearchResult extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    let artistId = this.props.result.artist_id
+    this.props.handleClick(artistId)
+  }
+
+  render() {
+    const {result, headers, getRecs} = this.props
+    return (
+      <TableRow>
+        {headers.map((header, i) => {
+          if (header.label == 'artist_name') {
+            return (
+              <TableCell key={i} style={{minWidth: headers.minWidth}}>
+                <Link href="#" onClick={this.handleClick}>
+                  {result[header['label']]}
+                </Link>
+              </TableCell>
+            )
+          } else {
+            return (
+            <TableCell key={i} style={{minWidth: headers.minWidth}}>
+              {!!header['label'] ?
+                result[header['label']] :
+                <GetRecs song={result} handleClick={getRecs}/>
+              }
+            </TableCell>
+            )
+          }
+        })}
+      </TableRow>
+    )
+  }
+}
+SearchResult.propTypes = {
+  result: PropTypes.object,
+  headers: PropTypes.array,
+  getRecs: PropTypes.func,
+  isSong: PropTypes.bool
+}
+
 
 const SearchWrapper = props => {
   const styles = useStyles()
@@ -252,7 +282,9 @@ class SearchCard extends React.Component {
       resultsType: "",
       radioValue: "song",
       showRecs: false,
-      selectedSong: {}
+      selectedSong: {},
+      artistId: "",
+      modalOpen: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleRadioChange = this.handleRadioChange.bind(this)
@@ -261,6 +293,16 @@ class SearchCard extends React.Component {
     this.searchSongs = this.searchSongs.bind(this)
     this.searchArtists = this.searchArtists.bind(this)
     this.getRecs = this.getRecs.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  handleClose() {
+    this.setState({modalOpen: false})
+  }
+
+  handleClick(artistId) {
+    this.setState({artistId, modalOpen: true})
   }
 
   handleChange({target: {value}}) {
@@ -336,7 +378,9 @@ class SearchCard extends React.Component {
             searchTerm,
             searchResults,
             showRecs,
-            selectedSong } = this.state
+            selectedSong,
+            artistId,
+            modalOpen } = this.state
     return (
       <Grid container
         spacing={0}
@@ -345,7 +389,10 @@ class SearchCard extends React.Component {
         justify="center"
         className={styles.exterior_grid}>
         <Grid item xs={12} className={styles.interior_grid}>
-          
+          <Artist open={modalOpen}
+                  className={styles.modal}
+                  handleClose={this.handleClose}
+                  artistId={artistId}/>
           <Card className={styles.root}>
             <CardActionArea>
 
@@ -381,7 +428,8 @@ class SearchCard extends React.Component {
                                    columns={columns}
                                    searchResults={searchResults}
                                    getRecs={this.getRecs}
-                                   resultType={resultType}/>
+                                   resultType={resultType}
+                                   handleClick={this.handleClick}/>
                 }
 
               </CardContent>

@@ -133,6 +133,7 @@ async function searchSong(req, res) {
 	, t1.id AS song_id
 	, t2.title AS album_name
 	, t3.name AS artist_name
+  , t3.id AS artist_id
 	, t2.release_year AS album_release_year
 FROM (
 	SELECT
@@ -298,15 +299,30 @@ ORDER BY
 
 
 /*-- q6: Search an artist and display top 10 most popular albums by AOTY User Score. This will be used for the Artist display page. --*/
-async function searchArtistTop10(req, res) {
+async function searchArtistAlbums(req, res) {
   const query = `
-    SELECT t1.name AS Artist, t2.title AS Album, t2.release_year AS Year, t3.name AS Genre, t2.aoty_critic_score AS AOTY_Critic_Score, t2.aoty_user_score AS AOTY_User_Score
-    FROM Artist t1
-    LEFT JOIN Album t2 ON t1.id = t2.artist_id
-    LEFT JOIN Genre t3 ON t2.genre_id = t3.id
-    WHERE t1.name LIKE '`+req.params.artist+`'
+    SELECT
+      t1.name AS artist_name
+      , t2.id AS album_id
+      , t2.title AS album_name
+      , t2.format AS album_format
+      , t2.release_year AS release_year
+      , t2.aoty_critic_score AS aoty_critic_score
+      , t2.aoty_user_score AS aoty_user_score
+      , t2.num_aoty_critic_reviews AS num_aoty_critic_reviews
+      , t2.num_aoty_user_reviews AS num_aoty_user_reviews
+      , t3.name AS record_label_name
+      , t4.name AS genre_name
+    FROM (
+      SELECT name, id
+      FROM Artist
+      WHERE id = '`+req.params.artist_id+`'
+    ) t1
+      JOIN Album t2 ON t2.artist_id = t1.id
+      JOIN Genre t4 ON t2.genre_id = t4.id
+      JOIN RecordLabel t3 ON  t2.record_label_id = t3.id
     ORDER BY t2.aoty_user_score DESC
-    LIMIT 10;
+    LIMIT 50;
     `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -354,22 +370,7 @@ async function recommendSongs(req, res) {
   let release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre;
   [release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre] = (req.params.input).split("-");
   const query = `
-  SELECT
-    t1.id AS song_id,
-    t1.name AS song_name,
-    POWER( '`+release_year+`' - t2.release_year, 2)*.01
-      + ABS( '`+danceability+`' - t1.danceability)*20
-      + ABS( '`+energy+`' - t1.energy)*10
-      + ABS( '`+loudness+`' - t1.loudness)*.5
-      + ABS( '`+acousticness+`' - t1.acousticness)*10
-      + SQRT (ABS( '`+speechiness+`' - t1.speechiness))*10
-      + ABS( '`+instrumentalness+`' - t1.instrumentalness)*10
-      + ABS( '`+liveness+`' - t1.liveness )*50
-      + ABS( '`+tempo+`' - t1.tempo)*.05 AS score
-  FROM Song t1 LEFT JOIN Album t2 ON t1.album_id = t2.id
-  WHERE t2.genre_id = '`+genre+`'
-  ORDER BY score ASC
-  LIMIT 50;
+    
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -388,7 +389,7 @@ module.exports = {
   searchSong,
   searchArtist,
   searchAlbum,
-  searchArtistTop10,
+  searchArtistAlbums,
   searchAlbumAllSongs,
   recommendSongs
 }
