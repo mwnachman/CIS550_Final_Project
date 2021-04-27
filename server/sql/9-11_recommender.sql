@@ -9,7 +9,7 @@ Query 9
 Identify songs with most similar attributes to the input values. 
 User inputs (0 or 1) determine whether or not the algorithm includes specific traits. 
 This will be used in our Song Recommender.
-Input: 			- song_id = "2LqoYvMudv9xoTqNLFKILj" line 97
+Input: 		- song_id = "2LqoYvMudv9xoTqNLFKILj" line 97
 			- user input values for song attributes: 
 				danceability value = "5" line 162 
 				energy value = "5" line 163
@@ -32,9 +32,9 @@ Input: 			- song_id = "2LqoYvMudv9xoTqNLFKILj" line 97
 				include liveness = "1" line 168
 				include tempo = "1" line 169
 				include valence = "1" line 170
-				same artist (1 -> must be same artist, 0 -> any artist) = "0" line 184
-				same album (1 -> must be same album, 0 -> any album) = "0" line 185
-				same record label (1 -> must be same record label, 0 -> any record label) = "0" line 186
+				same artist (1 -> must be same artist, 0 -> any artist) = "0" line 189
+				same album (1 -> must be same album, 0 -> any album) = "0" line 190
+				same record label (1 -> must be same record label, 0 -> any record label) = "0" line 191
 				same_genre (1 -> must be same/similar genre, 0 -> any genre) = "1" line 171 ALSO = "1" line 197 (same input in two places)
 Return: 	song_name, song_id, artist_name, artist_id, album_name, album_id, score
 */
@@ -181,14 +181,14 @@ FROM (
 	FROM Album
 	WHERE release_year >= 1990
 		AND release_year <= 2021
-		AND t2.artist_id = (CASE WHEN (0 = 0) THEN t2.artist_id ELSE Input_song.artist_id END)
-		AND t2.id = (CASE WHEN (0 = 0) THEN t2.id ELSE Input_song.album_id END)
-		AND t2.record_label_id = (CASE WHEN (0 = 0) THEN t2.record_label_id ELSE Input_song.record_label_id END)
 ) t2 
 	JOIN Input_song
 	JOIN Artist t3 ON t2.artist_id = t3.id
 	JOIN Song t1  ON t1.album_id = t2.id
 WHERE t1.id != Input_song.song_id 
+	AND t2.artist_id = (CASE WHEN (0 = 0) THEN t2.artist_id ELSE Input_song.artist_id END)
+	AND t2.id = (CASE WHEN (0 = 0) THEN t2.id ELSE Input_song.album_id END)
+	AND t2.record_label_id = (CASE WHEN (0 = 0) THEN t2.record_label_id ELSE Input_song.record_label_id END)
 	AND t2.genre_id IN (  
 			SELECT genre_matches
 			FROM SimilarGenres
