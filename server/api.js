@@ -381,8 +381,7 @@ function searchAlbumAllSongs(req, res) {
   const query = `
   SELECT
     track_number, 
-    FLOOR(duration_ms/60000) AS time_minutes,
-    ROUND((duration_ms/60000 % 1)*60) AS time_seconds,
+    CONCAT(FLOOR(duration_ms/60000), ':', LPAD(ROUND((MOD(duration_ms, 60000) / 1000),0),2,0)) AS time_seconds,
     name AS song_name,
     id AS song_id,
     danceability,
