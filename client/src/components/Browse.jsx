@@ -23,29 +23,44 @@ import {
   TableHead,
   TableRow
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+
+import Artist from './Artist.jsx'
 import useStyles from "../style/browse";
 
 import * as config from "../../config/client.json";
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
 
-const BrowseResult = ({ rank, result }) => (
+export class BrowseResult extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    this.props.handleClick(this.props.result)
+  }
+  render() {
+    const {rank, result} = this.props
+    return (
   <TableRow>
-    <TableCell style={{ minWidth: "30vh" }}>{result.artist_name}</TableCell>
+    <TableCell style={{ minWidth: "30vh" }}><Link href="#" onClick={this.handleClick}>{result.artist_name}</Link></TableCell>
     <TableCell style={{ minWidth: "30vh" }}>{result.album_name}</TableCell>
     <TableCell style={{ minWidth: "30vh" }}>{result.album_release_year}</TableCell>
     <TableCell style={{ minWidth: "20vh" }}>
       {rank}
     </TableCell>
   </TableRow>
-);
+  )
+  }
+}
 BrowseResult.propTypes = {
   result: PropTypes.object,
   rank: PropTypes.number
 };
 
-const BrowseResultContainer = ({ styles, results }) => (
+const BrowseResultContainer = ({ styles, results, handleClick }) => (
   <Grid container direction="row" alignItems="flex-start" justify="flex-start">
     <Grid item xs={12}>
       <TableContainer>
@@ -80,7 +95,7 @@ const BrowseResultContainer = ({ styles, results }) => (
           </TableHead>
           <TableBody>
             {results.map((result, i) => (
-              <BrowseResult key={i} result={result} rank={i+1} />
+              <BrowseResult key={i} result={result} rank={i+1} handleClick={handleClick} />
             ))}
           </TableBody>
         </Table>
@@ -106,12 +121,27 @@ class Browse extends React.Component {
       selectedGenre: "",
       selectedTrait: "",
       results: [],
-      displayResults: false
+      displayResults: false,
+      artistForModal: {},
+      modalOpen: false
     };
     this.handleGenreChange = this.handleGenreChange.bind(this);
     this.handleTraitChange = this.handleTraitChange.bind(this);
     this.displayResults = this.displayResults.bind(this);
     this.grabResults = this.grabResults.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
+    this.setState({
+      modalOpen: false,
+      artistForModal: {}
+    })
+  }
+
+  handleClick(artistForModal) {
+    this.setState({artistForModal, modalOpen: true})
   }
 
   handleGenreChange({ target: { value } }) {
@@ -159,7 +189,7 @@ class Browse extends React.Component {
 
   render() {
     const { styles } = this.props;
-    const { selectedGenre, selectedTrait, displayResults, results } = this.state;
+    const { selectedGenre, selectedTrait, displayResults, results, artistForModal, modalOpen } = this.state;
     return (
       <Grid
         container
@@ -170,6 +200,13 @@ class Browse extends React.Component {
         className={styles.exterior_grid}
       >
         <Grid item xs={8} className={styles.interior_grid}>
+        {modalOpen &&
+            <Artist open={modalOpen}
+                    handleClose={this.handleClose}
+                    artistId={artistForModal.artist_id}
+                    artistName={artistForModal.artist_name}/>
+            
+          }
           <Card className={styles.root}>
             <CardActionArea>
               <CardMedia
@@ -225,7 +262,7 @@ class Browse extends React.Component {
                   </Select>
                 </FormControl>
                 {displayResults ?
-                <BrowseResultContainer results={results} />
+                <BrowseResultContainer results={results} handleClick={this.handleClick} />
                 :
                 <Typography></Typography>
                 }
