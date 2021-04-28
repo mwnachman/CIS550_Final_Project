@@ -5,7 +5,7 @@ Spring 2021
 
 To run the server:
 
-Rename the server/config/server-template.json file to server.json, change set password to the database password "LoULnBjnkbeiA66"
+Rename the server/config/server-template.json file to server.json, change password to the database password "LoULnBjnkbeiA66"
 
 From the server directory, run  'npm install'
 
