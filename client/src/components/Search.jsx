@@ -27,8 +27,10 @@ import {
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
+import Album from './Album.jsx'
 import Artist from './Artist.jsx'
 import Recommendations from './Recommendations.jsx'
+
 import {columns} from '../constants/constants'
 import useStyles from '../style/search'
 import * as config from '../../config/client.json'
@@ -226,9 +228,9 @@ export class SearchResult extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(e) {
-    e.preventDefault()
-    this.props.handleClick(this.props.result)
+  handleClick(type) {
+    const {result, handleClick} = this.props
+    handleClick(result, type)
   }
 
   render() {
@@ -236,10 +238,11 @@ export class SearchResult extends React.Component {
     return (
       <TableRow>
         {headers.map((header, i) => {
-          if (header.label == 'artist_name') {
+          if (header.label == 'artist_name' ||
+              header.label == 'album_name') {
             return (
               <TableCell key={i} style={{minWidth: headers.minWidth}}>
-                <Link href="#" onClick={this.handleClick}>
+                <Link href="#" onClick={() => this.handleClick(header['label'])}>
                   {result[header['label']]}
                 </Link>
               </TableCell>
@@ -283,7 +286,10 @@ class SearchCard extends React.Component {
       showRecs: false,
       selectedSong: {},
       artistForModal: {},
-      modalOpen: false
+      albumForModal: {},
+      artistModalOpen: false,
+      albumModalOpen: false,
+      modalType: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleRadioChange = this.handleRadioChange.bind(this)
@@ -292,19 +298,36 @@ class SearchCard extends React.Component {
     this.searchSongs = this.searchSongs.bind(this)
     this.searchArtists = this.searchArtists.bind(this)
     this.getRecs = this.getRecs.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.openArtistModal = this.openArtistModal.bind(this)
+    this.openAlbumModal = this.openAlbumModal.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleClose() {
     this.setState({
-      modalOpen: false,
-      artistForModal: {}
+      artistModalOpen: false,
+      albumModalOpen: false,
+      artistForModal: {},
+      albumForModal: {}
     })
   }
 
-  handleClick(artistForModal) {
-    this.setState({artistForModal, modalOpen: true})
+  handleClick(result, type) {
+    if (type == 'artist_name') {
+      this.openArtistModal(result)
+    } else if (type == 'album_name') {
+      this.openAlbumModal(result)
+    }
+  }
+
+  openArtistModal(artistForModal) {
+    this.setState({artistForModal, artistModalOpen: true})
+  }
+
+  openAlbumModal(albumForModal) {
+    console.log('aboum for modal', albumForModal)
+    this.setState({albumForModal, albumModalOpen: true})
   }
 
   handleChange({target: {value}}) {
@@ -379,7 +402,9 @@ class SearchCard extends React.Component {
             showRecs,
             selectedSong,
             artistForModal,
-            modalOpen } = this.state
+            artistModalOpen,
+            albumForModal,
+            albumModalOpen } = this.state
     return (
       <Grid container
         spacing={0}
@@ -389,11 +414,19 @@ class SearchCard extends React.Component {
         className={styles.exterior_grid}>
         <Grid item xs={12} className={styles.interior_grid}>
           
-          {modalOpen &&
-            <Artist open={modalOpen}
+          {artistModalOpen &&
+            <Artist open={artistModalOpen}
                     handleClose={this.handleClose}
                     artistId={artistForModal.artist_id}
                     artistName={artistForModal.artist_name}/>
+            
+          }
+          {albumModalOpen &&
+            <Album open={albumModalOpen}
+                    handleClose={this.handleClose}
+                    albumId={albumForModal.album_id}
+                    albumName={albumForModal.album_name}
+                    releaseYear={albumForModal.release_year}/>
             
           }
           <Card className={styles.root}>

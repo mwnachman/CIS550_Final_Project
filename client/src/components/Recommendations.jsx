@@ -17,6 +17,7 @@ import {
   Typography
 } from '@material-ui/core'
 
+import Album from './Album.jsx'
 import Artist from './Artist.jsx'
 import {
   Headers,
@@ -182,7 +183,10 @@ class Recommendations extends React.Component {
       songs: [],
       searchedForRecs: false,
       artistForModal: {},
-      modalOpen: false
+      albumForModal: {},
+      artistModalOpen: false,
+      albumModalOpen: false,
+      modalType: ''
     }
     this.getSongDetails = this.getSongDetails.bind(this)
     this.setParameterValues = this.setParameterValues.bind(this)
@@ -191,8 +195,10 @@ class Recommendations extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     this.handleGenreCheckboxChange = this.handleGenreCheckboxChange.bind(this)
     this.returnToSliders = this.returnToSliders.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.openArtistModal = this.openArtistModal.bind(this)
+    this.openAlbumModal = this.openAlbumModal.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -204,13 +210,28 @@ class Recommendations extends React.Component {
 
   handleClose() {
     this.setState({
-      modalOpen: false,
-      artistForModal: {}
+      artistModalOpen: false,
+      albumModalOpen: false,
+      artistForModal: {},
+      albumForModal: {}
     })
   }
 
-  handleClick(artistForModal) {
-    this.setState({artistForModal, modalOpen: true})
+  handleClick(result, type) {
+    if (type == 'artist_name') {
+      this.openArtistModal(result)
+    } else if (type == 'album_name') {
+      this.openAlbumModal(result)
+    }
+  }
+
+  openArtistModal(artistForModal) {
+    this.setState({artistForModal, artistModalOpen: true})
+  }
+
+  openAlbumModal(albumForModal) {
+    console.log('aboum for modal', albumForModal)
+    this.setState({albumForModal, albumModalOpen: true})
   }
 
   setParameterValues(values) {
@@ -269,7 +290,8 @@ class Recommendations extends React.Component {
   }
 
   render() {
-    const {selectedSong, styles} = this.props
+    const {selectedSong,
+          styles} = this.props
     const {values,
           songs,
           initialValues,
@@ -277,7 +299,9 @@ class Recommendations extends React.Component {
           searchedForRecs,
           checked,
           artistForModal,
-          modalOpen} = this.state
+          artistModalOpen,
+          albumForModal,
+          albumModalOpen} = this.state
     return (
       <Grid container
             direction="column"
@@ -285,11 +309,19 @@ class Recommendations extends React.Component {
             justify="flex-start"
             className={styles.exterior_grid}>
         <Grid item xs={12} className={styles.interior_grid}>
-          {modalOpen &&
-            <Artist open={modalOpen}
+          {artistModalOpen &&
+            <Artist open={artistModalOpen}
                     handleClose={this.handleClose}
                     artistId={artistForModal.artist_id}
                     artistName={artistForModal.artist_name}/>
+            
+          }
+          {albumModalOpen &&
+            <Album open={albumModalOpen}
+                    handleClose={this.handleClose}
+                    albumId={albumForModal.album_id}
+                    albumName={albumForModal.album_name}
+                    releaseYear={albumForModal.release_year}/>
             
           }
           <Typography className={styles.recsWording} component="p">

@@ -132,9 +132,10 @@ async function searchSong(req, res) {
 	t1.name AS song_name
 	, t1.id AS song_id
 	, t2.title AS album_name
+  , t2.id AS album_id
 	, t3.name AS artist_name
   , t3.id AS artist_id
-	, t2.release_year AS album_release_year
+	, t2.release_year AS release_year
 FROM (
 	SELECT
 		album_id
@@ -265,12 +266,12 @@ async function searchAlbum(req, res) {
 	, t2.id AS album_id
 	, t3.name AS artist_name
   , t3.id AS artist_id
-	, t2.release_year AS album_release_year
+	, t2.release_year AS release_year
 	, t2.format AS album_format
 	, t4.name AS record_label_name
 FROM (
 	SELECT 
-	title
+	      title
         , id
         , release_year
         , format
@@ -372,32 +373,30 @@ async function searchArtistStats(req, res) {
 
 /*-- q7:  --*/
 async function searchAlbumAllSongs(req, res) {
+  console.log('gt all songs', req.params.album)
   const query = `
   SELECT
-    track_number as Track_Number, 
+    track_number, 
     FLOOR(duration_ms/60000) AS time_minutes,
     ROUND((duration_ms/60000 % 1)*60) AS time_seconds,
-    name AS Name,
-    danceability as Danceability,
-    energy as Energy,
-    loudness as Loudness,
-    acousticness as Acousticness,
-    speechiness as Speechiness,
-    instrumentalness as Instrumentalness,
-    liveness as Liveness,
-    tempo as Tempo,
-    explicit as Explicit
+    name AS song_name,
+    id AS song_id,
+    danceability,
+    energy,
+    loudness,
+    acousticness,
+    speechiness,
+    instrumentalness,
+    liveness,
+    tempo
   FROM Song
-  WHERE album_id IN (
-    SELECT id
-    FROM Album
-    WHERE title = '`+req.params.album+`'
-  )
+  WHERE album_id = '`+req.params.album+`'
   ORDER BY track_number;
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
     else {
+      console.log('rows', rows)
       res.json(rows);
     }
   });

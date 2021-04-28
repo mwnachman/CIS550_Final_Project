@@ -8,18 +8,17 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  content: {
-    minHeight: '300px',
-    minWidth: '100%',
-    display: '-webkit-box',
-  },
   headers: {
     fontSize: 22,
     color: '#5c5855',
     fontWeight: 'bold'
   },
   paper: {
-    minWidth: '60%',
+    position:'absolute',
+    display:'block',
+    maxHeight:'85vh',
+    width: '80%',
+    overflow:'scroll',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],

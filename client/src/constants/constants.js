@@ -49,14 +49,19 @@ export const columns = {
       minWidth: '30vh'
     },
     {
+      header: 'Release Year',
+      label: 'release_year',
+      minWidth: '10vh'
+    },
+    {
       header: 'Format',
       label: 'album_format',
-      minWidth: '30vh'
+      minWidth: '10vh'
     },
     {
       header: 'Record Label',
       label: 'record_label_name',
-      minWidth: '30vh'
+      minWidth: '20vh'
     }
   ]
 }
@@ -174,5 +179,38 @@ export const recommendedSongHeaders = [
     header: 'Album',
     label: 'album_name',
     minWidth: '30vh'
+  },
+]
+
+export const tracklistHeaders = [
+  {
+    header: '#',
+    label: 'track_number',
+    minWidth: '10vh'
+  },
+  {
+    header: 'Track',
+    label: 'song_name',
+    minWidth: '20vh'
+  },
+  {
+    header: 'Duration',
+    label: 'time_seconds',
+    minWidth: '10vh'
+  },
+  {
+    header: 'Energy Level',
+    label: 'energy',
+    minWidth: '10vh'
+  },
+  {
+    header: 'Danceability',
+    label: 'danceability',
+    minWidth: '10vh'
+  },
+  {
+    header: 'Tempo',
+    label: 'tempo',
+    minWidth: '10vh'
   },
 ]
