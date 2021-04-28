@@ -234,15 +234,15 @@ class Browse extends React.Component {
                     onChange={this.handleGenreChange}
                     autowidth="true"
                   >
-                    <MenuItem value={0} selected="true">Rock &amp; Pop</MenuItem>
-                    <MenuItem value={1}>R&amp;B</MenuItem>
-                    <MenuItem value={2}>Hip-Hop</MenuItem>
-                    <MenuItem value={3}>Dance &amp; Electronic</MenuItem>
-                    <MenuItem value={4}>Country &amp; Folk</MenuItem>
-                    <MenuItem value={5}>Jazz</MenuItem>
-                    <MenuItem value={6}>Other</MenuItem>
-                    <MenuItem value={7}>Metal &amp; Punk</MenuItem>
                     <MenuItem value={8}>Alternative Rock &amp; Pop</MenuItem>
+                    <MenuItem value={4}>Country &amp; Folk</MenuItem>
+                    <MenuItem value={3}>Dance &amp; Electronic</MenuItem>
+                    <MenuItem value={2}>Hip-Hop</MenuItem>
+                    <MenuItem value={5}>Jazz</MenuItem>
+                    <MenuItem value={7}>Metal &amp; Punk</MenuItem>
+                    <MenuItem value={6}>Other</MenuItem>
+                    <MenuItem value={1}>R&amp;B</MenuItem>
+                    <MenuItem value={0}>Rock &amp; Pop</MenuItem>
                   </Select>
                 </FormControl>
                 <FormControl className={styles.formControl}>
