@@ -430,12 +430,19 @@ async function searchAlbumStats(req, res) {
 		, AVG(t1.loudness) AS avg_loudness_db
 		, AVG(t1.tempo) AS avg_tempo_bpm
 		, AVG(t1.duration_ms) AS avg_duration_ms
+		, t6.url AS review_url
 	FROM  (
-		SELECT 
-			*
+		SELECT *
 		FROM Album
 		WHERE id = `+req.params.album+`
 	) t2 
+		LEFT JOIN (
+			SELECT album_id, url
+			FROM PitchforkReviews 
+			WHERE album_id = `+req.params.album+`
+			ORDER BY score DESC
+			LIMIT 1
+		) t6 ON t2.id = t6.album_id
 		JOIN Genre t5 ON t2.genre_id = t5.id
 		JOIN RecordLabel t4 ON t2.record_label_id = t4.id
 		JOIN Artist t3 ON t2.artist_id = t3.id
