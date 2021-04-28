@@ -15,6 +15,7 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core'
+import AudioPlayer from 'material-ui-audio-player'
 
 import {Headers} from './Search.jsx'
 import {tracklistHeaders} from '../constants/constants'
@@ -25,12 +26,20 @@ const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
 
 const Track = ({ track, headers }) => (
   <TableRow>
-    {headers.map((header, i) => { 
-       return (
-        <TableCell key={i} style={{minWidth: headers.minWidth}}>
-          {track[header['label']]}
-        </TableCell>
+    {headers.map((header, i) => {
+      if (header.label == 'play') {
+        return (
+          <TableCell>
+            <AudioPlayer src={track.url} />
+          </TableCell>
         )
+      } else {
+        return (
+          <TableCell key={i} style={{minWidth: headers.minWidth}}>
+            {track[header['label']]}
+          </TableCell>
+        )
+      }
     })}
   </TableRow>
 );
@@ -53,6 +62,7 @@ class Album extends React.Component {
     }
     this.getTracks = this.getTracks.bind(this)
     this.getArt = this.getArt.bind(this)
+    this.getPlayerUrl = this.getPlayerUrl.bind(this)
   }
 
   componentDidMount() {
@@ -66,7 +76,27 @@ class Album extends React.Component {
     const status = promise.status
     if (status == 200) {
       const tracks = promise.data
+      console.log('tracks', tracks)
       this.setState({tracks})
+      tracks.forEach(track => this.getPlayerUrl(track.song_id))
+    }
+  }
+
+  async getPlayerUrl(songId) {
+    const promise = await axios.get(`${APIRoot}/searchSong/${songId}/play`)
+    const status = promise.status
+    if (status == 200) {
+      const playerData = promise.data.song_preview
+      console.log('player Data', playerData)
+      const updatedTracks = this.state.tracks.map(track => {
+        if (track.song_id == songId) {
+          track.url = playerData
+          return track
+        } else {
+          return track
+        }
+      })
+      this.setState({tracks: updatedTracks})
     }
   }
 
@@ -99,7 +129,8 @@ class Album extends React.Component {
               <Grid container
                     direction="column"
                     alignItems="flex-start"
-                    justify="flex-start">
+                    justify="flex-start"
+                    className={styles.exterior_grid}>
                 <Grid item xs={12} >
                   <img src={coverArt} className={styles.art}/>
                 </Grid>
@@ -113,8 +144,8 @@ class Album extends React.Component {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={12}>
-                  <TableContainer>
+                <Grid item xs={12} className={styles.interior_grid}>
+                  <TableContainer className={styles.interior_grid}>
                     <Table>
                       <TableHead>
                         <Headers styles={styles.headers} columns={tracklistHeaders}/>

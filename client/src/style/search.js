@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       width: '27ch',
     },
-  },
+  }
 }))
 
 export default useStyles

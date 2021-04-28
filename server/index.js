@@ -19,6 +19,7 @@ app.get('/top5/:genreId', routes.top5);
 app.get('/traitByGenre/:genreId/:trait', routes.traitByGenre);
 app.get('/songDetails/:songId', routes.getSongDetails);
 app.get('/searchSong/:song', routes.searchSong);
+app.get('/searchSong/:song/play', routes.getSongUrl);
 app.get('/searchArtist/:artist', routes.searchArtist);
 app.get('/searchAlbum/:album', routes.searchAlbum);
 app.get('/searchAlbum/:album/art', routes.getAlbumArt)
