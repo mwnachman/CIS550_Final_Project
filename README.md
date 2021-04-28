@@ -47,7 +47,7 @@ The application follows a multi-page tab structure where each page provides dist
 
 - To start the client, use the command 'npm start'.
 
-- In the browser, navigate to http://localhost:8080/
+- In the browser, navigate to http://localhost:8080/  or  http://localhost:8084/ 
 
 
 Both the client and server have hot reloading enabled.
