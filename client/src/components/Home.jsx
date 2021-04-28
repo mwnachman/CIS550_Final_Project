@@ -23,28 +23,43 @@ import {
   FormControl,
   Select,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 
+import Artist from './Artist.jsx'
 import useStyles from "../style/home";
 import * as config from "../../config/client.json";
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
 
-const RandomResult = ({ result }) => (
+export class RandomResult extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(e) {
+    e.preventDefault()
+    this.props.handleClick(this.props.result)
+  }
+
+  render() {
+    const {result} = this.props
+    return (
   <TableRow>
-    <TableCell style={{ minWidth: "30vh" }}>{result.artist_name}</TableCell>
+    <TableCell style={{ minWidth: "30vh" }}><Link href="#" onClick={this.handleClick}>{result.artist_name}</Link></TableCell>
     <TableCell style={{ minWidth: "30vh" }}>{result.album_name}</TableCell>
     <TableCell style={{ minWidth: "30vh" }}>{result.song_name}</TableCell>
     <TableCell style={{ minWidth: "20vh" }}>
       {result.album_release_year}
     </TableCell>
   </TableRow>
-);
+    )
+  }
+}
 RandomResult.propTypes = {
   result: PropTypes.object,
 };
 
-const ResultContainer = ({ styles, results }) => (
+const ResultContainer = ({ styles, results, handleClick }) => (
   <Grid container direction="row" alignItems="flex-start" justify="flex-start">
     <Grid item xs={12}>
       <TableContainer>
@@ -80,7 +95,7 @@ const ResultContainer = ({ styles, results }) => (
 
           <TableBody>
             {results.map((result, i) => (
-              <RandomResult key={i} result={result} />
+              <RandomResult key={i} result={result} handleClick={handleClick} />
             ))}
           </TableBody>
         </Table>
@@ -104,8 +119,23 @@ class Home extends React.Component {
     this.state = {
       selectedGenre: "",
       results: [],
+      artistForModal: {},
+      modalOpen: false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  handleClose() {
+    this.setState({
+      modalOpen: false,
+      artistForModal: {}
+    })
+  }
+
+  handleClick(artistForModal) {
+    this.setState({artistForModal, modalOpen: true})
   }
 
   handleChange({ target: { value } }) {
@@ -125,7 +155,7 @@ class Home extends React.Component {
 
   render() {
     const { styles } = this.props;
-    const { selectedGenre, results } = this.state;
+    const { selectedGenre, results, artistForModal, modalOpen } = this.state;
     return (
       <Grid
         container
@@ -136,6 +166,13 @@ class Home extends React.Component {
         className={styles.exterior_grid}
       >
         <Grid item xs={8} className={styles.interior_grid}>
+        {modalOpen &&
+            <Artist open={modalOpen}
+                    handleClose={this.handleClose}
+                    artistId={artistForModal.artist_id}
+                    artistName={artistForModal.artist_name}/>
+            
+          }
           <Card className={styles.root}>
             <CardActionArea>
               <CardMedia
@@ -166,7 +203,7 @@ class Home extends React.Component {
                     <MenuItem value={8}>Alternative Rock &amp; Pop</MenuItem>
                   </Select>
                 </FormControl>
-                <ResultContainer results={results} />
+                <ResultContainer results={results} handleClick={this.handleClick} />
               </CardContent>
             </CardActionArea>
           </Card>
