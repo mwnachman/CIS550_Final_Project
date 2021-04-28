@@ -11,10 +11,10 @@ Our platform serves as an interactive resource for finding information about mus
 The application follows a multi-page tab structure where each page provides distinct functionality:
 
 ###### Home page:
-- Introduces the application and presents music elements to the user.
+- Introduces the application and presents random music elements to the user based on a selected genre.
 
 ###### Browse page: 
-- Presents a set of defined genres, which when selected, populate groupings of top albums for the user to view. Each grouping represents an album trait from our database.
+- Presents a set of genres and song traits, which when selected, populate groupings of top albums for the user to view
 
 ###### Page View / Modal:
 - Can be accessed across the entire application. They offer information to the user when they click on an item. This includes statistics and insights specific to the item.
