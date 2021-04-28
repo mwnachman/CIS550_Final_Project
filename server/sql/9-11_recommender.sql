@@ -139,65 +139,59 @@ WITH Input_song AS (
 		SELECT *
 		FROM Song
 		WHERE id =  "2LqoYvMudv9xoTqNLFKILj"
-	) t1
+	)t1
 		JOIN Album t2 ON t1.album_id = t2.id
 		JOIN Artist t3 ON t2.artist_id = t3.id
 )
 SELECT 
-	t1.name AS song_name,
-	t1.id AS song_id
+	t1.name AS song_name
+	, t1.id AS song_id
 	, t3.name AS artist_name
 	, t3.id AS artist_id
 	, t2.title AS album_name
 	, t2.id AS album_id
-	, ABS(( 5 - t1.danceability) * 1.5 * 1)
-		+ ABS(( 5 - t1.energy) * 1.5 * 1)
-		+ ABS(( 5 - t1.loudness) * 1.5 * 0.0157 * 1)
-		+ ABS(( 5 - t1.acousticness) * 1)
-		+ ABS(( 5 - t1.speechiness) * 1)
-		+ ABS(( 5 - t1.instrumentalness) * 1)
-		+ ABS(( 5 - t1.liveness) * 1)
-		+ ABS(( 5 - t1.tempo ) * 0.0041 * 1)
-		+ ABS(( 5 - t1.valence ) * 1)
-		+ CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -0.4 * 1 ELSE 0 END
+	, ABS(( Input_song.danceability - t1.danceability) * 1)
+		+ ABS(( Input_song.energy - t1.energy) * 1)
+		+ ABS(( Input_song.loudness - t1.loudness) * 0.0157 * 1)
+		+ ABS(( Input_song.acousticness - t1.acousticness) * 1)
+		+ ABS(( Input_song.speechiness - t1.speechiness) * 1)
+		+ ABS(( Input_song.instrumentalness - t1.instrumentalness) * 1)
+		+ ABS(( Input_song.liveness - t1.liveness) * 1)
+		+ ABS(( Input_song.tempo - t1.tempo ) * 0.0041 * 1)
+		+ ABS(( Input_song.album_release_year - t2.release_year)* 0.0145 * 1)
+		+ CASE WHEN (Input_song.artist_id = t2.artist_id) THEN -0.1 ELSE 0 END
+		+ CASE WHEN (Input_song.album_id = t1.album_id) THEN -0.03 ELSE 0 END
+		+ CASE WHEN (Input_song.record_label_id = t2.record_label_id ) THEN -0.1 ELSE 0 END
+        + CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -0.4 * 1 ELSE 0 END
     AS score
-FROM (
-	SELECT 
-		title
-		, id
-		, artist_id
-		, genre_id
-		, record_label_id
-	FROM Album
-	WHERE release_year >= 1990
-		AND release_year <= 2021
-) t2 
-	JOIN Input_song
+FROM 
+	Song t1 
+	JOIN Album t2 ON t1.album_id = t2.id
 	JOIN Artist t3 ON t2.artist_id = t3.id
-	JOIN Song t1  ON t1.album_id = t2.id
-WHERE t1.id != Input_song.song_id 
-	AND t2.artist_id = (CASE WHEN (0 = 0) THEN t2.artist_id ELSE Input_song.artist_id END)
-	AND t2.id = (CASE WHEN (0 = 0) THEN t2.id ELSE Input_song.album_id END)
-	AND t2.record_label_id = (CASE WHEN (0 = 0) THEN t2.record_label_id ELSE Input_song.record_label_id END)
-	AND t2.genre_id IN (  
-			SELECT genre_matches
-			FROM SimilarGenres
-			WHERE genre_code = 
-				CASE 
-					WHEN (0 = 1) THEN 6
-				 	WHEN (Input_song.genre_id = 0) THEN 0
-					WHEN (Input_song.genre_id = 1) THEN 1
-					WHEN (Input_song.genre_id = 2) THEN 2
-					WHEN (Input_song.genre_id = 3) THEN 3
-					WHEN (Input_song.genre_id = 4) THEN 4
-					WHEN (Input_song.genre_id = 5) THEN 5
-					WHEN (Input_song.genre_id = 6) THEN 6
-					WHEN (Input_song.genre_id = 7) THEN 7
-					WHEN (Input_song.genre_id = 8) THEN 8
-				END
-			)
+    JOIN Input_song
+WHERE 
+	t1.id != Input_song.song_id 
+	AND  t2.genre_id IN (  
+		SELECT genre_matches
+		FROM SimilarGenres
+		WHERE genre_code = 
+			CASE 
+				WHEN (0 = 1) THEN 6
+			 	WHEN (Input_song.genre_id = 0) THEN 0
+				WHEN (Input_song.genre_id = 1) THEN 1
+				WHEN (Input_song.genre_id = 2) THEN 2
+				WHEN (Input_song.genre_id = 3) THEN 3
+				WHEN (Input_song.genre_id = 4) THEN 4
+				WHEN (Input_song.genre_id = 5) THEN 5
+				WHEN (Input_song.genre_id = 6) THEN 6
+				WHEN (Input_song.genre_id = 7) THEN 7
+				WHEN (Input_song.genre_id = 8) THEN 8
+			END
+	) 
 ORDER BY score ASC
 LIMIT 50;
+
+
 
 
 
