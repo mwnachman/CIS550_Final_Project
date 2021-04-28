@@ -57,6 +57,7 @@ class Artist extends React.Component {
   }
 
   async getAlbums(artistId) {
+    console.log('artistId', artistId)
     const promise = await axios.get(`${APIRoot}/searchArtistAlbums/${artistId}`)
     const status = promise.status
     if (status == 200) {
@@ -66,7 +67,7 @@ class Artist extends React.Component {
   }
 
   render() {
-    const {open, styles, handleClose} = this.props
+    const {open, styles, handleClose, artistName} = this.props
     return (
       <Modal open={open}
             onClose={handleClose}
@@ -80,7 +81,7 @@ class Artist extends React.Component {
                   justify="flex-start">
               <Grid item xs={12}>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Albums
+                  Albums by {artistName}
                 </Typography>
               </Grid>
               <Grid item xs={12}>

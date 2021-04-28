@@ -7,7 +7,6 @@ import {
   Button,
   Checkbox,
   Grid,
-  Input,
   Slider,
   Table,
   TableBody,
@@ -18,18 +17,78 @@ import {
   Typography
 } from '@material-ui/core'
 
-
-import {songAttributes} from '../constants/constants'
+import Artist from './Artist.jsx'
+import {
+  Headers,
+  NoResult,
+  SearchResult
+} from './Search.jsx'
+import {songAttributes, recommendedSongHeaders} from '../constants/constants'
 import useStyles from '../style/recommendations'
 import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
+
+
+
+const RecommendedSongs = ({songs,
+                          styles,
+                          returnToSliders,
+                          handleClick}) => {
+  if (songs.length) {
+    return (
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell className={styles.noBottomBorder}>
+              <Button size="small"
+                      variant="contained"
+                      color="primary"
+                      onClick={returnToSliders}>
+                Return to Sliders
+              </Button>
+            </TableCell>
+          </TableRow>
+          <Headers styles={styles.header} columns={recommendedSongHeaders}/>
+        </TableHead>
+        <TableBody>
+          {songs.map((song, i) => {
+            return (
+              <SearchResult result={song}
+                            handleClick={handleClick}
+                            headers={recommendedSongHeaders}/>
+            )
+          })}
+        </TableBody>
+      </Table>
+    )
+  } else {
+    return (
+      <TableBody>
+        <TableRow>
+          <TableCell>
+            <NoResult text="No matching songs found - try including more search parameters"/>
+          </TableCell>
+          <TableCell>
+            <Button size="small"
+                    variant="contained"
+                    color="primary"
+                    onClick={returnToSliders}>
+              Return to Sliders
+            </Button>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    )
+  }
+}
 
 class Parameter extends React.Component {
   constructor(props) {
     super(props)
     this.handleSliderChange = this.handleSliderChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
   }
 
   handleSliderChange(event, newValue) {
@@ -44,50 +103,60 @@ class Parameter extends React.Component {
     this.props.setValues(newState)
   }
 
+  handleCheckboxChange() {
+    const {checked, i, handleCheckboxChange} = this.props
+    let newState = checked
+    newState[i] = !checked[i]
+    handleCheckboxChange(newState)
+  }
+
   render () {
     const {attribute,
           values,
           initialValues,
           i,
+          checked,
           styles} = this.props
     return (
       <TableRow>
         <TableCell>
           {attribute.label}
         </TableCell>
+
         <TableCell>
           {attribute.min}
         </TableCell>
+
         <TableCell className={styles.slider}>
           <Slider
             value={parseFloat(values[i])}
+            valueLabelDisplay="auto"
             min={attribute.min}
             max={attribute.max}
-            step={attribute.step/10}
+            step={attribute.step}
             onChange={this.handleSliderChange}
             aria-labelledby="input-slider"
           />
         </TableCell>
+
         <TableCell>
           {attribute.max}
         </TableCell>
-        <TableCell >
-          <Input
-            className={styles.input}
-            value={values[i]}
-            margin="dense"
-            onChange={this.handleInputChange}
-            inputProps={{
-              step: attribute.step,
-              min: attribute.min,
-              max: attribute.max,
-              type: 'number',
-              'aria-labelledby': 'input-slider',
-            }}
-          />
-        </TableCell>
+        
         <TableCell className={styles.description}>
           {attribute.description}
+        </TableCell>
+
+        <TableCell className={styles.description}>
+          <Checkbox
+            className={styles.checkbox}
+            color="default"
+            checked={checked[i]}
+            onChange={this.handleCheckboxChange}
+            checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
+            icon={<span className={styles.icon} />}
+          />
+          Include
         </TableCell>
       </TableRow>
     )
@@ -106,16 +175,24 @@ class Recommendations extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      songDetails: {},
       values: [0,0,0,0,0,0,0,0,0],
-      initialValues: [0,0,0,0,0,0,0,0,0],
-      checked: true
+      initialValues: [0,0,0,0,0,0,0,0,0,0],
+      genreChecked: true,
+      checked: [true, true, true, true, true, true, true, true, true],
+      songs: [],
+      searchedForRecs: false,
+      artistForModal: {},
+      modalOpen: false
     }
     this.getSongDetails = this.getSongDetails.bind(this)
     this.setParameterValues = this.setParameterValues.bind(this)
     this.submit = this.submit.bind(this)
     this.getRecommendations = this.getRecommendations.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+    this.handleGenreCheckboxChange = this.handleGenreCheckboxChange.bind(this)
+    this.returnToSliders = this.returnToSliders.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   componentDidMount() {
@@ -125,18 +202,36 @@ class Recommendations extends React.Component {
     }
   }
 
+  handleClose() {
+    this.setState({
+      modalOpen: false,
+      artistForModal: {}
+    })
+  }
+
+  handleClick(artistForModal) {
+    this.setState({artistForModal, modalOpen: true})
+  }
+
   setParameterValues(values) {
     this.setState({values})
   }
 
-  submit(e) {
-    e.preventDefault()
-    let params = 
-    this.getRecommendations(params)
+  handleGenreCheckboxChange() {
+    this.setState({genreChecked: !this.state.genreChecked})
   }
 
-  handleCheckboxChange() {
-    this.setState({checked: !this.state.checked})
+  handleCheckboxChange(checked) {
+    this.setState({checked})
+  }
+
+  returnToSliders() {
+    this.setState({
+      searchedForRecs: false,
+      values: this.state.initialValues,
+      checked: [true, true, true, true, true, true, true, true, true],
+      genreChecked: true,
+    })
   }
 
   async getSongDetails(id) {
@@ -145,39 +240,58 @@ class Recommendations extends React.Component {
     if (status == 200) {
       const songDetails = promise.data[0]
       let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
-      initialValues.unshift(this.props.selectedSong['release_year'])
-      this.setState({
-                    songDetails,
-                    initialValues,
-                    values: initialValues
-                   })
+      this.setState({initialValues, values: initialValues})
     }
   }
 
-  async getRecommendations(params) {
-    // const promise = await axios.get(`${APIRoot}/recommendSongs/${id}`)
-    // const status = promise.status
-    // if (status == 200) {
-    //   const songDetails = promise.data[0]
-    //   let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
+  submit(e) {
+    e.preventDefault()
+    const {checked, genreChecked, values} = this.state
+    let params = {}
+    params.include = {}
+    params.include.genre = this.state.genreChecked
+    songAttributes.forEach((attribute, i) => params.include[attribute.dbName] = checked[i])
+    params.sliderValues = {}
+    songAttributes.forEach((attribute, i) => params.sliderValues[attribute.dbName] = values[i])
+    params.songInfo = this.props.selectedSong
+    this.getRecommendations(params)
+  }
 
-    //   this.setState({songDetails,
-    //                 initialValues,
-    //                 values: initialValues})
-    // }
+  async getRecommendations(params) {
+    const promise = await axios.get(`${APIRoot}/recommendSongs/`, {
+      params
+    })
+    const status = promise.status
+    if (status == 200) {
+      const songs = promise.data
+      this.setState({songs, searchedForRecs: true})
+    }
   }
 
   render() {
     const {selectedSong, styles} = this.props
     const {values,
+          songs,
           initialValues,
-          checked} = this.state
+          genreChecked,
+          searchedForRecs,
+          checked,
+          artistForModal,
+          modalOpen} = this.state
     return (
       <Grid container
             direction="column"
             alignItems="flex-start"
-            justify="flex-start">
-        <Grid item xs={12}>
+            justify="flex-start"
+            className={styles.exterior_grid}>
+        <Grid item xs={12} className={styles.interior_grid}>
+          {modalOpen &&
+            <Artist open={modalOpen}
+                    handleClose={this.handleClose}
+                    artistId={artistForModal.artist_id}
+                    artistName={artistForModal.artist_name}/>
+            
+          }
           <Typography className={styles.recsWording} component="p">
             Get recommendations based on your selected song,
           </Typography>
@@ -199,42 +313,56 @@ class Recommendations extends React.Component {
                   <TableCell>
                     {selectedSong.album_name}
                   </TableCell>
-                  <TableCell className={styles.buttonCell}>
-                    <Button size="small"
-                            variant="contained"
-                            color="primary">
-                      Show Similar
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Checkbox
-                      className={styles.checkbox}
-                      color="default"
-                      checked={checked}
-                      onChange={this.handleCheckboxChange}
-                      checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
-                      icon={<span className={styles.icon} />}
-                      inputProps={{ 'aria-label': 'decorative checkbox' }}
-                    />
-                    Match Genre
-                  </TableCell>
+                  {!searchedForRecs &&
+                    <TableCell className={styles.buttonCell}>
+                      <Button size="small"
+                              variant="contained"
+                              color="primary"
+                              onClick={this.submit}>
+                        Show Similar
+                      </Button>
+                    </TableCell>
+                  }
+                  {!searchedForRecs &&
+                    <TableCell>
+                      <Checkbox
+                        className={styles.checkbox}
+                        color="default"
+                        checked={genreChecked}
+                        onChange={this.handleGenreCheckboxChange}
+                        checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
+                        icon={<span className={styles.icon} />}
+                        inputProps={{ 'aria-label': 'decorative checkbox' }}
+                      />
+                      Match Genre
+                    </TableCell>
+                  }
                 </TableRow>
               </TableHead>
             </Table>
             <Table>
-              <TableBody>
-                {songAttributes.map((attribute, i) => {
-                  return (
-                    <Parameter styles={styles}
-                               attribute={attribute}
-                               i={i}
-                               key={i}
-                               initialValues={initialValues}
-                               values={values}
-                               setValues={this.setParameterValues}/>
-                  )
-                })}
+              {searchedForRecs ?
+                <RecommendedSongs songs={songs}
+                                  styles={styles}
+                                  handleClick={this.handleClick}
+                                  returnToSliders={this.returnToSliders}/>
+                :
+                <TableBody>
+                  {songAttributes.map((attribute, i) => {
+                    return (
+                      <Parameter styles={styles}
+                                 attribute={attribute}
+                                 i={i}
+                                 key={i}
+                                 checked={checked}
+                                 initialValues={initialValues}
+                                 values={values}
+                                 handleCheckboxChange={this.handleCheckboxChange}
+                                 setValues={this.setParameterValues}/>
+                    )
+                  })}
               </TableBody>
+              }
             </Table>
           </TableContainer>
 

@@ -164,9 +164,9 @@ ORDER BY
 
 async function getSongDetails(req, res) {
   const query = `
-    SELECT *
-    FROM Song
-    WHERE id = '`+req.params.songId+`'
+    SELECT s.*, a.genre_id, a.release_year
+    FROM Song s JOIN Album a ON s.album_id = a.id
+    WHERE s.id = '`+req.params.songId+`'
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -264,6 +264,7 @@ async function searchAlbum(req, res) {
 	t2.title AS album_name
 	, t2.id AS album_id
 	, t3.name AS artist_name
+  , t3.id AS artist_id
 	, t2.release_year AS album_release_year
 	, t2.format AS album_format
 	, t4.name AS record_label_name
@@ -302,27 +303,27 @@ ORDER BY
 async function searchArtistAlbums(req, res) {
   const query = `
   SELECT
-  t1.name AS artist_name
-  , t2.id AS album_id
-  , t2.title AS album_name
-  , t2.format AS album_format
-  , t2.release_year AS release_year
-  , t2.aoty_critic_score AS aoty_critic_score
-  , t2.aoty_user_score AS aoty_user_score
-  , t2.num_aoty_critic_reviews AS num_aoty_critic_reviews
-  , t2.num_aoty_user_reviews AS num_aoty_user_reviews
-  , t3.name AS record_label_name
-  , t4.name AS genre_name
-FROM (
-  SELECT name, id
-  FROM Artist
-  WHERE id = '`+req.params.artist_id+`'
-) t1
-  JOIN Album t2 ON t2.artist_id = t1.id
-  JOIN Genre t4 ON t2.genre_id = t4.id
-  JOIN RecordLabel t3 ON  t2.record_label_id = t3.id
-ORDER BY t2.aoty_user_score DESC
-LIMIT 50;
+    t1.name AS artist_name
+    , t2.id AS album_id
+    , t2.title AS album_name
+    , t2.format AS album_format
+    , t2.release_year AS release_year
+    , t2.aoty_critic_score AS aoty_critic_score
+    , t2.aoty_user_score AS aoty_user_score
+    , t2.num_aoty_critic_reviews AS num_aoty_critic_reviews
+    , t2.num_aoty_user_reviews AS num_aoty_user_reviews
+    , t3.name AS record_label_name
+    , t4.name AS genre_name
+  FROM (
+    SELECT name, id
+    FROM Artist
+    WHERE id = '`+req.params.artist_id+`'
+  ) t1
+    JOIN Album t2 ON t2.artist_id = t1.id
+    JOIN Genre t4 ON t2.genre_id = t4.id
+    JOIN RecordLabel t3 ON t2.record_label_id = t3.id
+  ORDER BY t2.aoty_user_score DESC
+  LIMIT 50;
     `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -367,10 +368,73 @@ async function searchAlbumAllSongs(req, res) {
 
 /*-- q8: Identify songs with most similar attributes of the input attributes. This will be used in our Recommender tab. --*/
 async function recommendSongs(req, res) {
-  let release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre;
-  [release_year, danceability, energy, loudness, acousticness, speechiness, instrumentalness, liveness, tempo, genre] = (req.params.input).split("-");
+  // Holland, I need this query to return only values where
+  // s.id <> ${songId}
+  // and I need genre added (to check both the value
+  // of req.query.include.genre and to look up the genre to match)
+  let incl = JSON.parse(req.query.include)
+  let vals = JSON.parse(req.query.sliderValues)
+  let song = JSON.parse(req.query.songInfo)
+  console.log('inlc ', incl)
+  console.log('vals ', vals)
+  let songId = song.song_id
+  let release_year = incl.release_year ? vals.release_year : -1
+  let danceability = incl.danceability ? vals.danceability : -1
+  let loudness = incl.loudness ? vals.loudness : -1
+  let energy = incl.energy ? vals.energy : -1
+  let acousticness = incl.acousticness ? vals.acousticness : -1
+  let speechiness = incl.speechiness ? vals.speechiness : -1
+  let instrumentalness = incl.instrumentalness ? vals.instrumentalness : -1
+  let liveness = incl.liveness ? vals.liveness : -1
+  let tempo = incl.tempo ? vals.tempo : -100
+  console.log(release_year, danceability, loudness, energy, acousticness, speechiness, instrumentalness, liveness, tempo)
   const query = `
-    
+    SELECT 
+      s.name AS song_name
+      , s.id AS song_id
+      , ar.name AS artist_name
+      , ar.id AS artist_id
+      , al.title AS album_name
+      , al.id AS album_id
+    FROM 
+      Album al JOIN Artist ar ON al.artist_id = ar.id JOIN Song s ON s.album_id = al.id
+    WHERE 1=1
+      AND
+        (CASE WHEN ${release_year} <> -1 THEN al.release_year = ${release_year}
+        ELSE al.release_year BETWEEN 1940 AND 2020
+        END)
+      AND 
+        (CASE WHEN ${danceability} <> -1 THEN s.danceability BETWEEN (${danceability} - 0.1) AND (${danceability} + 0.1)
+        ELSE s.danceability BETWEEN 0 AND 1
+        END)
+      AND 
+        (CASE WHEN ${energy} <> -1 THEN s.energy BETWEEN (${energy} - 0.1) AND (${energy} + 0.1)
+        ELSE s.energy BETWEEN 0 AND 1
+        END)
+      AND 
+        (CASE WHEN ${loudness} <> -100 THEN s.loudness BETWEEN (${loudness} - 5) AND (${loudness} + 5)
+        ELSE s.loudness BETWEEN -60 AND 6
+        END)
+      AND 
+        (CASE WHEN ${acousticness} <> -1 THEN s.acousticness BETWEEN (${acousticness} - 0.15) AND (${acousticness} + 0.15)
+        ELSE s.acousticness BETWEEN 0 AND 1
+        END)
+      AND 
+        (CASE WHEN ${speechiness} <> -1 THEN s.speechiness BETWEEN (${speechiness} - 0.2) AND (${speechiness} + 0.2)
+        ELSE s.speechiness BETWEEN 0 AND 1
+        END)  
+      AND 
+        (CASE WHEN ${instrumentalness} <> -1 THEN s.instrumentalness BETWEEN (${instrumentalness} - 0.2) AND (${instrumentalness} + 0.2)
+        ELSE s.instrumentalness BETWEEN 0 AND 1
+        END)
+      AND 
+        (CASE WHEN ${liveness} <> -1 THEN s.liveness BETWEEN (${liveness} - 0.1) AND (${liveness} + 0.1)
+        ELSE s.liveness BETWEEN 0 AND 1
+        END)
+      AND 
+        (CASE WHEN ${tempo} <> -1 THEN s.tempo BETWEEN (${tempo} - 20) AND (${tempo} + 20)
+        ELSE s.tempo BETWEEN 0 AND 250
+        END)
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
