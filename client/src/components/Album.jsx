@@ -76,7 +76,6 @@ class Album extends React.Component {
     const status = promise.status
     if (status == 200) {
       const tracks = promise.data
-      console.log('tracks', tracks)
       this.setState({tracks})
       tracks.forEach(track => this.getPlayerUrl(track.song_id))
     }
@@ -87,7 +86,6 @@ class Album extends React.Component {
     const status = promise.status
     if (status == 200) {
       const playerData = promise.data.song_preview
-      console.log('player Data', playerData)
       const updatedTracks = this.state.tracks.map(track => {
         if (track.song_id == songId) {
           track.url = playerData

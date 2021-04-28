@@ -180,9 +180,14 @@ class Home extends React.Component {
                 image="/assets/albums_background.jpg"
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  Welcome to Sonalysis. Not sure where to start? Choose a genre
-                  to get random recommendations.
+                <Typography gutterBottom
+                            variant="h5"
+                            component="h2"
+                            className={styles.welcome}>
+                  Welcome to <span className={styles.sonalysis}>Sonalysis</span>. 
+                </Typography>
+                <Typography className={styles.userQuery}>
+                  Not sure where to start? Choose a genre to get random recommendations.
                 </Typography>
                 <FormControl className={styles.formControl}>
                   <InputLabel id="demo-simple-select-label">Genre</InputLabel>

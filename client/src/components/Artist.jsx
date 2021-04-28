@@ -57,7 +57,6 @@ class Artist extends React.Component {
   }
 
   async getAlbums(artistId) {
-    console.log('artistId', artistId)
     const promise = await axios.get(`${APIRoot}/searchArtistAlbums/${artistId}`)
     const status = promise.status
     if (status == 200) {

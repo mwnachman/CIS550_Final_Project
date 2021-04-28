@@ -341,7 +341,6 @@ class SearchCard extends React.Component {
   }
 
   openAlbumModal(albumForModal) {
-    console.log('aboum for modal', albumForModal)
     this.setState({albumForModal, albumModalOpen: true})
   }
 
@@ -404,7 +403,6 @@ class SearchCard extends React.Component {
     const status = promise.status
     if (status == 200) {
       const albums = promise.data
-      console.log('albums', albums)
       this.setState({searchResults: albums})
     }
   }

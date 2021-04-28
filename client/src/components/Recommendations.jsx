@@ -230,7 +230,6 @@ class Recommendations extends React.Component {
   }
 
   openAlbumModal(albumForModal) {
-    console.log('aboum for modal', albumForModal)
     this.setState({albumForModal, albumModalOpen: true})
   }
 

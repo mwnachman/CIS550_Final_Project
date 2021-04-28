@@ -21,6 +21,16 @@ const useStyles = makeStyles(theme => ({
   },
   selectEmpty: {
     marginTop: 10,
+  },
+  welcome: {
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+  sonalysis: {
+    color: '#330066'
+  },
+  userQuery: {
+    fontSize: 18
   }
 }))
 
