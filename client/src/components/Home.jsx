@@ -144,7 +144,7 @@ class Home extends React.Component {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Welcome to [APP NAME]. Not sure where to start? Choose a genre
+                  Welcome to Sonalysis. Not sure where to start? Choose a genre
                   to get random recommendations.
                 </Typography>
                 <FormControl className={styles.formControl}>

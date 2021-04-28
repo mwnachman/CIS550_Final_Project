@@ -25,4 +25,4 @@ There's hot reloading set up for the client so you shouldn't have to restart eit
 
 <br />
 
-In the browser, navigate to http://localhost:8082/
+In the browser, navigate to http://localhost:8080/

@@ -22,7 +22,7 @@ const Navbar = () => {
           <Typography className={styles.title}
                       variant='h6'
                       noWrap>
-            NAME - TBD
+            Sonalysis
           </Typography>
         </Toolbar>
       </AppBar>
