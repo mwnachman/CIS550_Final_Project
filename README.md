@@ -2,7 +2,7 @@
 *MCIT CIS 550 Final Project, Spring 2021*
 *Meredith Latasa, William Whitehead, Holland Delany, Andrew Cho*
 
-
+<br />
 
 ## Description of functionality
 Our platform serves as an interactive resource for finding information about music and discovering new music. Users are able to browse superlatives, search for songs, albums, and artists, and receive music recommendations based on a dynamic, customizable algorithm.
@@ -24,11 +24,12 @@ Search page:
 Recommendations page:
 :  Available to the users after an item is accessed from Search results. Users are able to manipulate the attributes that are submitted to the recommendation algorithm based on their preferences. They can also choose which attributes the algorithm should include or disregard. 
 
+<br />
 
 ## Instructions for building it locally 
 
 
-######To run the server:
+###### To run the server:
 
 - Rename the server/config/server-template.json file to server.json, change password to the database password "LoULnBjnkbeiA66"
 
@@ -37,8 +38,7 @@ Recommendations page:
 - From the server directory, run  'npm run watch'
 
 
-
-######To run the client:
+###### To run the client:
 
 - Rename the client/config/client-template.json file to client.json
 
@@ -49,6 +49,7 @@ Recommendations page:
 - In the browser, navigate to http://localhost:8080/
 
 
+<br />
 
 ## Architecture
 
