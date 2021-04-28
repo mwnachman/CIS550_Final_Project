@@ -70,6 +70,9 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: 'transparent',
     },
+  },
+  noBottomBorder: {
+    borderBottom: 'none'
   }
 }))
 

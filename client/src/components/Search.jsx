@@ -35,10 +35,10 @@ import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
-const NoResult = () => (
+export const NoResult = ({text}) => (
   <TableRow>
     <TableCell style={{borderBottom: 'none'}}>
-      No Results
+      {!text ? "No Results" : text}
     </TableCell>
   </TableRow>
 )
@@ -82,7 +82,7 @@ export const Headers = ({styles, columns}) => (
   </TableRow>
 )
 Headers.propTypes = {
-  styles: PropTypes.string,
+  styles: PropTypes.object,
   resultType: PropTypes.string
 }
 
@@ -220,7 +220,7 @@ ResultContainer.propTypes = {
   styles: PropTypes.object
 }
 
-class SearchResult extends React.Component {
+export class SearchResult extends React.Component {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
@@ -228,8 +228,7 @@ class SearchResult extends React.Component {
 
   handleClick(e) {
     e.preventDefault()
-    let artistId = this.props.result.artist_id
-    this.props.handleClick(artistId)
+    this.props.handleClick(this.props.result)
   }
 
   render() {
@@ -283,7 +282,7 @@ class SearchCard extends React.Component {
       radioValue: "song",
       showRecs: false,
       selectedSong: {},
-      artistId: "",
+      artistForModal: {},
       modalOpen: false
     }
     this.handleChange = this.handleChange.bind(this)
@@ -300,12 +299,12 @@ class SearchCard extends React.Component {
   handleClose() {
     this.setState({
       modalOpen: false,
-      artistId: ""
+      artistForModal: {}
     })
   }
 
-  handleClick(artistId) {
-    this.setState({artistId, modalOpen: true})
+  handleClick(artistForModal) {
+    this.setState({artistForModal, modalOpen: true})
   }
 
   handleChange({target: {value}}) {
@@ -379,7 +378,7 @@ class SearchCard extends React.Component {
             searchResults,
             showRecs,
             selectedSong,
-            artistId,
+            artistForModal,
             modalOpen } = this.state
     return (
       <Grid container
@@ -392,9 +391,9 @@ class SearchCard extends React.Component {
           
           {modalOpen &&
             <Artist open={modalOpen}
-                    className={styles.modal}
                     handleClose={this.handleClose}
-                    artistId={artistId}/>
+                    artistId={artistForModal.artist_id}
+                    artistName={artistForModal.artist_name}/>
             
           }
           <Card className={styles.root}>

@@ -66,7 +66,7 @@ export const songAttributes = [
     min: 1940,
     max: 2020,
     step: 1,
-    dbName: 'album_release_year',
+    dbName: 'release_year',
     label: 'Release Year',
     description: 'Year in which the track was released'
   },
@@ -157,4 +157,22 @@ export const artistModalColumns = [
     label: 'release_year',
     minWidth: '20vh'
   }
+]
+
+export const recommendedSongHeaders = [
+  {
+    header: 'Song',
+    label: 'song_name',
+    minWidth: '30vh'
+  },
+  {
+    header: 'Artist',
+    label: 'artist_name',
+    minWidth: '30vh'
+  },
+  {
+    header: 'Album',
+    label: 'album_name',
+    minWidth: '30vh'
+  },
 ]
