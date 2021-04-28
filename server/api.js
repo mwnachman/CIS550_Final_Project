@@ -511,10 +511,6 @@ async function searchSongStats(req, res) {
 
 /*-- q9: Identify songs with most similar attributes of the input attributes. This will be used in our Recommender tab. --*/
 async function recommendSongs(req, res) {
-  // Holland, I need this query to return only values where
-  // s.id <> ${songId}
-  // and I need genre added (to check both the value
-  // of req.query.include.genre and to look up the genre to match)
   let incl = JSON.parse(req.query.include)
   let vals = JSON.parse(req.query.sliderValues)
   let song = JSON.parse(req.query.songInfo)
@@ -532,79 +528,80 @@ async function recommendSongs(req, res) {
   let tempo = incl.tempo ? vals.tempo : -100
   console.log(release_year, danceability, loudness, energy, acousticness, speechiness, instrumentalness, liveness, tempo)
   const query = `
-	WITH Input_song AS (
-		SELECT
-			t1.name AS song_name
-			, t1.id AS song_id
-			, t1.album_id AS album_id
-			, t2.title AS album_name
-			, t2.artist_id AS artist_id
-			, t2.genre_id AS genre_id
-			, t2.record_label_id AS record_label_id
-			, t2.release_year AS album_release_year
-			, t3.name AS artist_name
-		FROM (
-			SELECT *
-			FROM Song
-			WHERE id =  ${songId} 
-		) t1
-			JOIN Album t2 ON t1.album_id = t2.id
-			JOIN Artist t3 ON t2.artist_id = t3.id
-	)
-	SELECT 
-		t1.name AS song_name,
-		t1.id AS song_id
-		, t3.name AS artist_name
-		, t3.id AS artist_id
-		, t2.title AS album_name
-		, t2.id AS album_id
-		, ABS(( ${danceability}  - t1.danceability) * 1.5 * ${include.danceability} )
-			+ ABS(( ${energy}  - t1.energy) * 1.5 * ${include.energy} )
-			+ ABS(( ${loudness}  - t1.loudness) * 1.5 * 0.0157 * ${include.loudness} )
-			+ ABS(( ${acousticness}  - t1.acousticness) * ${include.acousticness} )
-			+ ABS(( ${speechiness}  - t1.speechiness) * ${include.speechiness} )
-			+ ABS(( ${instrumentalness}  - t1.instrumentalness) * ${include.instrumentalness} )
-			+ ABS(( ${liveness}  - t1.liveness) * ${include.liveness} )
-			+ ABS(( ${tempo}  - t1.tempo ) * 0.0041 * ${include.tempo} )
-			+ CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -0.4 * ${include.genre} ELSE 0 END
-	    AS score
-	FROM (
-		SELECT 
-			title
-			, id
-			, artist_id
-			, genre_id
-			, record_label_id
-		FROM Album
-		WHERE release_year >= ${min_release_year} 
-			AND release_year <= ${max_release_year} 
-	) t2 
-		JOIN Input_song
-		JOIN Artist t3 ON t2.artist_id = t3.id
-		JOIN Song t1  ON t1.album_id = t2.id
-	WHERE t1.id != Input_song.song_id 
-		AND t2.artist_id = (CASE WHEN (0 = ${include.same_artist}) THEN t2.artist_id ELSE Input_song.artist_id END)
-		AND t2.id = (CASE WHEN (0 = ${include.same_album}) THEN t2.id ELSE Input_song.album_id END)
-		AND t2.record_label_id = (CASE WHEN (0 = ${include.same_record_label}) THEN t2.record_label_id ELSE Input_song.record_label_id END)
-		AND t2.genre_id IN (  
-				SELECT genre_matches
-				FROM SimilarGenres
-				WHERE genre_code = 
-					CASE 
-						WHEN (0 = ${include.genre}) THEN 6
-						WHEN (Input_song.genre_id = 0) THEN 0
-						WHEN (Input_song.genre_id = 1) THEN 1
-						WHEN (Input_song.genre_id = 2) THEN 2
-						WHEN (Input_song.genre_id = 3) THEN 3
-						WHEN (Input_song.genre_id = 4) THEN 4
-						WHEN (Input_song.genre_id = 5) THEN 5
-						WHEN (Input_song.genre_id = 6) THEN 6
-						WHEN (Input_song.genre_id = 7) THEN 7
-						WHEN (Input_song.genre_id = 8) THEN 8
-					END
-				)
-	ORDER BY score ASC
-	LIMIT 50;
+    WITH Input_song AS (
+      SELECT
+        t1.name AS song_name
+        , t1.id AS song_id
+        , t1.album_id AS album_id
+        , t1.danceability AS danceability 
+        , t1.energy AS energy
+        , t1.loudness AS loudness
+        , t1.acousticness AS acousticness
+        , t1.speechiness AS speechiness
+        , t1.instrumentalness AS instrumentalness
+        , t1.liveness AS liveness
+        , t1.tempo AS tempo
+        , t2.title AS album_name
+        , t2.artist_id AS artist_id
+        , t2.genre_id AS genre_id
+        , t2.record_label_id AS record_label_id
+        , t2.release_year AS album_release_year
+        , t3.name AS artist_name
+      FROM (
+        SELECT *
+        FROM Song
+        WHERE id =  "${songId}" 
+      )t1
+        JOIN Album t2 ON t1.album_id = t2.id
+        JOIN Artist t3 ON t2.artist_id = t3.id
+    )
+    SELECT 
+      t1.name AS song_name
+      , t1.id AS song_id
+      , t3.name AS artist_name
+      , t3.id AS artist_id
+      , t2.title AS album_name
+      , t2.id AS album_id
+      , ABS(( ${danceability} - t1.danceability) * CASE WHEN ${incl.danceability} THEN 1 ELSE 0 END)
+        + ABS(( ${energy} - t1.energy) * CASE WHEN ${incl.energy} THEN 1 ELSE 0 END)
+        + ABS(( ${loudness} - t1.loudness) * 0.0157 * CASE WHEN ${incl.loudness} THEN 1 ELSE 0 END)
+        + ABS(( ${acousticness} - t1.acousticness) * CASE WHEN ${incl.acousticness} THEN 1 ELSE 0 END)
+        + ABS(( ${speechiness} - t1.speechiness) * CASE WHEN ${incl.speechiness} THEN 1 ELSE 0 END)
+        + ABS(( ${instrumentalness} - t1.instrumentalness) * CASE WHEN ${incl.instrumentalness} THEN 1 ELSE 0 END) 
+        + ABS(( ${liveness} - t1.liveness) * CASE WHEN ${incl.liveness} THEN 1 ELSE 0 END)
+        + ABS(( ${tempo} - t1.tempo ) * 0.0041 * CASE WHEN ${incl.tempo} THEN 1 ELSE 0 END)
+        + ABS(( ${release_year} - t2.release_year)* 0.0145 * CASE WHEN ${incl.release_year} THEN 1 ELSE 0 END)
+        + CASE WHEN (Input_song.artist_id = t2.artist_id) THEN -0.1 ELSE 0 END
+        + CASE WHEN (Input_song.album_id = t1.album_id) THEN -0.03 ELSE 0 END
+        + CASE WHEN (Input_song.record_label_id = t2.record_label_id ) THEN -0.1 ELSE 0 END
+        + CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -0.4 * (CASE WHEN ${incl.genre} THEN 1 ELSE 0 END) ELSE 0 END
+        AS score
+    FROM 
+      Song t1 
+      JOIN Album t2 ON t1.album_id = t2.id
+      JOIN Artist t3 ON t2.artist_id = t3.id
+        JOIN Input_song
+    WHERE 
+      t1.id != Input_song.song_id 
+      AND  t2.genre_id IN (  
+        SELECT genre_matches
+        FROM SimilarGenres
+        WHERE genre_code = 
+          CASE 
+            WHEN (0 = ${incl.genre}) THEN 6
+            WHEN (Input_song.genre_id = 0) THEN 0
+            WHEN (Input_song.genre_id = 1) THEN 1
+            WHEN (Input_song.genre_id = 2) THEN 2
+            WHEN (Input_song.genre_id = 3) THEN 3
+            WHEN (Input_song.genre_id = 4) THEN 4
+            WHEN (Input_song.genre_id = 5) THEN 5
+            WHEN (Input_song.genre_id = 6) THEN 6
+            WHEN (Input_song.genre_id = 7) THEN 7
+            WHEN (Input_song.genre_id = 8) THEN 8
+          END
+      ) 
+    ORDER BY score ASC
+    LIMIT 50;
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
