@@ -211,7 +211,7 @@ class Browse extends React.Component {
             <CardActionArea>
               <CardMedia
                 className={styles.media}
-                image="/assets/albums_background.jpg"
+                image="/assets/browse.jpg"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">

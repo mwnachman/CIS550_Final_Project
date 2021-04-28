@@ -36,7 +36,7 @@ WHERE t2.genre_id = `+req.params.genreId+`
   ORDER BY RAND()
   LIMIT 5;
   `;
-  con.query(query, function(err, rows, fields) {
+  con.query(query, function(err, rows) {
     if (err) console.error(err);
     else {
       res.json(rows);
