@@ -333,6 +333,43 @@ async function searchArtistAlbums(req, res) {
   });
 }
 
+
+
+/*-- q6B: Search an artist and display summary stats (show as 0-10) for all of their songs. This will be used for the Artist display page. --*/
+async function searchArtistStats(req, res) {
+  const query = `
+	SELECT
+		AVG(t1.danceability)*10 AS avg_danceability
+		, AVG(t1.energy)*10 AS avg_energy
+		, AVG(t1.acousticness)*10 AS avg_acousticness
+		, AVG(t1.speechiness)*10 AS avg_speechiness
+		, AVG(t1.instrumentalness)*10 AS avg_instrumentalness
+		, AVG(t1.liveness)*10 AS avg_liveness
+		, AVG(t1.valence)*10 AS avg_valence
+		, AVG(t1.loudness) AS avg_loudness_db
+		, AVG(t1.tempo) AS avg_tempo_bpm
+		, AVG(t1.duration_ms) AS avg_duration_ms
+		, AVG(t2.aoty_critic_score)*.1 AS avg_album_critic_score
+		, AVG(t2.aoty_user_score)*.1 AS avg_album_user_score
+		, MAX(t1.track_number) AS most_tracks_in_album
+		, MAX(t2.release_year) AS most_recent_release_year
+	FROM ( 
+		SELECT name, id
+		FROM Artist
+		WHERE id = `+req.params.album+`
+	) t3 
+		JOIN Album t2 ON t2.artist_id = t3.id
+		JOIN Song t1 ON t1.album_id = t2.id;
+    `;
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
+    else {
+      res.json(rows);
+    }
+  });
+}
+
+
 /*-- q7:  --*/
 async function searchAlbumAllSongs(req, res) {
   const query = `
@@ -366,7 +403,106 @@ async function searchAlbumAllSongs(req, res) {
   });
 }
 
-/*-- q8: Identify songs with most similar attributes of the input attributes. This will be used in our Recommender tab. --*/
+
+/*-- q7B: Search an album and dislay album information and summary stats for all of the songs in the album. This will be used for the Album display page. --*/
+async function searchAlbumStats(req, res) {
+  const query = `
+	SELECT
+		t2.title AS album_name
+		, t2.id AS album_id
+		, t3.name AS artist_name
+		, t3.id AS artist_id
+		, t2.release_year AS album_release_year
+		, t2.format AS album_format
+		, t4.name AS record_label_name
+		, t5.name AS genre_name
+		, t2.aoty_critic_score*.1 AS album_critic_score
+		, t2.aoty_user_score*.1 AS album_user_score
+		, t2.num_aoty_critic_reviews AS num_aoty_critic_reviews
+		, t2.num_aoty_user_reviews AS num_aoty_user_reviews
+		, AVG(t1.danceability)*10 AS avg_danceability
+		, AVG(t1.energy)*10 AS avg_energy
+		, AVG(t1.acousticness)*10 AS avg_acousticness
+		, AVG(t1.speechiness)*10 AS avg_speechiness
+		, AVG(t1.instrumentalness)*10 AS avg_instrumentalness
+		, AVG(t1.liveness)*10 AS avg_liveness
+		, AVG(t1.valence)*10 AS avg_valence
+		, AVG(t1.loudness) AS avg_loudness_db
+		, AVG(t1.tempo) AS avg_tempo_bpm
+		, AVG(t1.duration_ms) AS avg_duration_ms
+	FROM  (
+		SELECT 
+			*
+		FROM Album
+		WHERE id = `+req.params.album+`
+	) t2 
+		JOIN Genre t5 ON t2.genre_id = t5.id
+		JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+		JOIN Artist t3 ON t2.artist_id = t3.id
+		JOIN Song t1 ON t1.album_id = t2.id;
+    `;
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
+    else {
+      res.json(rows);
+    }
+  });
+}
+
+
+/*-- q8: Search a song and display statistics and relevant information. This will be used for the Song display page. --*/
+async function searchSongStats(req, res) {
+  const query = `
+	SELECT 
+		t1.name AS song_name
+		, t1.duration_ms AS duration_ms
+		, t1.danceability*10  AS danceability
+		, t1.energy*10  AS energy
+		, t1.song_key AS song_key
+		, t1.loudness AS loudness_db
+		, t1.acousticness*10  AS acousticness
+		, t1.speechiness*10  AS speechiness
+		, t1.instrumentalness*10  AS instrumentalness
+		, t1.liveness*10  AS liveness
+		, t1.valence*10  AS valence
+		, t1.tempo AS tempo_bpm
+		, t1.mode AS major_minor_mode
+		, t1.time_signature AS time_signature
+		, t1.disc_number AS disc_number
+		, t1.track_number AS track_number
+		, t2.title AS album_name
+		, t2.id AS album_id
+		, t3.name AS artist_name
+		, t3.id AS artist_id
+		, t2.release_year AS album_release_year
+		, t2.format AS album_format
+		, t4.name AS record_label_name
+		, t5.name AS genre_name
+		, t2.aoty_critic_score*.1 AS album_critic_score
+		, t2.aoty_user_score*.1 AS album_user_score
+		, t2.num_aoty_critic_reviews AS album_num_critic_reviews
+		, t2.num_aoty_user_reviews AS album_num_user_reviews
+	FROM  (
+		SELECT *
+		FROM Song
+		WHERE id = `+req.params.song+`
+	) t1
+		JOIN Album t2 ON t1.album_id = t2.id
+		JOIN Genre t5 ON t2.genre_id = t5.id
+		JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
+		JOIN Artist t3 ON t2.artist_id = t3.id;
+    `;
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
+    else {
+      res.json(rows);
+    }
+  });
+}
+
+
+
+/*-- q9: Identify songs with most similar attributes of the input attributes. This will be used in our Recommender tab. --*/
 async function recommendSongs(req, res) {
   // Holland, I need this query to return only values where
   // s.id <> ${songId}
@@ -455,5 +591,8 @@ module.exports = {
   searchAlbum,
   searchArtistAlbums,
   searchAlbumAllSongs,
+  searchArtistStats,
+  searchAlbumStats,
+  searchSongStats,
   recommendSongs
 }
