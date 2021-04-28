@@ -615,7 +615,7 @@ async function getAlbumArt(req, res) {
   try {
     const promise = await axios({
       method: 'GET',
-      url: `${APIRoot}/getartwork/?artist=&album=${req.params.album}`
+      url: `${APIRoot}/getartwork/?song=&artist=&album=${req.params.album}`
     })
     if (promise.status == 200) {
       res.json(promise.data)
