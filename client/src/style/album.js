@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   headers: {
-    fontSize: 22,
+    fontSize: 16,
     color: '#5c5855',
     fontWeight: 'bold'
   },
@@ -17,20 +17,24 @@ const useStyles = makeStyles(theme => ({
     position:'absolute',
     display:'block',
     maxHeight:'85vh',
-    width: '80%',
+    width: '90%',
     overflow:'scroll',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  exterior_grid: {
+    width: '100%',
+  },
+  interior_grid: {
+    width: '100%',
+    overflow: 'hidden'
+  },
   art: {
     width: '60vh',
     height: '60vh',
     marginBottom: theme.spacing(2)
-  },
-  spinner: {
-
   }
 }))
 

@@ -273,7 +273,6 @@ function searchAlbum(req, res) {
   	, t2.format AS album_format
   	, t4.name AS record_label_name
     , t5.url AS review_url
-
   FROM (
   	SELECT 
   	      title
@@ -625,6 +624,20 @@ async function getAlbumArt(req, res) {
   }
 }
 
+async function getSongUrl(req, res) {
+  try {
+    const promise = await axios({
+      method: 'GET',
+      url: `${APIRoot}/getartwork/?artist=&album=&song=${req.params.song}`
+    })
+    if (promise.status == 200) {
+      res.json(promise.data)
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   getGenre,
   getAllAlbums,
@@ -641,4 +654,5 @@ module.exports = {
   searchSongStats,
   recommendSongs,
   getAlbumArt,
+  getSongUrl
 }

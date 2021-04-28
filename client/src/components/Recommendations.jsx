@@ -336,14 +336,8 @@ class Recommendations extends React.Component {
 
               <TableHead>
                 <TableRow>
-                  <TableCell>
-                    "{selectedSong.song_name}"
-                  </TableCell>
-                  <TableCell>
-                    {selectedSong.artist_name}
-                  </TableCell>
-                  <TableCell>
-                    {selectedSong.album_name}
+                  <TableCell className={styles.selectedSong}>
+                    "{selectedSong.song_name}" by {selectedSong.artist_name} on "{selectedSong.album_name}"
                   </TableCell>
                   {!searchedForRecs &&
                     <TableCell className={styles.buttonCell}>

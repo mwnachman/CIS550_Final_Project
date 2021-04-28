@@ -35,18 +35,18 @@ export const columns = {
     {
       header: 'Action',
       minWidth: '10vh'
-    }
+    },
   ],
   album: [
     {
       header: 'Album',
       label: 'album_name',
-      minWidth: '30vh'
+      minWidth: '25vh'
     },
     {
       header: 'Artist',
       label: 'artist_name',
-      minWidth: '30vh'
+      minWidth: '25vh'
     },
     {
       header: 'Release Year',
@@ -61,6 +61,11 @@ export const columns = {
     {
       header: 'Record Label',
       label: 'record_label_name',
+      minWidth: '20vh'
+    },
+    {
+      header: 'Pitchfork',
+      label: 'review_url',
       minWidth: '20vh'
     }
   ]
@@ -186,31 +191,36 @@ export const tracklistHeaders = [
   {
     header: '#',
     label: 'track_number',
-    minWidth: '10vh'
+    minWidth: '5vh'
   },
   {
     header: 'Track',
     label: 'song_name',
-    minWidth: '20vh'
+    minWidth: '15vh'
   },
   {
-    header: 'Duration',
+    header: 'Length',
     label: 'time_seconds',
-    minWidth: '10vh'
+    minWidth: '5vh'
   },
   {
-    header: 'Energy Level',
+    header: 'Energy',
     label: 'energy',
-    minWidth: '10vh'
+    minWidth: '5vh'
   },
   {
     header: 'Danceability',
     label: 'danceability',
-    minWidth: '10vh'
+    minWidth: '5vh'
   },
   {
     header: 'Tempo',
     label: 'tempo',
-    minWidth: '10vh'
+    minWidth: '5vh'
   },
+  {
+    header: 'Listen via Spotify',
+    label: 'play',
+    minWidth: '25vh'
+  }
 ]

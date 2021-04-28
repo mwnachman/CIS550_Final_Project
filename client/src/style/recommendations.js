@@ -79,6 +79,10 @@ const useStyles = makeStyles(theme => ({
     color: '#5c5855',
     fontWeight: 'bold'
   },
+  selectedSong: {
+    fontWeight: 'bold',
+    fontSize: 20
+  }
 }))
 
 export default useStyles

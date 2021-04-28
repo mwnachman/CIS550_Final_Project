@@ -201,6 +201,7 @@ const ResultContainer = ({styles,
               <SearchResult result={result}
                             headers={columns[resultType]}
                             key={i}
+                            styles={styles}
                             getRecs={getRecs}
                             handleClick={handleClick}/>
             ))}
@@ -234,11 +235,25 @@ export class SearchResult extends React.Component {
   }
 
   render() {
-    const {result, headers, getRecs} = this.props
+    const {result,
+           headers,
+           getRecs,
+           styles} = this.props
     return (
       <TableRow>
         {headers.map((header, i) => {
-          if (header.label == 'artist_name' ||
+          if (header.label == 'review_url') {
+            return (
+              <TableCell key={i} style={{minWidth: headers.minWidth}}>
+                {result.review_url &&
+                  <Link href={result.review_url}
+                        target="_blank">
+                    Read Review
+                  </Link>
+                }
+              </TableCell>
+            )
+          } else if (header.label == 'artist_name' ||
               header.label == 'album_name') {
             return (
               <TableCell key={i} style={{minWidth: headers.minWidth}}>
@@ -318,7 +333,7 @@ class SearchCard extends React.Component {
       this.openArtistModal(result)
     } else if (type == 'album_name') {
       this.openAlbumModal(result)
-    }
+    } 
   }
 
   openArtistModal(artistForModal) {
@@ -414,7 +429,6 @@ class SearchCard extends React.Component {
         justify="center"
         className={styles.exterior_grid}>
         <Grid item xs={12} className={styles.interior_grid}>
-          
           {artistModalOpen &&
             <Artist open={artistModalOpen}
                     handleClose={this.handleClose}
