@@ -17,9 +17,10 @@ const useStyles = makeStyles(theme => ({
   interior_grid: {
     width: '90%',
   },
-  header: {
+  headers: {
     fontSize: 22,
     color: '#5c5855',
+    fontWeight: 'bold'
   },
   media: {
     height: '50vh',

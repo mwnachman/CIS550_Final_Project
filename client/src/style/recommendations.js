@@ -73,7 +73,12 @@ const useStyles = makeStyles(theme => ({
   },
   noBottomBorder: {
     borderBottom: 'none'
-  }
+  },
+  headers: {
+    fontSize: 22,
+    color: '#5c5855',
+    fontWeight: 'bold'
+  },
 }))
 
 export default useStyles
