@@ -1,6 +1,7 @@
 {
   "BASE_URL": {
-    "development": "http://localhost:3000"
+    "development": "http://localhost:3000",
+    "prod": "https://yetzsj5ad1.execute-api.us-east-1.amazonaws.com/prod"
   },
   "aws-mysql": {
     "host": "cis550-project.cr53pytnenvj.us-east-1.rds.amazonaws.com",

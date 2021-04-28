@@ -389,6 +389,7 @@ class SearchCard extends React.Component {
     const status = promise.status
     if (status == 200) {
       const albums = promise.data
+      console.log('albums', albums)
       this.setState({searchResults: albums})
     }
   }

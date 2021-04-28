@@ -24,6 +24,14 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  art: {
+    width: '60vh',
+    height: '60vh',
+    marginBottom: theme.spacing(2)
+  },
+  spinner: {
+
+  }
 }))
 
 export default useStyles

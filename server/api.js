@@ -1,3 +1,4 @@
+const axios = require('axios')
 const config = require('./config/server.json')
 const mysql = require('mysql')
 
@@ -5,6 +6,8 @@ const aws_config = config['aws-mysql']
 aws_config.connectionLimit = 10
 aws_config.waitForConnections = true
 const con = mysql.createPool(aws_config)
+
+const APIRoot = config.BASE_URL.prod
 
 
 /* -------------------------------------------------- */
@@ -41,7 +44,7 @@ WHERE t2.genre_id = `+req.params.genreId+`
   });
 }
 
-async function getAllAlbums(req, res) {
+function getAllAlbums(req, res) {
   let query = `
     SELECT *
     FROM Album;
@@ -55,7 +58,7 @@ async function getAllAlbums(req, res) {
 }
 
 /*-- q1: Get the top 5 popular albums from each year or genre ranked by AOTY User Score.  This will be used for the Landing/ Browsing by Popularity tab --*/
-async function top5(req, res) {
+function top5(req, res) {
   const query = `
   SELECT
 	t2.title AS album_name
@@ -84,7 +87,7 @@ LIMIT 50;
 }
 
 /*-- q2: Most "Trait" By Genre --*/
-async function traitByGenre(req, res) {
+function traitByGenre(req, res) {
   const query = `
   SELECT 
 	t2.title AS album_name
@@ -126,7 +129,7 @@ LIMIT 50;
 }
 
 /*-- q3: Search a song by keyword. Include information for the Song’s Album and Artist. This will be used in our Search tab. --*/
-async function searchSong(req, res) {
+function searchSong(req, res) {
   const query = `
   SELECT
 	t1.name AS song_name
@@ -178,7 +181,7 @@ async function getSongDetails(req, res) {
 }
 
 /*-- q4: Search for an artist by keyword. Include the number of songs and albums they have. This will be used in our Search tab. --*/
-async function searchArtist(req, res) {
+function searchArtist(req, res) {
   const query = `
   WITH similar_artists  AS (
     SELECT 
@@ -259,37 +262,40 @@ async function searchArtist(req, res) {
 }
 
 /*-- q5: Search for an album by keyword. Include the Artist, Record Label, and Format. This will be used in our Search tab. --*/
-async function searchAlbum(req, res) {
+function searchAlbum(req, res) {
   const query = `
   SELECT
-	t2.title AS album_name
-	, t2.id AS album_id
-	, t3.name AS artist_name
-  , t3.id AS artist_id
-	, t2.release_year AS release_year
-	, t2.format AS album_format
-	, t4.name AS record_label_name
-FROM (
-	SELECT 
-	      title
-        , id
-        , release_year
-        , format
-        , record_label_id
-        , artist_id
-    FROM Album 
-    WHERE title LIKE '%`+req.params.album+`%'
-	OR SOUNDEX(title) = SOUNDEX('`+req.params.album+`')
-)t2
-	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
-	JOIN Artist t3 ON t2.artist_id = t3.id
-ORDER BY 
-	(album_name = '`+req.params.album+`') DESC 
-	, (album_name LIKE '`+req.params.album+` %') 
-		OR (album_name LIKE '% `+req.params.album+`') 
-		OR (album_name LIKE '% `+req.params.album+` %') DESC
-	, (album_name LIKE '%`+req.params.album+`%')  DESC
-	, length(album_name);
+  	t2.title AS album_name
+  	, t2.id AS album_id
+  	, t3.name AS artist_name
+    , t3.id AS artist_id
+  	, t2.release_year AS release_year
+  	, t2.format AS album_format
+  	, t4.name AS record_label_name
+    , t5.url AS review_url
+
+  FROM (
+  	SELECT 
+  	      title
+          , id
+          , release_year
+          , format
+          , record_label_id
+          , artist_id
+      FROM Album 
+      WHERE title LIKE '%`+req.params.album+`%'
+  	OR SOUNDEX(title) = SOUNDEX('`+req.params.album+`')
+  )t2
+  	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
+  	JOIN Artist t3 ON t2.artist_id = t3.id
+    LEFT OUTER JOIN PitchforkReviews t5 on t2.id = t5.album_id
+  ORDER BY 
+  	(album_name = '`+req.params.album+`') DESC 
+  	, (album_name LIKE '`+req.params.album+` %') 
+  		OR (album_name LIKE '% `+req.params.album+`') 
+  		OR (album_name LIKE '% `+req.params.album+` %') DESC
+  	, (album_name LIKE '%`+req.params.album+`%')  DESC
+  	, length(album_name);
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
@@ -301,7 +307,7 @@ ORDER BY
 
 
 /*-- q6: Search an artist and display all albums by AOTY User Score. This will be used for the Artist display page. --*/
-async function searchArtistAlbums(req, res) {
+function searchArtistAlbums(req, res) {
   const query = `
   SELECT
     t1.name AS artist_name
@@ -337,7 +343,7 @@ async function searchArtistAlbums(req, res) {
 
 
 /*-- q6B: Search an artist and display summary stats (show as 0-10) for all of their songs. This will be used for the Artist display page. --*/
-async function searchArtistStats(req, res) {
+function searchArtistStats(req, res) {
   const query = `
 	SELECT
 		AVG(t1.danceability)*10 AS avg_danceability
@@ -372,8 +378,7 @@ async function searchArtistStats(req, res) {
 
 
 /*-- q7:  --*/
-async function searchAlbumAllSongs(req, res) {
-  console.log('gt all songs', req.params.album)
+function searchAlbumAllSongs(req, res) {
   const query = `
   SELECT
     track_number, 
@@ -396,7 +401,6 @@ async function searchAlbumAllSongs(req, res) {
   con.query(query, function(err, rows) {
     if (err) console.error(err);
     else {
-      console.log('rows', rows)
       res.json(rows);
     }
   });
@@ -404,7 +408,7 @@ async function searchAlbumAllSongs(req, res) {
 
 
 /*-- q7B: Search an album and dislay album information and summary stats for all of the songs in the album. This will be used for the Album display page. --*/
-async function searchAlbumStats(req, res) {
+function searchAlbumStats(req, res) {
   const query = `
 	SELECT
 		t2.title AS album_name
@@ -457,7 +461,7 @@ async function searchAlbumStats(req, res) {
 
 
 /*-- q8: Search a song and display statistics and relevant information. This will be used for the Song display page. --*/
-async function searchSongStats(req, res) {
+function searchSongStats(req, res) {
   const query = `
 	SELECT 
 		t1.name AS song_name
@@ -509,12 +513,10 @@ async function searchSongStats(req, res) {
 
 
 /*-- q9: Identify songs with most similar attributes of the input attributes. This will be used in our Recommender tab. --*/
-async function recommendSongs(req, res) {
+function recommendSongs(req, res) {
   let incl = JSON.parse(req.query.include)
   let vals = JSON.parse(req.query.sliderValues)
   let song = JSON.parse(req.query.songInfo)
-  console.log('inlc ', incl)
-  console.log('vals ', vals)
   let songId = song.song_id
   let release_year = incl.release_year ? vals.release_year : -1
   let danceability = incl.danceability ? vals.danceability : -1
@@ -525,7 +527,6 @@ async function recommendSongs(req, res) {
   let instrumentalness = incl.instrumentalness ? vals.instrumentalness : -1
   let liveness = incl.liveness ? vals.liveness : -1
   let tempo = incl.tempo ? vals.tempo : -100
-  console.log(release_year, danceability, loudness, energy, acousticness, speechiness, instrumentalness, liveness, tempo)
   const query = `
     WITH Input_song AS (
       SELECT
@@ -610,6 +611,20 @@ async function recommendSongs(req, res) {
   });
 }
 
+async function getAlbumArt(req, res) {
+  try {
+    const promise = await axios({
+      method: 'GET',
+      url: `${APIRoot}/getartwork/?artist=&album=${req.params.album}`
+    })
+    if (promise.status == 200) {
+      res.json(promise.data)
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   getGenre,
   getAllAlbums,
@@ -624,5 +639,6 @@ module.exports = {
   searchArtistStats,
   searchAlbumStats,
   searchSongStats,
-  recommendSongs
+  recommendSongs,
+  getAlbumArt,
 }

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  CircularProgress,
   Fade,
   Grid,
   Modal,
@@ -21,13 +22,6 @@ import useStyles from '../style/album'
 import * as config from "../../config/client.json";
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
-
-
-// function st_pad_left(string,pad,length) {
-//     return (new Array(length+1).join(pad)+string).slice(-length);
-// }
-
-// var finalTime = str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
 
 const Track = ({ track, headers }) => (
   <TableRow>
@@ -54,13 +48,17 @@ class Album extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      tracks: []
+      tracks: [],
+      albumArt: {}
     }
     this.getTracks = this.getTracks.bind(this)
+    this.getArt = this.getArt.bind(this)
   }
 
   componentDidMount() {
-    this.getTracks(this.props.albumId)
+    const {albumId} = this.props
+    this.getTracks(albumId)
+    this.getArt(albumId)
   }
 
   async getTracks(albumId) {
@@ -72,13 +70,23 @@ class Album extends React.Component {
     }
   }
 
+  async getArt(albumId) {
+    const promise = await axios.get(`${APIRoot}/searchAlbum/${albumId}/art`)
+    const status = promise.status
+    if (status == 200) {
+      const albumArt = promise.data.album_image
+      this.setState({albumArt})
+    }
+  }
+
   render() {
     const {open, 
           styles,
           handleClose,
           albumName,
-          releaseYear,
-          albumArtUrl} = this.props
+          releaseYear} = this.props
+    const {albumArt} = this.state
+    let coverArt = albumArt && albumArt.url 
     return (
       <Modal open={open}
             onClose={handleClose}
@@ -86,34 +94,45 @@ class Album extends React.Component {
         <Fade in={open}>
           <div className={styles.paper}>
             
-            <Grid container
-                  direction="column"
-                  alignItems="flex-start"
-                  justify="flex-start">
-              <Grid item xs={12}>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {albumName}
-                </Typography>
-                <Typography gutterBottom component="p">
-                  Released {releaseYear}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <Headers styles={styles.headers} columns={tracklistHeaders}/>
-                    </TableHead>
-                    <TableBody>
-                    {this.state.tracks.map((track, i) => (
-                      <Track key={i} track={track} headers={tracklistHeaders} />
-                    ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
-            </Grid>
 
+            {coverArt ?
+              <Grid container
+                    direction="column"
+                    alignItems="flex-start"
+                    justify="flex-start">
+                <Grid item xs={12} >
+                  <img src={coverArt} className={styles.art}/>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {albumName}
+                  </Typography>
+                  <Typography gutterBottom component="p">
+                    Released {releaseYear}
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <Headers styles={styles.headers} columns={tracklistHeaders}/>
+                      </TableHead>
+                      <TableBody>
+                      {this.state.tracks.map((track, i) => (
+                        <Track key={i} track={track} headers={tracklistHeaders} />
+                      ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Grid>
+              </Grid>
+              :
+              <Grid item xs={12} className={styles.root}>
+                <CircularProgress className={styles.spinner}/>
+              </Grid>
+            }
           </div>
         </Fade>
       </Modal>

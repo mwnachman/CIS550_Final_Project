@@ -21,6 +21,7 @@ app.get('/songDetails/:songId', routes.getSongDetails);
 app.get('/searchSong/:song', routes.searchSong);
 app.get('/searchArtist/:artist', routes.searchArtist);
 app.get('/searchAlbum/:album', routes.searchAlbum);
+app.get('/searchAlbum/:album/art', routes.getAlbumArt)
 app.get('/searchArtistAlbums/:artist_id', routes.searchArtistAlbums);
 app.get('/searchAlbumAllSongs/:album', routes.searchAlbumAllSongs);
 app.get('/recommendSongs', routes.recommendSongs);
