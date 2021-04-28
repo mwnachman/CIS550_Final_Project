@@ -153,11 +153,10 @@ ordered by track number.
 This will be used for the Album display page.
 Input: 		album_id = "0oX4SealMgNXrvRDhqqOKg" line 186
 Return: 	disc_number, track_number, song_name, song_id,
-		total_duration_ms, time_minutes, time_seconds,
-		danceability, energy, song_key, loudness_db,
-		acousticness, speechiness, instrumentalness,
-		liveness, valence, tempo_bpm, major_minor_mode,
-		time_signature
+		total_duration_ms, danceability, energy, song_key,
+		loudness_db, acousticness, speechiness, 
+		instrumentalness, liveness, valence, tempo_bpm, 
+		major_minor_mode, time_signature
 */
 
 
@@ -168,8 +167,6 @@ SELECT
 	, t1.name AS song_name
 	, t1.id AS song_id
 	, t1.duration_ms AS total_duration_ms
-   	, FLOOR(t1.duration_ms/60000) AS time_minutes
-  	, ROUND((t1.duration_ms/60000 % 1)*60) AS time_seconds
    	, t1.danceability*10  AS danceability
 	, t1.energy*10  AS energy
 	, t1.song_key AS song_key
