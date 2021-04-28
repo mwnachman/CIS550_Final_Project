@@ -11,19 +11,19 @@ Our platform serves as an interactive resource for finding information about mus
 The application follows a multi-page tab structure where each page provides distinct functionality:
 
 ###### Home page:
-&emsp;&emsp;&emsp; Introduces the application and presents music elements to the user.
+- Introduces the application and presents music elements to the user.
 
 ###### Browse page: 
-&emsp;Presents a set of defined genres, which when selected, populate groupings of top albums for the user to view. Each grouping represents an album trait from our database.
+- Presents a set of defined genres, which when selected, populate groupings of top albums for the user to view. Each grouping represents an album trait from our database.
 
 ###### Page View / Modal:
-&emsp;Can be accessed across the entire application. They offer information to the user when they click on an item. This includes statistics and insights specific to the item.
+- Can be accessed across the entire application. They offer information to the user when they click on an item. This includes statistics and insights specific to the item.
 
 ###### Search page:
-&emsp; Developed to return results for keywords that represent either a song name, an album name, or an artist name. Exact matches, LIKE matches, and fuzzy matches are given back to the user in order of relevancy.
+- Developed to return results for keywords that represent either a song name, an album name, or an artist name. Exact matches, LIKE matches, and fuzzy matches are given back to the user in order of relevancy.
 
 ###### Recommendations page:
-&emsp;Available to the users after an item is accessed from Search results. Users are able to manipulate the attributes that are submitted to the recommendation algorithm based on their preferences. They can also choose which attributes the algorithm should include or disregard. 
+- Available to the users after an item is accessed from Search results. Users are able to manipulate the attributes that are submitted to the recommendation algorithm based on their preferences. They can also choose which attributes the algorithm should include or disregard. 
 
 <br />
 
@@ -55,13 +55,13 @@ The application follows a multi-page tab structure where each page provides dist
 ## Architecture
 
 ###### Client:
-&emsp;&emsp;&emsp; ReactJS application utilizing the Material-UI library for the user interface design.
+-  ReactJS application utilizing the Material-UI library for the user interface design.
 
 ###### Server:
-&emsp;&emsp;&emsp; Express Node.js application (deployed to AWS Lambda and API Gateway in production)
+-  Express Node.js application (deployed to AWS Lambda and API Gateway in production)
 
 ###### Database:
-&emsp;&emsp;&emsp; MySQL database hosted by AWS RDS server. The seed datasets created in Python Jupyter notebook were uploaded to AWS RDS via MySQL Workbench. 
+- MySQL database hosted by AWS RDS server. The seed datasets created in Python Jupyter notebook were uploaded to AWS RDS via MySQL Workbench. 
 
 ###### Artist & Album Artwork Service:
-&emsp;&emsp;&emsp; A Python script that integrates with the Spotify API and deployed to an AWS Lambda and API Gateway
+-  A Python script that integrates with the Spotify API and deployed to an AWS Lambda and API Gateway
