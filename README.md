@@ -1,7 +1,22 @@
 # MCIT CIS 550 Final Project
 Spring 2021
 
+
+
+To run the server:
+
+Rename the server/config/server-template.json file to server.json
+
+From the server directory, run  'npm install'
+
+From the server directory, run  'npm run watch'
+
+
+
+
 To run the client:
+
+Rename the client/config/client-template.json file to client.json
 
 From the client directory, run 'npm install'.  Navigate to localhost:8080.
 
