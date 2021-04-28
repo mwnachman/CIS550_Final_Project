@@ -32,22 +32,26 @@ The application follows a multi-page tab structure where each page provides dist
 
 ###### To run the server:
 
-- Rename the server/config/server-template.json file to server.json, change password to the database password "LoULnBjnkbeiA66"
+- Create a server.json file in server/config modeled on server-template.json file.  Request the database password from an administrator.
 
-- From the server directory, run  'npm install'
+- From the server directory, run 'npm install' to install dependencies.
 
-- From the server directory, run  'npm run watch'
+- To run the server, use the command 'npm run watch'.
 
 
 ###### To run the client:
 
-- Rename the client/config/client-template.json file to client.json
+- Create a client.json file in client/config modeled on client-template.json file.  Replace any psswords necessary.
 
-- From the client directory, run 'npm install'.  Navigate to localhost:8080.
+- From the client directory, run 'npm install' to install dependencies.
 
-- There's hot reloading set up for the client so you shouldn't have to restart either when you make changes.
+- To start the client, use the command 'npm start'.
 
 - In the browser, navigate to http://localhost:8080/
+
+
+Both the client and server have hot reloading enabled.
+
 
 
 <br />
