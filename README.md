@@ -1,4 +1,4 @@
-#Sonalysis
+# Sonalysis
 *MCIT CIS 550 Final Project, Spring 2021*
 *Meredith Latasa, William Whitehead, Holland Delany, Andrew Cho*
 
