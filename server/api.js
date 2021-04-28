@@ -532,52 +532,79 @@ async function recommendSongs(req, res) {
   let tempo = incl.tempo ? vals.tempo : -100
   console.log(release_year, danceability, loudness, energy, acousticness, speechiness, instrumentalness, liveness, tempo)
   const query = `
-    SELECT 
-      s.name AS song_name
-      , s.id AS song_id
-      , ar.name AS artist_name
-      , ar.id AS artist_id
-      , al.title AS album_name
-      , al.id AS album_id
-    FROM 
-      Album al JOIN Artist ar ON al.artist_id = ar.id JOIN Song s ON s.album_id = al.id
-    WHERE 1=1
-      AND
-        (CASE WHEN ${release_year} <> -1 THEN al.release_year = ${release_year}
-        ELSE al.release_year BETWEEN 1940 AND 2020
-        END)
-      AND 
-        (CASE WHEN ${danceability} <> -1 THEN s.danceability BETWEEN (${danceability} - 0.1) AND (${danceability} + 0.1)
-        ELSE s.danceability BETWEEN 0 AND 1
-        END)
-      AND 
-        (CASE WHEN ${energy} <> -1 THEN s.energy BETWEEN (${energy} - 0.1) AND (${energy} + 0.1)
-        ELSE s.energy BETWEEN 0 AND 1
-        END)
-      AND 
-        (CASE WHEN ${loudness} <> -100 THEN s.loudness BETWEEN (${loudness} - 5) AND (${loudness} + 5)
-        ELSE s.loudness BETWEEN -60 AND 6
-        END)
-      AND 
-        (CASE WHEN ${acousticness} <> -1 THEN s.acousticness BETWEEN (${acousticness} - 0.15) AND (${acousticness} + 0.15)
-        ELSE s.acousticness BETWEEN 0 AND 1
-        END)
-      AND 
-        (CASE WHEN ${speechiness} <> -1 THEN s.speechiness BETWEEN (${speechiness} - 0.2) AND (${speechiness} + 0.2)
-        ELSE s.speechiness BETWEEN 0 AND 1
-        END)  
-      AND 
-        (CASE WHEN ${instrumentalness} <> -1 THEN s.instrumentalness BETWEEN (${instrumentalness} - 0.2) AND (${instrumentalness} + 0.2)
-        ELSE s.instrumentalness BETWEEN 0 AND 1
-        END)
-      AND 
-        (CASE WHEN ${liveness} <> -1 THEN s.liveness BETWEEN (${liveness} - 0.1) AND (${liveness} + 0.1)
-        ELSE s.liveness BETWEEN 0 AND 1
-        END)
-      AND 
-        (CASE WHEN ${tempo} <> -1 THEN s.tempo BETWEEN (${tempo} - 20) AND (${tempo} + 20)
-        ELSE s.tempo BETWEEN 0 AND 250
-        END)
+	WITH Input_song AS (
+		SELECT
+			t1.name AS song_name
+			, t1.id AS song_id
+			, t1.album_id AS album_id
+			, t2.title AS album_name
+			, t2.artist_id AS artist_id
+			, t2.genre_id AS genre_id
+			, t2.record_label_id AS record_label_id
+			, t2.release_year AS album_release_year
+			, t3.name AS artist_name
+		FROM (
+			SELECT *
+			FROM Song
+			WHERE id =  ${songId} 
+		) t1
+			JOIN Album t2 ON t1.album_id = t2.id
+			JOIN Artist t3 ON t2.artist_id = t3.id
+	)
+	SELECT 
+		t1.name AS song_name,
+		t1.id AS song_id
+		, t3.name AS artist_name
+		, t3.id AS artist_id
+		, t2.title AS album_name
+		, t2.id AS album_id
+		, ABS(( ${danceability}  - t1.danceability) * 1.5 * ${include.danceability} )
+			+ ABS(( ${energy}  - t1.energy) * 1.5 * ${include.energy} )
+			+ ABS(( ${loudness}  - t1.loudness) * 1.5 * 0.0157 * ${include.loudness} )
+			+ ABS(( ${acousticness}  - t1.acousticness) * ${include.acousticness} )
+			+ ABS(( ${speechiness}  - t1.speechiness) * ${include.speechiness} )
+			+ ABS(( ${instrumentalness}  - t1.instrumentalness) * ${include.instrumentalness} )
+			+ ABS(( ${liveness}  - t1.liveness) * ${include.liveness} )
+			+ ABS(( ${tempo}  - t1.tempo ) * 0.0041 * ${include.tempo} )
+			+ CASE WHEN (Input_song.genre_id = t2.genre_id) THEN -0.4 * ${include.genre} ELSE 0 END
+	    AS score
+	FROM (
+		SELECT 
+			title
+			, id
+			, artist_id
+			, genre_id
+			, record_label_id
+		FROM Album
+		WHERE release_year >= ${min_release_year} 
+			AND release_year <= ${max_release_year} 
+	) t2 
+		JOIN Input_song
+		JOIN Artist t3 ON t2.artist_id = t3.id
+		JOIN Song t1  ON t1.album_id = t2.id
+	WHERE t1.id != Input_song.song_id 
+		AND t2.artist_id = (CASE WHEN (0 = ${include.same_artist}) THEN t2.artist_id ELSE Input_song.artist_id END)
+		AND t2.id = (CASE WHEN (0 = ${include.same_album}) THEN t2.id ELSE Input_song.album_id END)
+		AND t2.record_label_id = (CASE WHEN (0 = ${include.same_record_label}) THEN t2.record_label_id ELSE Input_song.record_label_id END)
+		AND t2.genre_id IN (  
+				SELECT genre_matches
+				FROM SimilarGenres
+				WHERE genre_code = 
+					CASE 
+						WHEN (0 = ${include.genre}) THEN 6
+						WHEN (Input_song.genre_id = 0) THEN 0
+						WHEN (Input_song.genre_id = 1) THEN 1
+						WHEN (Input_song.genre_id = 2) THEN 2
+						WHEN (Input_song.genre_id = 3) THEN 3
+						WHEN (Input_song.genre_id = 4) THEN 4
+						WHEN (Input_song.genre_id = 5) THEN 5
+						WHEN (Input_song.genre_id = 6) THEN 6
+						WHEN (Input_song.genre_id = 7) THEN 7
+						WHEN (Input_song.genre_id = 8) THEN 8
+					END
+				)
+	ORDER BY score ASC
+	LIMIT 50;
   `;
   con.query(query, function(err, rows) {
     if (err) console.error(err);
