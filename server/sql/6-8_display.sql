@@ -1,6 +1,6 @@
-use project;
+use project_prod;
 
-SELECT * FROM Song LIMIT 20;
+SELECT * FROM PitchforkReviews LIMIT 100;
 
 
 /* 
@@ -187,10 +187,9 @@ WHERE album_id = '0oX4SealMgNXrvRDhqqOKg'
 ORDER BY disc_number, track_number;
  
 
- 
+
 /* 
 Query 7B
-
 Search an album and dislay album information 
 and summary stats for all of the songs in the album.
 This will be used for the Album display page.
@@ -209,7 +208,8 @@ Return: 	album_name, album_id, artist_name,
 		avg_valence (score 0-10),
 		avg_loudness_db (decibels),
 		avg_tempo_bpm (beats per minute),
-		avg_duration_ms (milliseconds)
+		avg_duration_ms (milliseconds),
+		review_url
 */
 
 
@@ -237,12 +237,18 @@ SELECT
 	, AVG(t1.loudness) AS avg_loudness_db
 	, AVG(t1.tempo) AS avg_tempo_bpm
 	, AVG(t1.duration_ms) AS avg_duration_ms
+	, t6.url AS review_url
 FROM  Song t1
 	LEFT JOIN Album t2 ON t1.album_id = t2.id
 	LEFT JOIN Artist t3 ON t2.artist_id = t3.id
 	LEFT JOIN  RecordLabel t4 ON t2.record_label_id = t4.id
 	LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-WHERE t2.id = '0oX4SealMgNXrvRDhqqOKg';
+    LEFT JOIN (
+		SELECT album_id, url
+		FROM PitchforkReviews 
+		GROUP BY album_id
+	) t6 ON t2.id = t6.album_id
+WHERE t2.id = '2sfLsbSsDm780Llr9NWHQz';
 
 
 
@@ -273,19 +279,25 @@ SELECT
 	, AVG(t1.loudness) AS avg_loudness_db
 	, AVG(t1.tempo) AS avg_tempo_bpm
 	, AVG(t1.duration_ms) AS avg_duration_ms
+	, t6.url AS review_url
 FROM  (
-	SELECT 
-		*
+	SELECT *
 	FROM Album
-	WHERE id = '0oX4SealMgNXrvRDhqqOKg'
+	WHERE id = '2sfLsbSsDm780Llr9NWHQz'
 ) t2 
+	LEFT JOIN (
+		SELECT album_id, url
+		FROM PitchforkReviews 
+		WHERE album_id = '2sfLsbSsDm780Llr9NWHQz'
+		ORDER BY score DESC
+		LIMIT 1
+	) t6 ON t2.id = t6.album_id
 	JOIN Genre t5 ON t2.genre_id = t5.id
 	JOIN RecordLabel t4 ON t2.record_label_id = t4.id
 	JOIN Artist t3 ON t2.artist_id = t3.id
 	JOIN Song t1 ON t1.album_id = t2.id;
 
     
- 
 
 
 
