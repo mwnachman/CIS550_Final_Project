@@ -611,7 +611,7 @@ function recommendSongs(req, res) {
 
 
 /*-- q10: Identify albums with most similar attributes of the input album. This will be used in our Recommender tab. --*/
-function recommendAlbum(req, res) {
+function recommendAlbums(req, res) {
   const query = `
 	WITH Input_album AS (
 		SELECT
@@ -723,6 +723,128 @@ function recommendAlbum(req, res) {
   });
 }
 
+/*-- q11: Identify artists with most similar attributes of the input album. This will be used in our Recommender tab. --*/
+function recommendArtists(req, res) {
+  const query = `
+	WITH Input_artist AS (
+		SELECT
+			t2.id AS album_id
+			, t3.id AS artist_id
+			, t2.aoty_critic_score AS album_critic_score
+			, t2.aoty_user_score AS album_user_score
+			, t2.num_aoty_critic_reviews AS num_critic_reviews
+			, t2.num_aoty_user_reviews AS num_user_reviews
+			, t2.record_label_id AS record_label_id
+			, AVG(t1.danceability) AS avg_danceability
+			, AVG(t1.energy) AS avg_energy
+			, AVG(t1.loudness) AS avg_loudness
+			, AVG(t1.acousticness) AS avg_acousticness
+			, AVG(t1.speechiness) AS avg_speechiness
+			, AVG(t1.instrumentalness) AS avg_instrumentalness
+			, AVG(t1.liveness) AS avg_liveness
+			, AVG(t1.tempo) AS avg_tempo
+			, AVG(t1.valence) AS avg_valence
+			, AVG(t1.duration_ms) AS avg_duration
+		FROM  Song t1
+			LEFT JOIN Album t2 ON t1.album_id = t2.id
+			LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+		WHERE t3.id = `+req.params.artist+`
+	),
+	Input_artist_genre AS (
+		SELECT 
+			genre_id
+		FROM  (
+			SELECT t5.id AS genre_id
+		FROM Album t2 
+		JOIN (
+				SELECT *
+		    FROM Artist
+		    WHERE id = `+req.params.artist+`
+			) t3 ON t2.artist_id = t3.id
+			JOIN Genre t5 ON t2.genre_id = t5.id
+		) x
+		GROUP BY genre_id
+	    ORDER BY COUNT(genre_id) DESC
+	    LIMIT 1
+	),
+	Other_artist AS (
+		SELECT 
+				t3.name AS artist_name
+				, t3.id AS artist_id
+				, t2.aoty_critic_score AS album_critic_score
+				, t2.aoty_user_score AS album_user_score
+				, t2.num_aoty_critic_reviews AS num_critic_reviews
+				, t2.num_aoty_user_reviews AS num_user_reviews
+				, t2.record_label_id AS record_label_id
+				, AVG(t1.danceability) AS avg_danceability
+				, AVG(t1.energy) AS avg_energy
+				, AVG(t1.loudness) AS avg_loudness
+				, AVG(t1.acousticness) AS avg_acousticness
+				, AVG(t1.speechiness) AS avg_speechiness
+				, AVG(t1.instrumentalness) AS avg_instrumentalness
+				, AVG(t1.liveness) AS avg_liveness
+				, AVG(t1.tempo) AS avg_tempo
+				, AVG(t1.valence) AS avg_valence
+				, AVG(t1.duration_ms) AS avg_duration
+			FROM  Song t1
+				JOIN Album t2 ON t1.album_id = t2.id
+				JOIN Artist t3 ON t2.artist_id = t3.id
+			GROUP BY t3.id
+	), 
+	Other_artist_genre AS(
+		SELECT genre_id
+		FROM  (
+			SELECT t5.id AS genre_id
+			FROM Album t2 
+			JOIN Other_artist t3 ON t2.artist_id = t3.artist_id
+			JOIN Genre t5 ON t2.genre_id = t5.id
+		) x
+		GROUP BY genre_id
+		ORDER BY COUNT(genre_id) DESC
+		LIMIT 1
+	)
+	SELECT *
+	FROM (
+		SELECT
+			Other_artist.artist_name AS artist_name
+			, Other_artist.artist_id AS artist_id
+			, ABS(( Input_artist.avg_danceability - Other_artist.avg_danceability) * 1.5)
+				+ ABS(( Input_artist.avg_energy - Other_artist.avg_energy) * 1.5)
+				+ ABS(( Input_artist.avg_loudness - Other_artist.avg_loudness) * 1.5 * 0.0157)
+				+ ABS(( Input_artist.avg_acousticness - Other_artist.avg_acousticness))
+				+ ABS(( Input_artist.avg_speechiness - Other_artist.avg_speechiness))
+				+ ABS(( Input_artist.avg_instrumentalness - Other_artist.avg_instrumentalness))
+				+ ABS(( Input_artist.avg_liveness - Other_artist.avg_liveness))
+				+ ABS(( Input_artist.avg_tempo - Other_artist.avg_tempo ) * 0.0041)
+				+ ABS(( Input_artist.avg_valence - Other_artist.avg_valence ))
+				+ ABS(( Input_artist.avg_duration - Other_artist.avg_duration ) /5000000)
+				+ ABS(( Input_artist.album_user_score - Other_artist.album_user_score) * 0.01)
+				+ (ABS(( Input_artist.album_critic_score - Other_artist.album_critic_score) * 0.01) *
+				CASE WHEN (Input_artist.num_critic_reviews > 10 AND Other_artist.num_critic_reviews > 10) THEN 1 ELSE 0 END)
+				+ (ABS(( Input_artist.album_user_score - Other_artist.album_user_score) * 0.01) * 
+				CASE WHEN (Input_artist.num_user_reviews > 10 AND Other_artist.num_user_reviews > 10) THEN 1 ELSE 0 END)
+				+ CASE WHEN (Input_artist.record_label_id = Other_artist.record_label_id) THEN -0.3 ELSE 0 END
+			AS score
+		FROM Other_artist
+			JOIN Input_artist
+			JOIN Input_artist_genre
+			JOIN Other_artist_genre
+		WHERE Input_artist_genre.genre_id = Other_artist_genre.genre_id
+			AND Input_artist.artist_id != Other_artist.artist_id
+	) x 
+	WHERE score IS NOT NULL 
+	ORDER BY score ASC
+	LIMIT 50;
+    `;
+  con.query(query, function(err, rows) {
+    if (err) console.error(err);
+    else {
+      res.json(rows);
+    }
+  });
+}
+
+
 
 
 async function getAlbumArt(req, res) {
@@ -768,7 +890,8 @@ module.exports = {
   searchAlbumStats,
   searchSongStats,
   recommendSongs,
-  recommendAlbum,
+  recommendAlbums,
+  recommendArtists,
   getAlbumArt,
   getSongUrl
 }
