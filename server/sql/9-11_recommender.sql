@@ -195,7 +195,6 @@ LIMIT 50;
 
 
 
-
 /* 
 Query 10
 
@@ -203,36 +202,8 @@ Identify album with most similarity to  input song values (comparing the average
 and input album traits. 
 This will be used in our Album Recommender.
 User inputs (0 or 1) determine whether or not the algorithm includes specific traits. 
-Input: 		- album_id = "0oX4SealMgNXrvRDhqqOKg" line 371
-			- user input values for song attributes: 
-				danceability value = "5" line 383
-				energy value = "5" line 384
-				loudness value = "5" line 385
-				acousticness value = "5" line 386
-				speechiness value = "5" line 387
-				insttrumentalness value = "5" line 388
-				liveness value = "5" line 399
-				tempo value = "5" line 400
-				valence value = "5" line 391
-				album_critic_score = "5" line 392
-				album_user_score = "5" line 393
-				min release year = "1990" line 420
-				max release year=  "2021" line 421
-			- user input 0/1 boolean indicators for each song attribute:
-				include danceability = "1" line 383
-				include energy = "1" line 384
-				include loudness = "1" line 385 
-				include acousticness = "1" line 386
-				include speechiness = "1" line 387
-				include instrumentalness = "1" line 388
-				include liveness = "1" line 389
-				include tempo = "1" line 390
-				include valence = "1" line 391
-				same artist (1 -> must be same artist, 0 -> any artist) = "0" line 430
-				same format (1 -> must be same format, 0 -> any format) = "0" line 431
-				same record label (1 -> must be same record label, 0 -> any record label) = "0" line 432
-				same_genre (1 -> must be same/similar genre, 0 -> any genre) = "1" line 394 ALSO = "1" line 438 (same input in two places)
-Return:	album_name, album_id, artist_name, artist_id, score
+Input: 		album_id = "0oX4SealMgNXrvRDhqqOKg" line 371
+Return:		album_name, album_id, artist_name, artist_id, score
 
 */
 
@@ -359,6 +330,14 @@ WITH Input_album AS (
 		, t2.aoty_critic_score AS album_critic_score
 		, t2.aoty_user_score AS album_user_score
 		, AVG(t1.danceability) AS avg_danceability
+		, AVG(t1.energy) AS avg_energy
+		, AVG(t1.loudness) AS avg_loudness
+		, AVG(t1.acousticness) AS avg_acousticness
+		, AVG(t1.speechiness) AS avg_speechiness
+		, AVG(t1.instrumentalness) AS avg_instrumentalness
+		, AVG(t1.liveness) AS avg_liveness
+		, AVG(t1.tempo) AS avg_tempo
+		, AVG(t1.valence) AS avg_valence
 	FROM (
 		SELECT *
 		FROM Album 
@@ -369,23 +348,27 @@ WITH Input_album AS (
 )
 SELECT *
 FROM (
-	SELECT
+	SELECT 
 		Other_album.artist_name AS artist_name
 		, Other_album.artist_id AS artist_id
 		, Other_album.album_name AS album_name
 		, Other_album.album_id AS album_id
-		, ABS(( 5 - Other_album.avg_danceability) * 1.5 * 1)
-			+ ABS(( 5 - Other_album.avg_energy) * 1.5 * 1)
-			+ ABS(( 5 - Other_album.avg_loudness) * 1.5 * 0.0157 * 1)
-			+ ABS(( 5 - Other_album.avg_acousticness) * 1)
-			+ ABS(( 5 - Other_album.avg_speechiness) * 1)
-			+ ABS(( 5 - Other_album.avg_instrumentalness) * 1)
-			+ ABS(( 5 - Other_album.avg_liveness) * 1)
-			+ ABS(( 5 - Other_album.avg_tempo ) * 0.0041 * 1)
-			+ ABS(( 5 - Other_album.avg_valence ) * 1)
-			+ ABS(( 5 - Other_album.album_critic_score) * 0.01 * 1)
-			+ ABS(( 5 - Other_album.album_user_score) * 0.01 * 1)
-			+ CASE WHEN (Input_album.genre_id = Other_album.genre_id) THEN -0.4 * 1 ELSE 0 END
+		, ABS(( Input_album.avg_danceability - Other_album.avg_danceability) * 1.5)
+			+ ABS(( Input_album.avg_energy - Other_album.avg_energy) * 1.5 )
+			+ ABS(( Input_album.avg_loudness - Other_album.avg_loudness) * 1.5 * 0.0157)
+			+ ABS(( Input_album.avg_acousticness - Other_album.avg_acousticness))
+			+ ABS(( Input_album.avg_speechiness - Other_album.avg_speechiness))
+			+ ABS(( Input_album.avg_instrumentalness - Other_album.avg_instrumentalness))
+			+ ABS(( Input_album.avg_liveness - Other_album.avg_liveness) )
+			+ ABS(( Input_album.avg_tempo - Other_album.avg_tempo ) * 0.0041 )
+			+ ABS(( Input_album.avg_valence - Other_album.avg_valence ) )
+			+ ABS(( Input_album.album_critic_score - Other_album.album_critic_score) * 0.01 )
+			+ ABS(( Input_album.album_critic_score - Other_album.album_user_score) * 0.01 )
+			+ ABS(( Input_album.album_release_year- Other_album.album_release_year)* 0.0145 )
+			+ CASE WHEN (Input_album.genre_id = Other_album.genre_id) THEN -0.4  ELSE 0 END
+			+ CASE WHEN (Input_album.artist_id = Other_album.artist_id) THEN -0.1  ELSE 0 END
+			+ CASE WHEN (Input_album.album_format = Other_album.album_format) THEN -0.01 ELSE 0 END
+			+ CASE WHEN (Input_album.record_label_id = Other_album.record_label_id) THEN -0.1 ELSE 0 END
 		AS score
 	FROM (
 		SELECT 
@@ -408,12 +391,8 @@ FROM (
 			, AVG(t1.liveness) AS avg_liveness
 			, AVG(t1.tempo) AS avg_tempo
 			, AVG(t1.valence) AS avg_valence
-		FROM (
-			SELECT *
-			FROM Album
-			WHERE release_year >= 1980
-				AND release_year <= 2021
-		) t2 
+			+ CASE WHEN (Input_album.record_label_id = Other_album.record_label_id) THEN -0.1 ELSE 0 END
+		FROM Album t2 
 			JOIN Artist t3 ON t2.artist_id = t3.id
 			JOIN Song t1  ON t1.album_id = t2.id
 		GROUP BY t2.id
@@ -421,15 +400,11 @@ FROM (
 	JOIN Input_album
 	WHERE 
 		Other_album.album_id != Input_album.album_id 
-		AND Other_album.artist_id = (CASE WHEN (0 = 0) THEN Other_album.artist_id ELSE Input_album.artist_id END)
-		AND Other_album.album_format = (CASE WHEN (0 = 0) THEN Other_album.album_format ELSE Input_album.album_format END)
-		AND Other_album.record_label_id = (CASE WHEN (0 = 0) THEN Other_album.record_label_id ELSE Input_album.record_label_id END)
 		AND Other_album.genre_id IN (  
 			SELECT genre_matches
 			FROM SimilarGenres
 			WHERE genre_code = 
 				CASE 
-					WHEN (0 = 1) THEN 6
 					WHEN (Input_album.genre_id = 0) THEN 0
 					WHEN (Input_album.genre_id = 1) THEN 1
 					WHEN (Input_album.genre_id = 2) THEN 2
@@ -460,16 +435,10 @@ Identify artists with most similarity to input song values (comparing the averag
 and input aritst traits. 
 This will be used in our Artist Recommender.
 User inputs (0 or 1) determine whether or not the algorithm includes specific traits. 
-Input: 	artist_id, user input values for each song attribute, user input 0/1 indicators for each song attribute
+Input: 	artist_id
 Return: artist_name, artist_id, score
 
 Note:	Change "3fMbdgg4jU18AjLCKBhRSm" (t3.id) with ${artist_id} for final report, 
-		Change "1" (multiplied by song attributes in score) with corresponding boolean user inputs (each "1" represents a seperate input variable)
-		Change 5 (multiplied by song attributes in score) with corresponding user inputs (each 5 represents a seperate input variable)
-
-NEEDS OPTIMIZATION
-SAME RECORD LABELS?  --make this an if clause with 0/1 user input
-AVG RELEASE YEAR?
 */
 
 
@@ -480,6 +449,9 @@ WITH Input_artist AS (
 		, t3.id AS artist_id
 		, t2.aoty_critic_score AS album_critic_score
 		, t2.aoty_user_score AS album_user_score
+		, t2.num_aoty_critic_reviews AS num_critic_reviews
+		, t2.num_aoty_user_reviews AS num_user_reviews
+		, t2.record_label_id AS record_label_id
 		, AVG(t1.danceability) AS avg_danceability
 		, AVG(t1.energy) AS avg_energy
 		, AVG(t1.loudness) AS avg_loudness
@@ -495,12 +467,22 @@ WITH Input_artist AS (
 		LEFT JOIN Artist t3 ON t2.artist_id = t3.id
 	WHERE t3.id = '3fMbdgg4jU18AjLCKBhRSm'
 ),
-Input_album_genres AS (
-	SELECT DISTINCT t5.id AS genre_id
-	FROM  Album t2 
-		LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-        LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-	WHERE t3.id = '3fMbdgg4jU18AjLCKBhRSm'
+Input_artist_genre AS (
+	SELECT 
+		genre_id
+	FROM  (
+		SELECT t5.id AS genre_id
+        FROM Album t2 
+        JOIN (
+			SELECT *
+            FROM Artist
+            WHERE id = '3fMbdgg4jU18AjLCKBhRSm'
+		) t3 ON t2.artist_id = t3.id
+		JOIN Genre t5 ON t2.genre_id = t5.id
+        ) x
+	GROUP BY genre_id
+    ORDER BY COUNT(genre_id) DESC
+    LIMIT 1
 ),
 Other_artist AS (
 	SELECT 
@@ -508,6 +490,9 @@ Other_artist AS (
 			, t3.id AS artist_id
 			, t2.aoty_critic_score AS album_critic_score
 			, t2.aoty_user_score AS album_user_score
+			, t2.num_aoty_critic_reviews AS num_critic_reviews
+			, t2.num_aoty_user_reviews AS num_user_reviews
+			, t2.record_label_id AS record_label_id
 			, AVG(t1.danceability) AS avg_danceability
 			, AVG(t1.energy) AS avg_energy
 			, AVG(t1.loudness) AS avg_loudness
@@ -519,41 +504,50 @@ Other_artist AS (
 			, AVG(t1.valence) AS avg_valence
 			, AVG(t1.duration_ms) AS avg_duration
 		FROM  Song t1
-			LEFT JOIN Album t2 ON t1.album_id = t2.id
-			LEFT JOIN Artist t3 ON t2.artist_id = t3.id
+			JOIN Album t2 ON t1.album_id = t2.id
+			JOIN Artist t3 ON t2.artist_id = t3.id
 		GROUP BY t3.id
-) 
+), 
+Other_artist_genre AS(
+ 	SELECT genre_id
+	FROM  (
+		SELECT t5.id AS genre_id
+		FROM Album t2 
+		JOIN Other_artist t3 ON t2.artist_id = t3.artist_id
+		JOIN Genre t5 ON t2.genre_id = t5.id
+	) x
+	GROUP BY genre_id
+	ORDER BY COUNT(genre_id) DESC
+	LIMIT 1
+)
 SELECT *
 FROM (
 	SELECT
 		Other_artist.artist_name AS artist_name
 		, Other_artist.artist_id AS artist_id
-		, ABS(( 5 - Other_artist.avg_danceability) * 1.5 * 1)
-			+ ABS(( 5 - Other_artist.avg_energy) * 1.5 * 1)
-			+ ABS(( 5 - Other_artist.avg_loudness) * 1.5 * 0.0157 * 1)
-			+ ABS(( 5 - Other_artist.avg_acousticness) * 1)
-			+ ABS(( 5 - Other_artist.avg_speechiness) * 1)
-			+ ABS(( 5 - Other_artist.avg_instrumentalness) * 1)
-			+ ABS(( 5 - Other_artist.avg_liveness) * 1)
-			+ ABS(( 5 - Other_artist.avg_tempo ) * 0.0041 * 1)
-			+ ABS(( 5 - Other_artist.avg_valence ) * 1)
-			+ ABS(( Input_artist.avg_duration - Other_artist.avg_duration ) /5000000 * 1)
-			+ ABS(( Input_artist.album_critic_score - Other_artist.album_critic_score) * 0.01 * 1)
-			+ ABS(( Input_artist.album_user_score - Other_artist.album_user_score) * 0.01 * 1)
+		, ABS(( Input_artist.avg_danceability - Other_artist.avg_danceability) * 1.5)
+			+ ABS(( Input_artist.avg_energy - Other_artist.avg_energy) * 1.5)
+			+ ABS(( Input_artist.avg_loudness - Other_artist.avg_loudness) * 1.5 * 0.0157)
+			+ ABS(( Input_artist.avg_acousticness - Other_artist.avg_acousticness))
+			+ ABS(( Input_artist.avg_speechiness - Other_artist.avg_speechiness))
+			+ ABS(( Input_artist.avg_instrumentalness - Other_artist.avg_instrumentalness))
+			+ ABS(( Input_artist.avg_liveness - Other_artist.avg_liveness))
+			+ ABS(( Input_artist.avg_tempo - Other_artist.avg_tempo ) * 0.0041)
+			+ ABS(( Input_artist.avg_valence - Other_artist.avg_valence ))
+			+ ABS(( Input_artist.avg_duration - Other_artist.avg_duration ) /5000000)
+			+ ABS(( Input_artist.album_user_score - Other_artist.album_user_score) * 0.01)
+			+ (ABS(( Input_artist.album_critic_score - Other_artist.album_critic_score) * 0.01) *
+			CASE WHEN (Input_artist.num_critic_reviews > 10 AND Other_artist.num_critic_reviews > 10) THEN 1 ELSE 0 END)
+			+ (ABS(( Input_artist.album_user_score - Other_artist.album_user_score) * 0.01) * 
+			CASE WHEN (Input_artist.num_user_reviews > 10 AND Other_artist.num_user_reviews > 10) THEN 1 ELSE 0 END)
+			+ CASE WHEN (Input_artist.record_label_id = Other_artist.record_label_id) THEN -0.3 ELSE 0 END
 		AS score
-	FROM Other_artist JOIN Input_artist
-	WHERE Other_artist.artist_id != Input_artist.artist_id 
-		AND EXISTS (
-			SELECT DISTINCT t5.id AS genre_id
-			FROM  Album t2 
-				LEFT JOIN Artist t3 ON t2.artist_id = t3.id
-				LEFT JOIN Genre t5 ON t2.genre_id = t5.id
-			WHERE t3.id = Other_artist.artist_id
-				AND genre_id IN (
-					SELECT genre_matches
-					FROM Input_album_genres JOIN SimilarGenres ON Input_album_genres.genre_id=SimilarGenres.genre_code
-				) 
-		) 
+	FROM Other_artist
+		JOIN Input_artist
+		JOIN Input_artist_genre
+		JOIN Other_artist_genre
+	WHERE Input_artist_genre.genre_id = Other_artist_genre.genre_id
+		AND Input_artist.artist_id != Other_artist.artist_id
 ) x 
 WHERE score IS NOT NULL 
 ORDER BY score ASC
