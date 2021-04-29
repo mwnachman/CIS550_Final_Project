@@ -768,7 +768,7 @@ module.exports = {
   searchAlbumStats,
   searchSongStats,
   recommendSongs,
-  recommendAlbums,
+  recommendAlbum,
   getAlbumArt,
   getSongUrl
 }
