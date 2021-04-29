@@ -66,7 +66,7 @@ LIMIT 5;
 /* 
 Query 1
 
-Get the top 5 highly rated albums ranked by AOTY User Score. 
+Get the top 5 highly rated albums ranked by AOTY User Score & AOTY Album Score. 
 Input is a specific genre. 
 This will be used for the Browsing tab.
 Input: 		Integer representing genre code (0-8)
@@ -93,8 +93,10 @@ FROM
 	LEFT JOIN Artist t3 ON t2.artist_id = t3.id
 	LEFT JOIN Genre t5 ON t2.genre_id = t5.id
 	LEFT JOIN RecordLabel t4 ON t2.record_label_id = t4.id
-WHERE genre_id = 1 AND num_aoty_user_reviews >= 15
-ORDER BY t2.aoty_user_score DESC
+WHERE genre_id = 1 
+	AND num_aoty_user_reviews >= 15
+    AND num_aoty_critic_reviews >= 2
+ORDER BY (t2.aoty_user_score + t2.aoty_critic_score)/2 DESC
 LIMIT 50;
 
 
@@ -116,11 +118,11 @@ FROM
 	RecordLabel t4 
 	JOIN Album t2 ON t2.record_label_id = t4.id
 	JOIN Artist t3 ON t2.artist_id = t3.id 
-WHERE t2.genre_id = 1 AND t2.num_aoty_user_reviews >= 15
-ORDER BY t2.aoty_user_score DESC
+WHERE genre_id = 1 
+	AND num_aoty_user_reviews >= 15
+    AND num_aoty_critic_reviews >= 2
+ORDER BY (t2.aoty_user_score + t2.aoty_critic_score)/2 DESC
 LIMIT 50;
-
-
 
 
 /* 
