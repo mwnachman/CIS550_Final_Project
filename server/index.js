@@ -26,6 +26,15 @@ app.get('/searchAlbum/:album/art', routes.getAlbumArt)
 app.get('/searchArtistAlbums/:artist_id', routes.searchArtistAlbums);
 app.get('/searchAlbumAllSongs/:album', routes.searchAlbumAllSongs);
 app.get('/recommendSongs', routes.recommendSongs);
+app.get('/recommendAlbums', routes.recommendAlbums);
+app.get('/recommendArtists', routes.recommendArtists);
+
+
+ 
+
+
+
+
 
 
 // comment out line below for lambda deployment
