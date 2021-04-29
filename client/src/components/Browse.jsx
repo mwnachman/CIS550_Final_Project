@@ -118,7 +118,7 @@ class Browse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedGenre: "",
+      selectedGenre: -1,
       selectedTrait: "",
       results: [],
       displayResults: false,
