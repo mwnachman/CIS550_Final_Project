@@ -182,11 +182,6 @@ class Recommendations extends React.Component {
       checked: [true, true, true, true, true, true, true, true, true],
       songs: [],
       searchedForRecs: false,
-      artistForModal: {},
-      albumForModal: {},
-      artistModalOpen: false,
-      albumModalOpen: false,
-      modalType: ''
     }
     this.getSongDetails = this.getSongDetails.bind(this)
     this.setParameterValues = this.setParameterValues.bind(this)
@@ -195,10 +190,6 @@ class Recommendations extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     this.handleGenreCheckboxChange = this.handleGenreCheckboxChange.bind(this)
     this.returnToSliders = this.returnToSliders.bind(this)
-    this.openArtistModal = this.openArtistModal.bind(this)
-    this.openAlbumModal = this.openAlbumModal.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -206,31 +197,6 @@ class Recommendations extends React.Component {
     if (selectedSong) {
       this.getSongDetails(selectedSong.song_id)
     }
-  }
-
-  handleClose() {
-    this.setState({
-      artistModalOpen: false,
-      albumModalOpen: false,
-      artistForModal: {},
-      albumForModal: {}
-    })
-  }
-
-  handleClick(result, type) {
-    if (type == 'artist_name') {
-      this.openArtistModal(result)
-    } else if (type == 'album_name') {
-      this.openAlbumModal(result)
-    }
-  }
-
-  openArtistModal(artistForModal) {
-    this.setState({artistForModal, artistModalOpen: true})
-  }
-
-  openAlbumModal(albumForModal) {
-    this.setState({albumForModal, albumModalOpen: true})
   }
 
   setParameterValues(values) {
@@ -290,6 +256,7 @@ class Recommendations extends React.Component {
 
   render() {
     const {selectedSong,
+          handleClick,
           styles} = this.props
     const {values,
           songs,
@@ -308,21 +275,6 @@ class Recommendations extends React.Component {
             justify="flex-start"
             className={styles.exterior_grid}>
         <Grid item xs={12} className={styles.interior_grid}>
-          {artistModalOpen &&
-            <Artist open={artistModalOpen}
-                    handleClose={this.handleClose}
-                    artistId={artistForModal.artist_id}
-                    artistName={artistForModal.artist_name}/>
-            
-          }
-          {albumModalOpen &&
-            <Album open={albumModalOpen}
-                    handleClose={this.handleClose}
-                    albumId={albumForModal.album_id}
-                    albumName={albumForModal.album_name}
-                    releaseYear={albumForModal.release_year}/>
-            
-          }
           <Typography className={styles.recsWording} component="p">
             Get recommendations based on your selected song,
           </Typography>
@@ -369,7 +321,7 @@ class Recommendations extends React.Component {
               {searchedForRecs ?
                 <RecommendedSongs songs={songs}
                                   styles={styles}
-                                  handleClick={this.handleClick}
+                                  handleClick={handleClick}
                                   returnToSliders={this.returnToSliders}/>
                 :
                 <TableBody>

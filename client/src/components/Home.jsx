@@ -25,8 +25,8 @@ import {
 } from "@material-ui/core";
 
 import Artist from './Artist.jsx'
-import useStyles from "../style/home";
-import * as config from "../../config/client.json";
+import useStyles from '../style/home'
+import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
 
