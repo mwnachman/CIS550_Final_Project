@@ -118,7 +118,7 @@ class Browse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedGenre: -1,
+      selectedGenre: "",
       selectedTrait: "",
       results: [],
       displayResults: false,
@@ -158,7 +158,7 @@ class Browse extends React.Component {
 
   async grabResults() {
     // check to make sure both selects have values
-    if (this.state.selectedGenre > -1 && this.state.selectedTrait.length > 0) {
+    if ((!isNaN(this.state.selectedGenre)) && this.state.selectedTrait.length > 0) {
       this.displayResults()
       // determine which endpoint to call based on selectedTrait value
       if (this.state.selectedTrait == "top") {
@@ -226,13 +226,13 @@ class Browse extends React.Component {
                   Check out some of the top albums from each year by genre and your specified criteria.
                 </Typography>
                 <FormControl className={styles.formControl}>
-                  <InputLabel id="demo-simple-select-label">Genre</InputLabel>
+                  <InputLabel id="demo-simple-select-genre-label">Genre</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="demo-simple-select-genre-label"
+                    id="demo-simple-select-genre"
                     value={selectedGenre}
                     onChange={this.handleGenreChange}
-                    autowidth="true"
+                    autoWidth="true"
                   >
                     <MenuItem value={8}>Alternative Rock &amp; Pop</MenuItem>
                     <MenuItem value={4}>Country &amp; Folk</MenuItem>
@@ -246,15 +246,15 @@ class Browse extends React.Component {
                   </Select>
                 </FormControl>
                 <FormControl className={styles.formControl}>
-                  <InputLabel id="demo-simple-select-label">Criteria</InputLabel>
+                  <InputLabel id="demo-simple-select-criteria-label">Criteria</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="demo-simple-select-criteria-label"
+                    id="demo-simple-select-criteria"
                     value={selectedTrait}
                     onChange={this.handleTraitChange}
-                    autowidth="true"
+                    autoWidth="true"
                   >
-                    <MenuItem value="top" selected="true">Top Overall in Genre</MenuItem>
+                    <MenuItem value="top">Top Overall in Genre</MenuItem>
                     <MenuItem value="danceability">Most Danceable</MenuItem>
                     <MenuItem value="energy">Most Energetic</MenuItem>
                     <MenuItem value="loudness">Loudest</MenuItem>
