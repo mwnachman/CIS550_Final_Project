@@ -10,6 +10,8 @@ import {
 import Browse from './Browse.jsx'
 import Home from './Home.jsx'
 import Search from './Search.jsx'
+import Album from './Album.jsx'
+import Artist from './Artist.jsx'
 
 
 function TabPanel(props) {
@@ -52,28 +54,65 @@ class TabComponent extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.changeTab = this.changeTab.bind(this)
     this.state = {
-      value: 0
+      tabPosition: 0,
+      artistForModal: {},
+      albumForModal: {},
+      artistModalOpen: false,
+      albumModalOpen: false,
+      modalType: ''
     }
+    this.openArtistModal = this.openArtistModal.bind(this)
+    this.openAlbumModal = this.openAlbumModal.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleChange(event, newValue) {
-    event.preventDefault();
-    this.setState({value: newValue})
+  handleClose() {
+    this.setState({
+      artistModalOpen: false,
+      albumModalOpen: false,
+      artistForModal: {},
+      albumForModal: {}
+    })
+  }
+
+  handleClick(result, type) {
+    if (type == 'artist_name') {
+      this.openArtistModal(result)
+    } else if (type == 'album_name') {
+      this.openAlbumModal(result)
+    } 
+  }
+
+  openArtistModal(artistForModal) {
+    this.setState({artistForModal, artistModalOpen: true})
+  }
+
+  openAlbumModal(albumForModal) {
+    this.setState({albumForModal, albumModalOpen: true})
+  }
+
+  handleChange(e, newValue) {
+    e.preventDefault();
+    this.changeTab(newValue)
   }
 
   changeTab(newValue) {
-    this.setState({value: newValue})
+    this.setState({tabPosition: newValue})
   }
 
   render() {
-    const { value } = this.state
-    const { setlist } = this.props
+    const { tabPosition,
+            artistForModal,
+            artistModalOpen,
+            albumForModal,
+            albumModalOpen } = this.state
     return (
       <div>
         <AppBar position="static">
           <Paper square>
             <Tabs
-              value={value}
+              value={tabPosition}
               indicatorColor="primary"
               textColor="primary"
               onChange={this.handleChange}
@@ -84,14 +123,29 @@ class TabComponent extends React.Component {
             </Tabs>
           </Paper>
         </AppBar>
-        <TabPanel value={value} index={0}>
-          <Home changeTab={this.changeTab}/>
+        {artistModalOpen &&
+          <Artist open={artistModalOpen}
+                  handleClose={this.handleClose}
+                  artistId={artistForModal.artist_id}
+                  artistName={artistForModal.artist_name}/>
+          
+        }
+        {albumModalOpen &&
+          <Album open={albumModalOpen}
+                  handleClose={this.handleClose}
+                  albumId={albumForModal.album_id}
+                  albumName={albumForModal.album_name}
+                  releaseYear={albumForModal.release_year}/>
+          
+        }
+        <TabPanel value={tabPosition} index={0}>
+          <Home changeTab={this.changeTab} handleClick={this.handleClick}/>
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Browse setlist={setlist}/>
+        <TabPanel value={tabPosition} index={1}>
+          <Browse handleClick={this.handleClick}/>
         </TabPanel>
-        <TabPanel value={value} index={2}>
-          <Search/>
+        <TabPanel value={tabPosition} index={2}>
+          <Search handleClick={this.handleClick}/>
         </TabPanel>
       </div>
     )
