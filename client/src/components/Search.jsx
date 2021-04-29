@@ -230,8 +230,8 @@ export class SearchResult extends React.Component {
   }
 
   handleClick(type) {
-    const {result, handleClick} = this.props
-    handleClick(result, type)
+    const {result} = this.props
+    this.props.handleClick(result, type)
   }
 
   render() {
@@ -300,11 +300,6 @@ class SearchCard extends React.Component {
       radioValue: "song",
       showRecs: false,
       selectedSong: {},
-      artistForModal: {},
-      albumForModal: {},
-      artistModalOpen: false,
-      albumModalOpen: false,
-      modalType: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleRadioChange = this.handleRadioChange.bind(this)
@@ -313,35 +308,6 @@ class SearchCard extends React.Component {
     this.searchSongs = this.searchSongs.bind(this)
     this.searchArtists = this.searchArtists.bind(this)
     this.getRecs = this.getRecs.bind(this)
-    this.openArtistModal = this.openArtistModal.bind(this)
-    this.openAlbumModal = this.openAlbumModal.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClose() {
-    this.setState({
-      artistModalOpen: false,
-      albumModalOpen: false,
-      artistForModal: {},
-      albumForModal: {}
-    })
-  }
-
-  handleClick(result, type) {
-    if (type == 'artist_name') {
-      this.openArtistModal(result)
-    } else if (type == 'album_name') {
-      this.openAlbumModal(result)
-    } 
-  }
-
-  openArtistModal(artistForModal) {
-    this.setState({artistForModal, artistModalOpen: true})
-  }
-
-  openAlbumModal(albumForModal) {
-    this.setState({albumForModal, albumModalOpen: true})
   }
 
   handleChange({target: {value}}) {
@@ -408,7 +374,7 @@ class SearchCard extends React.Component {
   }
 
   render() {
-    const { styles } = this.props
+    const { styles, handleClick } = this.props
     const { radioValue,
             resultType,
             searchTerm,
@@ -427,21 +393,6 @@ class SearchCard extends React.Component {
         justify="center"
         className={styles.exterior_grid}>
         <Grid item xs={12} className={styles.interior_grid}>
-          {artistModalOpen &&
-            <Artist open={artistModalOpen}
-                    handleClose={this.handleClose}
-                    artistId={artistForModal.artist_id}
-                    artistName={artistForModal.artist_name}/>
-            
-          }
-          {albumModalOpen &&
-            <Album open={albumModalOpen}
-                    handleClose={this.handleClose}
-                    albumId={albumForModal.album_id}
-                    albumName={albumForModal.album_name}
-                    releaseYear={albumForModal.release_year}/>
-            
-          }
           <Card className={styles.root}>
             <CardActionArea>
 
@@ -471,6 +422,7 @@ class SearchCard extends React.Component {
                 
                 {showRecs ?
                   <Recommendations getRecs={this.getRecs}
+                                   handleClick={handleClick}
                                    selectedSong={selectedSong}/> 
                   :
                   <ResultContainer styles={styles}
@@ -478,7 +430,7 @@ class SearchCard extends React.Component {
                                    searchResults={searchResults}
                                    getRecs={this.getRecs}
                                    resultType={resultType}
-                                   handleClick={this.handleClick}/>
+                                   handleClick={handleClick}/>
                 }
 
               </CardContent>
