@@ -2,10 +2,8 @@ import axios from 'axios';
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Grid,
@@ -13,7 +11,6 @@ import {
   Typography,
   InputLabel,
   MenuItem,
-  FormHelperText,
   FormControl,
   Select,
   Table,
@@ -232,7 +229,7 @@ class Browse extends React.Component {
                     id="demo-simple-select-genre"
                     value={selectedGenre}
                     onChange={this.handleGenreChange}
-                    autoWidth="true"
+                    autoWidth={true}
                   >
                     <MenuItem value={8}>Alternative Rock &amp; Pop</MenuItem>
                     <MenuItem value={4}>Country &amp; Folk</MenuItem>
@@ -252,7 +249,7 @@ class Browse extends React.Component {
                     id="demo-simple-select-criteria"
                     value={selectedTrait}
                     onChange={this.handleTraitChange}
-                    autoWidth="true"
+                    autoWidth={true}
                   >
                     <MenuItem value="top">Top Overall in Genre</MenuItem>
                     <MenuItem value="danceability">Most Danceable</MenuItem>
