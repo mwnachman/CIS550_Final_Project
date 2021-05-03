@@ -1,11 +1,9 @@
-import axios from "axios";
-import React from "react";
-import PropTypes from "prop-types";
+import axios from "axios"
+import React from "react"
+import PropTypes from "prop-types"
 import {
-  Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Grid,
@@ -19,16 +17,15 @@ import {
   TableRow,
   InputLabel,
   MenuItem,
-  FormHelperText,
   FormControl,
   Select,
-} from "@material-ui/core";
+} from "@material-ui/core"
 
 import Artist from './Artist.jsx'
 import useStyles from '../style/home'
 import * as config from '../../config/client.json'
 
-const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"];
+const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"]
 
 export class RandomResult extends React.Component {
   constructor(props) {
