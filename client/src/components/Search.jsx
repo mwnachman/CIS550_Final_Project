@@ -12,7 +12,9 @@ import {
   FormControlLabel,
   Grid,
   InputBase,
+  LinearProgress,
   Link,
+  MenuItem,
   Radio,
   RadioGroup,
   Table,
@@ -25,6 +27,8 @@ import {
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
+import Album from './Album.jsx'
+import Artist from './Artist.jsx'
 import Recommendations from './Recommendations.jsx'
 
 import {columns} from '../constants/constants'
@@ -80,7 +84,7 @@ export const Headers = ({styles, columns}) => (
   </TableRow>
 )
 Headers.propTypes = {
-  styles: PropTypes.string,
+  styles: PropTypes.object,
   resultType: PropTypes.string
 }
 
@@ -197,6 +201,7 @@ const ResultContainer = ({styles,
               <SearchResult result={result}
                             headers={columns[resultType]}
                             key={i}
+                            styles={styles}
                             getRecs={getRecs}
                             handleClick={handleClick}/>
             ))}
@@ -230,9 +235,10 @@ export class SearchResult extends React.Component {
   }
 
   render() {
-    const { result,
+    const {result,
            headers,
-           getRecs } = this.props
+           getRecs,
+           styles} = this.props
     return (
       <TableRow>
         {headers.map((header, i) => {
@@ -374,7 +380,11 @@ class SearchCard extends React.Component {
             searchTerm,
             searchResults,
             showRecs,
-            selectedSong} = this.state
+            selectedSong,
+            artistForModal,
+            artistModalOpen,
+            albumForModal,
+            albumModalOpen } = this.state
     return (
       <Grid container
         spacing={0}

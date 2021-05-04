@@ -1,11 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Route,
-  Switch,
-  withRouter
-} from 'react-router-dom'
-import {
   AppBar,
   Paper,
   Tab,
@@ -19,10 +14,47 @@ import Album from './Album.jsx'
 import Artist from './Artist.jsx'
 
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <div>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+
+function a11yProps(index) {
+  return {
+    id: `nav-tab-${index}`,
+    'aria-controls': `nav-tabpanel-${index}`,
+  }
+}
+
 class TabComponent extends React.Component {
   constructor(props) {
     super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.changeTab = this.changeTab.bind(this)
     this.state = {
+      tabPosition: 0,
       artistForModal: {},
       albumForModal: {},
       artistModalOpen: false,
@@ -33,7 +65,6 @@ class TabComponent extends React.Component {
     this.openAlbumModal = this.openAlbumModal.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.changeTab = this.changeTab.bind(this)
   }
 
   handleClose() {
@@ -61,57 +92,61 @@ class TabComponent extends React.Component {
     this.setState({albumForModal, albumModalOpen: true})
   }
 
-  changeTab(e) {
-    let newLocation = e.target.textContent.toLowerCase()
-    this.props.history.push(`/${newLocation}`)
+  handleChange(e, newValue) {
+    e.preventDefault();
+    this.changeTab(newValue)
+  }
+
+  changeTab(newValue) {
+    this.setState({tabPosition: newValue})
   }
 
   render() {
-    const { artistForModal,
+    const { tabPosition,
+            artistForModal,
             artistModalOpen,
             albumForModal,
             albumModalOpen } = this.state
-    let pathname = this.props.history.location.pathname
-
     return (
       <div>
-
         <AppBar position="static">
           <Paper square>
-
-            <Tabs value={pathname == '/home' ? 0 : pathname == '/browse' ? 1 : 2}
-                  textColor="primary"
-                  indicatorColor="primary"
-                  onChange={this.changeTab} >
-              <Tab label="Home" index={0}/>
-              <Tab label="Browse" index={1}/>
-              <Tab label="Search" index={2}/>
+            <Tabs
+              value={tabPosition}
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={this.handleChange}
+            >
+              <Tab label="Home" {...a11yProps(0)}/>
+              <Tab label="Browse" {...a11yProps(1)}/>
+              <Tab label="Search" {...a11yProps(2)}/>
             </Tabs>
-
           </Paper>
         </AppBar>
-
         {artistModalOpen &&
           <Artist open={artistModalOpen}
                   handleClose={this.handleClose}
                   artistId={artistForModal.artist_id}
                   artistName={artistForModal.artist_name}/>
+          
         }
-
         {albumModalOpen &&
           <Album open={albumModalOpen}
                   handleClose={this.handleClose}
                   albumId={albumForModal.album_id}
                   albumName={albumForModal.album_name}
                   releaseYear={albumForModal.release_year}/>
+          
         }
-
-        <Switch>
-          <Route path='/home' component={Home}/>
-          <Route path='/browse' component={Browse}/>
-          <Route path='/search' component={Search}/>
-        </Switch>
-
+        <TabPanel value={tabPosition} index={0}>
+          <Home changeTab={this.changeTab} handleClick={this.handleClick}/>
+        </TabPanel>
+        <TabPanel value={tabPosition} index={1}>
+          <Browse handleClick={this.handleClick}/>
+        </TabPanel>
+        <TabPanel value={tabPosition} index={2}>
+          <Search handleClick={this.handleClick}/>
+        </TabPanel>
       </div>
     )
   }
@@ -120,6 +155,4 @@ TabComponent.propTypes = {
   setlist: PropTypes.array
 }
 
-const TabsWithRouter = withRouter(TabComponent)
-
-export default TabsWithRouter
+export default TabComponent
