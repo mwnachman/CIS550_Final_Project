@@ -68,6 +68,28 @@ export const columns = {
       label: 'review_url',
       minWidth: '20vh'
     }
+  ],
+  album_abbreviated: [
+    {
+      header: 'Album',
+      label: 'album_name',
+      minWidth: '25vh'
+    },
+    {
+      header: 'Artist',
+      label: 'artist_name',
+      minWidth: '25vh'
+    },
+    {
+      header: 'Release Year',
+      label: 'release_year',
+      minWidth: '10vh'
+    },
+    {
+      header: 'Format',
+      label: 'album_format',
+      minWidth: '10vh'
+    }
   ]
 }
 
@@ -196,7 +218,7 @@ export const tracklistHeaders = [
   {
     header: 'Track',
     label: 'song_name',
-    minWidth: '15vh'
+    minWidth: '10vh'
   },
   {
     header: 'Length',
@@ -221,6 +243,68 @@ export const tracklistHeaders = [
   {
     header: 'Listen via Spotify',
     label: 'play',
-    minWidth: '25vh'
+    minWidth: '30vh'
   }
+]
+
+export const genreMenuItems = [
+  {
+    text: 'Alternative Rock & Pop',
+    value: 8
+  },
+  {
+    text: 'Country & Folk',
+    value: 4
+  },
+  {
+    text: 'Dance & Electronic',
+    value: 3
+  },
+  {
+    text: 'Hip-Hop',
+    value: 2
+  },
+  {
+    text: 'Jazz',
+    value: 5
+  },
+  {
+    text: 'Metal & Punk',
+    value: 7
+  },
+  {
+    text: 'Other',
+    value: 6
+  },
+  {
+    text: 'R&B',
+    value: 1
+  },
+  {
+    text: 'Rock & Pop',
+    value: 0
+  }
+]
+
+export const criteriaMenuItems = [
+  {
+    text: 'Top Overall in Genre',
+    value: 'top'
+  },
+  {
+    text: 'Most Danceable',
+    value: 'danceability'
+  },
+  {
+    text: 'Most Energetic',
+    value: 'energy'
+  },
+  {
+    text: 'Loudest',
+    value: 'loudness'
+  },
+  {
+    text: 'Most Acoustic',
+    value: 'acousticness'
+  },
 ]

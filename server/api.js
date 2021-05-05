@@ -65,7 +65,7 @@ function top5(req, res) {
 		, t2.id AS album_id
 		, t3.name AS artist_name
 		, t2.artist_id
-		, t2.release_year AS album_release_year
+		, t2.release_year AS release_year
 		, t2.format AS album_format
 		, t4.name AS record_label_name
 		, t2.aoty_critic_score*.1 AS album_critic_score
@@ -96,7 +96,7 @@ function traitByGenre(req, res) {
 	, t2.id AS album_id
 	, t3.name AS artist_name
 	, t2.artist_id AS artist_id
-	, t2.release_year AS album_release_year
+	, t2.release_year AS release_year
 	, t2.format AS album_format
 	, t4.name AS record_label_name
 	, t2.aoty_critic_score*.1 AS album_critic_score
