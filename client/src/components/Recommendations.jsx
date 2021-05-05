@@ -17,13 +17,10 @@ import {
   Typography
 } from '@material-ui/core'
 
-import Album from './Album.jsx'
-import Artist from './Artist.jsx'
-import {
-  Headers,
-  NoResult,
-  SearchResult
-} from './Search.jsx'
+import { Headers,
+         NoResult,
+         SearchResult } from './Display.jsx'
+
 import {songAttributes, recommendedSongHeaders} from '../constants/constants'
 import useStyles from '../style/recommendations'
 import * as config from '../../config/client.json'
@@ -56,6 +53,7 @@ const RecommendedSongs = ({songs,
           {songs.map((song, i) => {
             return (
               <SearchResult result={song}
+                            key={i}
                             handleClick={handleClick}
                             headers={recommendedSongHeaders}/>
             )
@@ -112,12 +110,11 @@ class Parameter extends React.Component {
   }
 
   render () {
-    const {attribute,
-          values,
-          initialValues,
-          i,
-          checked,
-          styles} = this.props
+    const { attribute,
+            values,
+            i,
+            checked,
+            styles } = this.props
     return (
       <TableRow>
         <TableCell>
@@ -129,15 +126,12 @@ class Parameter extends React.Component {
         </TableCell>
 
         <TableCell className={styles.slider}>
-          <Slider
-            value={parseFloat(values[i])}
-            valueLabelDisplay="auto"
-            min={attribute.min}
-            max={attribute.max}
-            step={attribute.step}
-            onChange={this.handleSliderChange}
-            aria-labelledby="input-slider"
-          />
+          <Slider value={parseFloat(values[i])}
+                  valueLabelDisplay="auto"
+                  min={attribute.min}
+                  max={attribute.max}
+                  step={attribute.step}
+                  onChange={this.handleSliderChange}/>
         </TableCell>
 
         <TableCell>
@@ -149,14 +143,12 @@ class Parameter extends React.Component {
         </TableCell>
 
         <TableCell className={styles.description}>
-          <Checkbox
-            className={styles.checkbox}
-            color="default"
-            checked={checked[i]}
-            onChange={this.handleCheckboxChange}
-            checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
-            icon={<span className={styles.icon} />}
-          />
+          <Checkbox className={styles.checkbox}
+                    color="default"
+                    checked={checked[i]}
+                    onChange={this.handleCheckboxChange}
+                    checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
+                    icon={<span className={styles.icon} />}/>
           Include
         </TableCell>
       </TableRow>
@@ -235,7 +227,7 @@ class Recommendations extends React.Component {
     const {checked, genreChecked, values} = this.state
     let params = {}
     params.include = {}
-    params.include.genre = this.state.genreChecked
+    params.include.genre = genreChecked
     songAttributes.forEach((attribute, i) => params.include[attribute.dbName] = checked[i])
     params.sliderValues = {}
     songAttributes.forEach((attribute, i) => params.sliderValues[attribute.dbName] = values[i])
@@ -255,19 +247,15 @@ class Recommendations extends React.Component {
   }
 
   render() {
-    const {selectedSong,
+    const { selectedSong,
           handleClick,
-          styles} = this.props
-    const {values,
+          styles } = this.props
+    const { values,
           songs,
           initialValues,
           genreChecked,
           searchedForRecs,
-          checked,
-          artistForModal,
-          artistModalOpen,
-          albumForModal,
-          albumModalOpen} = this.state
+          checked } = this.state
     return (
       <Grid container
             direction="column"
@@ -325,19 +313,17 @@ class Recommendations extends React.Component {
                                   returnToSliders={this.returnToSliders}/>
                 :
                 <TableBody>
-                  {songAttributes.map((attribute, i) => {
-                    return (
-                      <Parameter styles={styles}
-                                 attribute={attribute}
-                                 i={i}
-                                 key={i}
-                                 checked={checked}
-                                 initialValues={initialValues}
-                                 values={values}
-                                 handleCheckboxChange={this.handleCheckboxChange}
-                                 setValues={this.setParameterValues}/>
-                    )
-                  })}
+                  {songAttributes.map((attribute, i) => (
+                    <Parameter styles={styles}
+                                attribute={attribute}
+                                i={i}
+                                key={i}
+                                checked={checked}
+                                initialValues={initialValues}
+                                values={values}
+                                handleCheckboxChange={this.handleCheckboxChange}
+                                setValues={this.setParameterValues}/>)
+                  )}
               </TableBody>
               }
             </Table>
@@ -349,7 +335,9 @@ class Recommendations extends React.Component {
   }
 }
 Recommendations.propTypes = {
-
+  selectedSong: PropTypes.object,
+  handleClick: PropTypes.func,
+  
 }
 
 export default RecommendationWrapper

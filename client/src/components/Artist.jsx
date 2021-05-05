@@ -1,5 +1,4 @@
 import axios from 'axios'
-import clsx from 'clsx';
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -15,7 +14,7 @@ import {
   Typography
 } from '@material-ui/core'
 
-import {Headers} from './Search.jsx'
+import {Headers} from './Display.jsx'
 import {artistModalColumns} from '../constants/constants'
 import useStyles from '../style/artist'
 import * as config from "../../config/client.json";
@@ -104,6 +103,13 @@ class Artist extends React.Component {
       </Modal>
     )
   }
+}
+Artist.propTypes = {
+  artistId: PropTypes.string,
+  artistName: PropTypes.string,
+  handleClose: PropTypes.func,
+  open: PropTypes.bool, 
+  styles: PropTypes.object,
 }
 
 export default ArtistWrapper

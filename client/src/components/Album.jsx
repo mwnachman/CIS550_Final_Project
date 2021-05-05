@@ -1,5 +1,4 @@
 import axios from 'axios'
-import clsx from 'clsx';
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -17,7 +16,7 @@ import {
 } from '@material-ui/core'
 import AudioPlayer from 'material-ui-audio-player'
 
-import {Headers} from './Search.jsx'
+import {Headers} from './Display.jsx'
 import {tracklistHeaders} from '../constants/constants'
 import useStyles from '../style/album'
 import * as config from "../../config/client.json";
@@ -29,8 +28,10 @@ const Track = ({ track, headers }) => (
     {headers.map((header, i) => {
       if (header.label == 'play') {
         return (
-          <TableCell>
-            <AudioPlayer src={track.url} />
+          <TableCell key={i}>
+            <AudioPlayer src={track.url}
+                         volume={false}
+                         elevation={0}/>
           </TableCell>
         )
       } else {
@@ -42,11 +43,11 @@ const Track = ({ track, headers }) => (
       }
     })}
   </TableRow>
-);
+)
 Track.propTypes = {
   track: PropTypes.object,
   headers: PropTypes.array
-};
+}
 
 const AlbumWrapper = props => {
   const styles = useStyles()
@@ -167,6 +168,14 @@ class Album extends React.Component {
       </Modal>
     )
   }
+}
+Album.propTypes = {
+  albumId: PropTypes.string,
+  albumName: PropTypes.string,
+  handleClose: PropTypes.func,
+  open: PropTypes.bool, 
+  releaseYear: PropTypes.number,
+  styles: PropTypes.object,
 }
 
 export default AlbumWrapper
