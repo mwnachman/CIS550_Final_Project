@@ -1,4 +1,3 @@
-/* global process:false */
 import React from 'react'
 import {
   BrowserRouter as Router,
@@ -6,7 +5,6 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import axios from 'axios'
 import { CssBaseline } from '@material-ui/core'
 
 import Navbar from './Navbar.jsx'
@@ -17,7 +15,7 @@ const App = () => (
     <CssBaseline />
     <Navbar />
     <Switch>
-      <Route exact path='/' render={() => (<TabComponent/>)}/>
+      <Route exact path='/' component={TabComponent}/>
       <Route path="*" component={() => <Redirect to="/"/>}/>
     </Switch>
   </Router>

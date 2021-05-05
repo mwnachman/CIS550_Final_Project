@@ -12,23 +12,13 @@ import {
   FormControlLabel,
   Grid,
   InputBase,
-  LinearProgress,
-  Link,
-  MenuItem,
   Radio,
   RadioGroup,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
-import Album from './Album.jsx'
-import Artist from './Artist.jsx'
+import { ResultContainer } from './Display.jsx'
 import Recommendations from './Recommendations.jsx'
 
 import {columns} from '../constants/constants'
@@ -37,15 +27,7 @@ import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
-export const NoResult = ({text}) => (
-  <TableRow>
-    <TableCell style={{borderBottom: 'none'}}>
-      {!text ? "No Results" : text}
-    </TableCell>
-  </TableRow>
-)
-
-class GetRecs extends React.Component {
+export class GetRecs extends React.Component {
   constructor(props) {
     super(props)
     this.selectSong = this.selectSong.bind(this)
@@ -69,31 +51,17 @@ class GetRecs extends React.Component {
   }
 }
 GetRecs.propTypes = {
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  song: PropTypes.object
 }
 
-export const Headers = ({styles, columns}) => (
-  <TableRow>
-    {columns && columns.map((column, i) => (
-      <TableCell className={styles}
-                 key={i}
-                 style={{ minWidth: column.minWidth }}>
-        {column.header}
-      </TableCell>
-    ))}
-  </TableRow>
-)
-Headers.propTypes = {
-  styles: PropTypes.object,
-  resultType: PropTypes.string
-}
 
-const SearchForm = ({query,
-                    styles,
-                    handleChange,
-                    searchTerm,
-                    radioValue,
-                    handleRadioChange}) => (
+const SearchForm = ({ query,
+                      styles,
+                      handleChange,
+                      searchTerm,
+                      radioValue,
+                      handleRadioChange }) => (
   <Grid container
         direction="row"
         alignItems="flex-start"
@@ -103,6 +71,7 @@ const SearchForm = ({query,
         direction="row"
         alignItems="flex-start"
         justify="flex-start">
+
         <form onSubmit={query}>
           <FormControl className={styles.form}>
             <Grid item xs={6} >
@@ -115,24 +84,13 @@ const SearchForm = ({query,
                           name="search"
                           value={radioValue}
                           onChange={handleRadioChange}>
-                <FormControlLabel
-                  value="song"
-                  control={<Radio color="primary" />}
-                  label="Song"
-                  labelPlacement="start"
-                />
-                <FormControlLabel
-                  value="artist"
-                  control={<Radio color="primary" />}
-                  label="Artist"
-                  labelPlacement="start"
-                />
-                <FormControlLabel
-                  value="album"
-                  control={<Radio color="primary" />}
-                  label="Album"
-                  labelPlacement="start"
-                />
+                {['Song', 'Artist', 'Album'].map((item, i) => (
+                  <FormControlLabel value={item.toLowerCase()}
+                                    control={<Radio color="primary" />}
+                                    key={i}
+                                    label={item}
+                                    labelPlacement="start"/>
+                ))}
               </RadioGroup>
             </Grid>
           </FormControl>
@@ -165,8 +123,7 @@ const SearchBase = ({styles, handleChange, searchTerm}) => (
                  input: styles.inputTypeSearch
                }}
                inputProps={{ 'aria-label': 'search' }}
-               onChange={handleChange}
-              />
+               onChange={handleChange}/>
   </div>
 )
 SearchBase.propTypes = {
@@ -174,114 +131,6 @@ SearchBase.propTypes = {
   search: PropTypes.func,
   searchTerm: PropTypes.string,
   styles: PropTypes.object
-}
-
-const ResultContainer = ({styles,
-                          columns,
-                          searchResults,
-                          getRecs,
-                          resultType,
-                          selectSong,
-                          handleClick}) => (
-  <Grid container
-        direction="row"
-        alignItems="flex-start"
-        justify="flex-start">
-    <Grid item xs={12}>
-
-      <TableContainer>
-        <Table aria-label="sticky table">
-
-          <TableHead>
-            <Headers styles={styles.header} columns={columns[resultType]}/>
-          </TableHead>
-
-          <TableBody>
-            {searchResults.map((result, i) => (
-              <SearchResult result={result}
-                            headers={columns[resultType]}
-                            key={i}
-                            styles={styles}
-                            getRecs={getRecs}
-                            handleClick={handleClick}/>
-            ))}
-            {!!resultType && !searchResults.length && (
-              <NoResult/>
-            )}
-          </TableBody>
-
-        </Table>
-      </TableContainer>
-    </Grid>
-  </Grid>
-)
-ResultContainer.propTypes = {
-  getRecs: PropTypes.func,
-  columns: PropTypes.object,
-  resultType: PropTypes.string,
-  searchResults: PropTypes.array,
-  styles: PropTypes.object
-}
-
-export class SearchResult extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick(type) {
-    const {result} = this.props
-    this.props.handleClick(result, type)
-  }
-
-  render() {
-    const {result,
-           headers,
-           getRecs,
-           styles} = this.props
-    return (
-      <TableRow>
-        {headers.map((header, i) => {
-          if (header.label == 'review_url') {
-            return (
-              <TableCell key={i} style={{minWidth: headers.minWidth}}>
-                {result.review_url &&
-                  <Link href={result.review_url}
-                        target="_blank">
-                    Read Review
-                  </Link>
-                }
-              </TableCell>
-            )
-          } else if (header.label == 'artist_name' ||
-              header.label == 'album_name') {
-            return (
-              <TableCell key={i} style={{minWidth: headers.minWidth}}>
-                <Link href="#" onClick={() => this.handleClick(header['label'])}>
-                  {result[header['label']]}
-                </Link>
-              </TableCell>
-            )
-          } else {
-            return (
-            <TableCell key={i} style={{minWidth: headers.minWidth}}>
-              {!!header['label'] ?
-                result[header['label']] :
-                <GetRecs song={result} handleClick={getRecs}/>
-              }
-            </TableCell>
-            )
-          }
-        })}
-      </TableRow>
-    )
-  }
-}
-SearchResult.propTypes = {
-  result: PropTypes.object,
-  headers: PropTypes.array,
-  getRecs: PropTypes.func,
-  isSong: PropTypes.bool
 }
 
 
@@ -296,17 +145,15 @@ class SearchCard extends React.Component {
     this.state = {
       searchTerm: '',
       searchResults: [],
-      resultsType: "",
-      radioValue: "song",
+      resultsType: '',
+      radioValue: 'song',
       showRecs: false,
       selectedSong: {},
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleRadioChange = this.handleRadioChange.bind(this)
     this.query = this.query.bind(this)
-    this.searchAlbums = this.searchAlbums.bind(this)
-    this.searchSongs = this.searchSongs.bind(this)
-    this.searchArtists = this.searchArtists.bind(this)
+    this.search = this.search.bind(this)
     this.getRecs = this.getRecs.bind(this)
   }
 
@@ -326,51 +173,27 @@ class SearchCard extends React.Component {
     e.preventDefault();
     switch (this.state.radioValue) {
       case 'artist':
-        this.searchArtists();
-        break;
+        this.setState({resultType: 'artist'}, () => this.search('searchArtist'))
+        break
       case 'album':
-        this.searchAlbums();
-        break;
+        this.setState({resultType: 'album'}, () => this.search('searchAlbum'))
+        break
       case 'song':
-        this.searchSongs();
-        break;
+        this.setState({resultType: 'song'}, () => this.search('searchSong'))
+        break
       default:
-        console.error(`Error`);
-    }
-    this.setState({
-      searchTerm: "",
-      showRecs: false
-    })
-  }
-
-  async searchArtists() {
-    this.setState({resultType: 'artist'})
-    const promise = await axios.get(`${APIRoot}/searchArtist/${this.state.searchTerm}`)
-    const status = promise.status
-    if (status == 200) {
-      const artists = promise.data
-      this.setState({searchResults: artists})
+        console.error(`Error`)
     }
   }
 
-  async searchSongs() {
-    this.setState({resultType: 'song'})
-    const promise = await axios.get(`${APIRoot}/searchSong/${this.state.searchTerm}`)
+  async search(searchType) {
+    const promise = await axios.get(`${APIRoot}/${searchType}/${this.state.searchTerm}`)
     const status = promise.status
     if (status == 200) {
-      const songs = promise.data
-      this.setState({searchResults: songs})
+      const searchResults = promise.data
+      this.setState({searchResults})
     }
-  }
-
-  async searchAlbums() {
-    this.setState({resultType: 'album'})
-    const promise = await axios.get(`${APIRoot}/searchAlbum/${this.state.searchTerm}`)
-    const status = promise.status
-    if (status == 200) {
-      const albums = promise.data
-      this.setState({searchResults: albums})
-    }
+    this.setState({ searchTerm: "", showRecs: false })
   }
 
   render() {
@@ -380,11 +203,7 @@ class SearchCard extends React.Component {
             searchTerm,
             searchResults,
             showRecs,
-            selectedSong,
-            artistForModal,
-            artistModalOpen,
-            albumForModal,
-            albumModalOpen } = this.state
+            selectedSong } = this.state
     return (
       <Grid container
         spacing={0}
@@ -427,7 +246,7 @@ class SearchCard extends React.Component {
                   :
                   <ResultContainer styles={styles}
                                    columns={columns}
-                                   searchResults={searchResults}
+                                   results={searchResults}
                                    getRecs={this.getRecs}
                                    resultType={resultType}
                                    handleClick={handleClick}/>

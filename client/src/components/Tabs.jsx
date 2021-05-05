@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core'
 
 import Browse from './Browse.jsx'
-import Home from './Home.jsx'
 import Search from './Search.jsx'
 import Album from './Album.jsx'
 import Artist from './Artist.jsx'
@@ -51,8 +50,6 @@ function a11yProps(index) {
 class TabComponent extends React.Component {
   constructor(props) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.changeTab = this.changeTab.bind(this)
     this.state = {
       tabPosition: 0,
       artistForModal: {},
@@ -61,10 +58,11 @@ class TabComponent extends React.Component {
       albumModalOpen: false,
       modalType: ''
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
     this.openArtistModal = this.openArtistModal.bind(this)
     this.openAlbumModal = this.openAlbumModal.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleClick = this.handleClick.bind(this)
   }
 
   handleClose() {
@@ -94,10 +92,6 @@ class TabComponent extends React.Component {
 
   handleChange(e, newValue) {
     e.preventDefault();
-    this.changeTab(newValue)
-  }
-
-  changeTab(newValue) {
     this.setState({tabPosition: newValue})
   }
 
@@ -117,9 +111,8 @@ class TabComponent extends React.Component {
               textColor="primary"
               onChange={this.handleChange}
             >
-              <Tab label="Home" {...a11yProps(0)}/>
-              <Tab label="Browse" {...a11yProps(1)}/>
-              <Tab label="Search" {...a11yProps(2)}/>
+              <Tab label="Browse" {...a11yProps(0)}/>
+              <Tab label="Search" {...a11yProps(1)}/>
             </Tabs>
           </Paper>
         </AppBar>
@@ -139,12 +132,9 @@ class TabComponent extends React.Component {
           
         }
         <TabPanel value={tabPosition} index={0}>
-          <Home changeTab={this.changeTab} handleClick={this.handleClick}/>
-        </TabPanel>
-        <TabPanel value={tabPosition} index={1}>
           <Browse handleClick={this.handleClick}/>
         </TabPanel>
-        <TabPanel value={tabPosition} index={2}>
+        <TabPanel value={tabPosition} index={1}>
           <Search handleClick={this.handleClick}/>
         </TabPanel>
       </div>
