@@ -44,6 +44,7 @@ export const ResultContainer = ({ styles,
                                   results,
                                   getRecs,
                                   resultType,
+                                  noResultText,
                                   handleClick }) => (
   <Grid container
         direction="row"
@@ -54,12 +55,14 @@ export const ResultContainer = ({ styles,
       <TableContainer>
         <Table aria-label="sticky table">
 
-          <TableHead>
-            <Headers styles={styles.header} columns={columns[resultType]}/>
-          </TableHead>
+          {!!resultType && !!results.length && (
+            <TableHead>
+              <Headers styles={styles.header} columns={columns[resultType]}/>
+            </TableHead>
+          )}
 
           <TableBody>
-            {results.map((result, i) => (
+            {!!resultType && results.map((result, i) => (
               <SearchResult result={result}
                             headers={columns[resultType]}
                             key={i}
@@ -68,7 +71,7 @@ export const ResultContainer = ({ styles,
                             handleClick={handleClick}/>
             ))}
             {!!resultType && !results.length && (
-              <NoResult/>
+              <NoResult text={noResultText}/>
             )}
           </TableBody>
 

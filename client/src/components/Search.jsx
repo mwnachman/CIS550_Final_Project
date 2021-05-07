@@ -173,27 +173,27 @@ class SearchCard extends React.Component {
     e.preventDefault();
     switch (this.state.radioValue) {
       case 'artist':
-        this.setState({resultType: 'artist'}, () => this.search('searchArtist'))
+        this.search('artist', 'searchArtist')
         break
       case 'album':
-        this.setState({resultType: 'album'}, () => this.search('searchAlbum'))
+        this.search('album', 'searchAlbum')
         break
       case 'song':
-        this.setState({resultType: 'song'}, () => this.search('searchSong'))
+        this.search('song', 'searchSong')
         break
       default:
         console.error(`Error`)
     }
   }
 
-  async search(searchType) {
+  async search(resultType, searchType) {
     const promise = await axios.get(`${APIRoot}/${searchType}/${this.state.searchTerm}`)
     const status = promise.status
     if (status == 200) {
       const searchResults = promise.data
       this.setState({searchResults})
     }
-    this.setState({ searchTerm: "", showRecs: false })
+    this.setState({ searchTerm: "", showRecs: false, resultType })
   }
 
   render() {

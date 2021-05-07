@@ -4,12 +4,17 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-  lightBlue: {
-    backgroundColor: '#5AA2BE',
+  appbar: {
+    backgroundColor: '#FFFFFF',
+  },
+  bar: {
+    backgroundImage: 'url("../assets/albums_background.jpg")',
+    backgroundPosition: 'left 800px',
+    opacity: 0.5,
+    height: 120,
+    fontSize: '36px',
   },
   title: {
-    color: '#1A1628',
-    display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
