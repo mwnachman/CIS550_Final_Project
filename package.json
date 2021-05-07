@@ -4,10 +4,45 @@
   "description": "Music Recommendations and Analysis",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext .js"
+    "build": "npm run clean && npm run copy && npm run build:js",
+    "build:js": "webpack --config webpack.prod.js",
+    "clean": "rm -rf build/$NODE_ENV && rm -rf node_modules && npm cache verify && npm install --no-optional",
+    "copy": "mkdir -p build/$NODE_ENV && cp -r src/index.html src/assets build/$NODE_ENV",
+    "copy:dev": "NODE_ENV=development npm run copy",
+    "lint": "eslint --ext .js --ext .jsx src",
+    "start": "npm run copy:dev && NODE_ENV=development webpack-dev-server --progress --colors --hot --config ./webpack.dev.js --mode development"
+  },
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@material-ui/core": "^4.9.11",
+    "@material-ui/icons": "^4.9.1",
+    "axios": "^0.21.1",
+    "babel-loader": "^8.0.4",
+    "clsx": "^1.1.1",
+    "css-loader": "^0.28.7",
+    "file-loader": "^6.2.0",
+    "material-ui-audio-player": "^1.6.2",
+    "path": "^0.12.7",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.1.2",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^4.16.0",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
-    "eslint-plugin-react": "^7.12.3"
+    "eslint-plugin-react": "^7.12.3",
+    "mini-css-extract-plugin": "^0.4.4",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.1.9"
   }
 }
