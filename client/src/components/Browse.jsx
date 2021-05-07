@@ -136,7 +136,8 @@ class Browse extends React.Component {
                   <ResultContainer styles={styles}
                                    results={results}
                                    columns={columns}
-                                   resultType="album_abbreviated"
+                                   resultType={!!results.length && "album_abbreviated"}
+                                   noResultText="Please select a genre"
                                    handleClick={handleClick} />}
               </CardContent>
             </CardActionArea>
