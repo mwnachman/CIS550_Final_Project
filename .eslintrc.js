@@ -17,7 +17,7 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    ["react", "babel"]
   ],
   "root": true,
   "rules": {
@@ -71,7 +71,9 @@ module.exports = {
           "error"
         ]
       }
-    ]
+    ],
+    "no-invalid-this": 0,
+    "babel/no-invalid-this": 1
   },
   "settings": {
     "react": {

@@ -89,12 +89,7 @@ ResultContainer.propTypes = {
 }
 
 export class SearchResult extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick(type) {
+  handleClick = type => {
     const {result} = this.props
     this.props.handleClick(result, type)
   }

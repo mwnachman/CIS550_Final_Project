@@ -13,26 +13,21 @@ import Album from './Album.jsx'
 import Artist from './Artist.jsx'
 
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
+const TabPanel = props => {
+  const { children, value, index, ...other } = props
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-force-tabpanel-${index}`}
-      aria-labelledby={`scrollable-force-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel"
+          hidden={value !== index}
+          id={`scrollable-force-tabpanel-${index}`}
+          {...other}>
       {value === index && (
         <div>
           {children}
         </div>
       )}
     </div>
-  );
+  )
 }
-
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
@@ -42,8 +37,7 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `nav-tab-${index}`,
-    'aria-controls': `nav-tabpanel-${index}`,
+    id: `nav-tab-${index}`
   }
 }
 
@@ -58,14 +52,9 @@ class TabComponent extends React.Component {
       albumModalOpen: false,
       modalType: ''
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.openArtistModal = this.openArtistModal.bind(this)
-    this.openAlbumModal = this.openAlbumModal.bind(this)
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({
       artistModalOpen: false,
       albumModalOpen: false,
@@ -74,7 +63,7 @@ class TabComponent extends React.Component {
     })
   }
 
-  handleClick(result, type) {
+  handleClick = (result, type) => {
     if (type == 'artist_name') {
       this.openArtistModal(result)
     } else if (type == 'album_name') {
@@ -82,16 +71,16 @@ class TabComponent extends React.Component {
     } 
   }
 
-  openArtistModal(artistForModal) {
+  openArtistModal = artistForModal => {
     this.setState({artistForModal, artistModalOpen: true})
   }
 
-  openAlbumModal(albumForModal) {
+  openAlbumModal = albumForModal => {
     this.setState({albumForModal, albumModalOpen: true})
   }
 
-  handleChange(e, newValue) {
-    e.preventDefault();
+  handleChange = (e, newValue) => {
+    e.preventDefault()
     this.setState({tabPosition: newValue})
   }
 
