@@ -1,6 +1,6 @@
 /* global process:false */
 import axios from 'axios'
-import clsx from 'clsx';
+import clsx from 'clsx'
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -83,26 +83,19 @@ const RecommendedSongs = ({songs,
 }
 
 class Parameter extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleSliderChange = this.handleSliderChange.bind(this)
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
-  }
-
-  handleSliderChange(event, newValue) {
+  handleSliderChange = (event, newValue) => {
     let newState = this.props.values
     newState[this.props.i] = newValue
     this.props.setValues(newState)
   }
 
-  handleInputChange({target: {value}}) {
+  handleInputChange = ({target: {value}}) => {
     let newState = this.props.values
     newState[this.props.i] = value
     this.props.setValues(newState)
   }
 
-  handleCheckboxChange() {
+  handleCheckboxChange = () => {
     const {checked, i, handleCheckboxChange} = this.props
     let newState = checked
     newState[i] = !checked[i]
@@ -156,7 +149,11 @@ class Parameter extends React.Component {
   }
 }
 Parameter.propTypes = {
-
+  attribute: PropTypes.string,
+  values: PropTypes.object,
+  i: PropTypes.number,
+  checked: PropTypes.bool,
+  styles: PropTypes.object
 }
 
 const RecommendationWrapper = props => {
@@ -175,13 +172,6 @@ class Recommendations extends React.Component {
       songs: [],
       searchedForRecs: false,
     }
-    this.getSongDetails = this.getSongDetails.bind(this)
-    this.setParameterValues = this.setParameterValues.bind(this)
-    this.submit = this.submit.bind(this)
-    this.getRecommendations = this.getRecommendations.bind(this)
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
-    this.handleGenreCheckboxChange = this.handleGenreCheckboxChange.bind(this)
-    this.returnToSliders = this.returnToSliders.bind(this)
   }
 
   componentDidMount() {
@@ -191,19 +181,19 @@ class Recommendations extends React.Component {
     }
   }
 
-  setParameterValues(values) {
+  setParameterValues = values => {
     this.setState({values})
   }
 
-  handleGenreCheckboxChange() {
+  handleGenreCheckboxChange = () => {
     this.setState({genreChecked: !this.state.genreChecked})
   }
 
-  handleCheckboxChange(checked) {
+  handleCheckboxChange = checked => {
     this.setState({checked})
   }
 
-  returnToSliders() {
+  returnToSliders = () => {
     this.setState({
       searchedForRecs: false,
       values: this.state.initialValues,
@@ -212,17 +202,7 @@ class Recommendations extends React.Component {
     })
   }
 
-  async getSongDetails(id) {
-    const promise = await axios.get(`${APIRoot}/songDetails/${id}`)
-    const status = promise.status
-    if (status == 200) {
-      const songDetails = promise.data[0]
-      let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
-      this.setState({initialValues, values: initialValues})
-    }
-  }
-
-  submit(e) {
+  submit = e => {
     e.preventDefault()
     const {checked, genreChecked, values} = this.state
     let params = {}
@@ -233,6 +213,16 @@ class Recommendations extends React.Component {
     songAttributes.forEach((attribute, i) => params.sliderValues[attribute.dbName] = values[i])
     params.songInfo = this.props.selectedSong
     this.getRecommendations(params)
+  }
+
+  async getSongDetails(id) {
+    const promise = await axios.get(`${APIRoot}/songDetails/${id}`)
+    const status = promise.status
+    if (status == 200) {
+      const songDetails = promise.data[0]
+      let initialValues = songAttributes.map(attribute => songDetails[attribute['dbName']])
+      this.setState({initialValues, values: initialValues})
+    }
   }
 
   async getRecommendations(params) {

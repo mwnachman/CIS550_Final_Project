@@ -48,7 +48,6 @@ class Artist extends React.Component {
     this.state = {
       albums: []
     }
-    this.getAlbums = this.getAlbums.bind(this)
   }
 
   componentDidMount() {

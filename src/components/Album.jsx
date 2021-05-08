@@ -61,9 +61,6 @@ class Album extends React.Component {
       tracks: [],
       albumArt: {}
     }
-    this.getTracks = this.getTracks.bind(this)
-    this.getArt = this.getArt.bind(this)
-    this.getPlayerUrl = this.getPlayerUrl.bind(this)
   }
 
   componentDidMount() {

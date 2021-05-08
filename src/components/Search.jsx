@@ -28,12 +28,7 @@ import * as config from '../../config/client.json'
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
 export class GetRecs extends React.Component {
-  constructor(props) {
-    super(props)
-    this.selectSong = this.selectSong.bind(this)
-  }
-
-  selectSong(e) {
+  selectSong = e => {
     e.preventDefault()
     this.props.handleClick(this.props.song)
   }
@@ -43,7 +38,6 @@ export class GetRecs extends React.Component {
       <Button variant="outlined"
               color="primary"
               disableElevation
-              disableRipple
               onClick={this.selectSong}>
         Get Recs
       </Button>
@@ -150,26 +144,21 @@ class SearchCard extends React.Component {
       showRecs: false,
       selectedSong: {},
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleRadioChange = this.handleRadioChange.bind(this)
-    this.query = this.query.bind(this)
-    this.search = this.search.bind(this)
-    this.getRecs = this.getRecs.bind(this)
   }
 
-  handleChange({target: {value}}) {
+  handleChange = ({target: {value}}) => {
     this.setState({searchTerm: value})
   }
 
-  handleRadioChange({target: {value}}) {
+  handleRadioChange = ({target: {value}}) => {
     this.setState({radioValue: value})
   }
 
-  getRecs(selectedSong) {
+  getRecs = selectedSong => {
     this.setState({selectedSong, showRecs: true})
   }
 
-  query(e) {
+  query = e => {
     e.preventDefault();
     switch (this.state.radioValue) {
       case 'artist':

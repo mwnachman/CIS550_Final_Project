@@ -38,19 +38,15 @@ class Browse extends React.Component {
       results: [],
       displayResults: false,
     }
-    this.handleGenreChange = this.handleGenreChange.bind(this)
-    this.handleTraitChange = this.handleTraitChange.bind(this)
-    this.displayResults = this.displayResults.bind(this)
-    this.grabResults = this.grabResults.bind(this)
   }
 
-  handleGenreChange({ target: { value } }) {
+  handleGenreChange = ({ target: { value } }) => {
     this.setState({ selectedGenre: value },
       this.grabResults
     )
   }
 
-  handleTraitChange({ target: { value } }) {
+  handleTraitChange = ({ target: { value } }) => {
     this.setState({ selectedTrait: value },
       this.grabResults
     )
@@ -77,7 +73,7 @@ class Browse extends React.Component {
     }
   }
 
-  displayResults() {
+  displayResults = () => {
     this.setState({ displayResults: true })
   }
 
