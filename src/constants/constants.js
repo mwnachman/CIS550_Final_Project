@@ -213,12 +213,12 @@ export const tracklistHeaders = [
   {
     header: '#',
     label: 'track_number',
-    minWidth: '5vh'
+    minWidth: '3vh'
   },
   {
     header: 'Track',
     label: 'song_name',
-    minWidth: '10vh'
+    minWidth: '8vh'
   },
   {
     header: 'Length',

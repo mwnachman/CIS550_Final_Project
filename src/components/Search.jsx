@@ -4,10 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Button,
-  Card,
-  CardActionArea,
   CardContent,
-  CardMedia,
   FormControl,
   FormControlLabel,
   Grid,
@@ -194,58 +191,40 @@ class SearchCard extends React.Component {
             showRecs,
             selectedSong } = this.state
     return (
-      <Grid container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        className={styles.exterior_grid}>
-        <Grid item xs={12} className={styles.interior_grid}>
-          <Card className={styles.root}>
-            <CardActionArea>
 
-              <CardMedia
-                className={styles.media}
-                image="/assets/recommendations.jpg"
-              />
+      <CardContent>
+        <Grid container
+              direction="column"
+              alignItems="flex-start"
+              justify="flex-start">
+          <Grid item xs={12}>
+            <Typography gutterBottom variant="h5" component="h2">
+              Search for an album, artist or song...
+            </Typography>
+          </Grid>
+        </Grid>
 
-              <CardContent>
-                <Grid container
-                      direction="column"
-                      alignItems="flex-start"
-                      justify="flex-start">
-                  <Grid item xs={12}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Search for an album, artist or song...
-                    </Typography>
-                  </Grid>
-                </Grid>
+        <SearchForm query={this.query}
+                    styles={styles}
+                    handleChange={this.handleChange}
+                    searchTerm={searchTerm}
+                    radioValue={radioValue}
+                    handleRadioChange={this.handleRadioChange}/>
+        
+        {showRecs ?
+          <Recommendations getRecs={this.getRecs}
+                            handleClick={handleClick}
+                            selectedSong={selectedSong}/> 
+          :
+          <ResultContainer styles={styles}
+                            columns={columns}
+                            results={searchResults}
+                            getRecs={this.getRecs}
+                            resultType={resultType}
+                            handleClick={handleClick}/>
+        }
 
-                <SearchForm query={this.query}
-                            styles={styles}
-                            handleChange={this.handleChange}
-                            searchTerm={searchTerm}
-                            radioValue={radioValue}
-                            handleRadioChange={this.handleRadioChange}/>
-                
-                {showRecs ?
-                  <Recommendations getRecs={this.getRecs}
-                                   handleClick={handleClick}
-                                   selectedSong={selectedSong}/> 
-                  :
-                  <ResultContainer styles={styles}
-                                   columns={columns}
-                                   results={searchResults}
-                                   getRecs={this.getRecs}
-                                   resultType={resultType}
-                                   handleClick={handleClick}/>
-                }
-
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>   
-      </Grid> 
+      </CardContent>
     )
   }
 }

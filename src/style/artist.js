@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold'
   },
   paper: {
-    minWidth: '60%',
+    width: '60%',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],

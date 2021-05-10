@@ -88,54 +88,42 @@ ResultContainer.propTypes = {
   styles: PropTypes.object
 }
 
-export class SearchResult extends React.Component {
-  handleClick = type => {
-    const {result} = this.props
-    this.props.handleClick(result, type)
-  }
-
-  render() {
-    const { result,
-           headers,
-           getRecs } = this.props
-    return (
-      <TableRow>
-        {headers.map((header, i) => {
-          if (header.label == 'review_url') {
-            return (
-              <TableCell key={i} style={{minWidth: headers.minWidth}}>
-                {result.review_url &&
-                  <Link href={result.review_url}
-                        target="_blank">
-                    Read Review
-                  </Link>
-                }
-              </TableCell>
-            )
-          } else if (header.label == 'artist_name' ||
-              header.label == 'album_name') {
-            return (
-              <TableCell key={i} style={{minWidth: headers.minWidth}}>
-                <Link href="#" onClick={() => this.handleClick(header['label'])}>
-                  {result[header['label']]}
-                </Link>
-              </TableCell>
-            )
-          } else {
-            return (
-            <TableCell key={i} style={{minWidth: headers.minWidth}}>
-              {!!header['label'] ?
-                result[header['label']] :
-                <GetRecs song={result} handleClick={getRecs}/>
-              }
-            </TableCell>
-            )
+export const SearchResult = ({result, headers, getRecs, handleClick}) => (
+  <TableRow>
+    {headers.map((header, i) => {
+      if (header.label == 'review_url') {
+        return (
+          <TableCell key={i} style={{minWidth: headers.minWidth}}>
+            {result.review_url &&
+              <Link href={result.review_url}
+                    target="_blank">
+                Read Review
+              </Link>
+            }
+          </TableCell>
+        )
+      } else if (header.label == 'artist_name' ||
+          header.label == 'album_name') {
+        return (
+          <TableCell key={i} style={{minWidth: headers.minWidth}}>
+            <Link href="#" onClick={() => handleClick(result, header['label'])}>
+              {result[header['label']]}
+            </Link>
+          </TableCell>
+        )
+      } else {
+        return (
+        <TableCell key={i} style={{minWidth: headers.minWidth}}>
+          {!!header['label'] ?
+            result[header['label']] :
+            <GetRecs song={result} handleClick={getRecs}/>
           }
-        })}
-      </TableRow>
-    )
-  }
-}
+        </TableCell>
+        )
+      }
+    })}
+  </TableRow>
+)
 SearchResult.propTypes = {
   result: PropTypes.object,
   headers: PropTypes.array,
