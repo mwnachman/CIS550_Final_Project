@@ -31,12 +31,13 @@ const Track = ({ track, headers }) => (
           <TableCell key={i}>
             <AudioPlayer src={track.url}
                          volume={false}
+                         displaySlider={false}
                          elevation={0}/>
           </TableCell>
         )
       } else {
         return (
-          <TableCell key={i} style={{minWidth: headers.minWidth}}>
+          <TableCell key={i} style={headers.style}>
             {track[header['label']]}
           </TableCell>
         )
@@ -157,7 +158,7 @@ class Album extends React.Component {
               </Grid>
               :
               <Grid item xs={12} className={styles.root}>
-                <CircularProgress className={styles.spinner}/>
+                <CircularProgress/>
               </Grid>
             }
           </div>

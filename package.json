@@ -25,6 +25,7 @@
     "babel-loader": "^8.0.4",
     "clsx": "^1.1.1",
     "css-loader": "^0.28.7",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
     "material-ui-audio-player": "^1.6.2",
     "path": "^0.12.7",

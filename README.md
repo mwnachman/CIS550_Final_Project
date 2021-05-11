@@ -32,3 +32,10 @@ This app serves as an interactive resource for finding information about music a
 - In the browser, navigate to http://localhost:8080/
 
 - Hot reloading is enabled
+
+
+
+TODO:
+- Break out reusable parts of Artist/Album modal
+- Make Recommendations a functional component
+- Make Search a functional component

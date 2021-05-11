@@ -1,29 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(6),
-    width: '100%',
-  },
   content: {
     minHeight: '300px',
     minWidth: '100%',
     display: '-webkit-box',
-  },
-  exterior_grid: {
-    minHeight: '70vh'
-  },
-  interior_grid: {
-    width: '90%',
-  },
-  headers: {
-    fontSize: 22,
-    color: '#5c5855',
-    fontWeight: 'bold'
-  },
-  media: {
-    height: '50vh',
   },
   search: {
     color: '#1A1628',

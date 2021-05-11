@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {
   AppBar,
@@ -7,131 +7,112 @@ import {
   Tabs,
 } from '@material-ui/core'
 
-import Browse from './Browse.jsx'
-import Search from './Search.jsx'
 import Album from './Album.jsx'
 import Artist from './Artist.jsx'
+import Browse from './Browse.jsx'
+import PageCard from './Card.jsx'
+import Search from './Search.jsx'
 
 
-const TabPanel = props => {
-  const { children, value, index, ...other } = props
-  return (
-    <div role="tabpanel"
-          hidden={value !== index}
-          id={`scrollable-force-tabpanel-${index}`}
-          {...other}>
-      {value === index && (
-        <div>
-          {children}
-        </div>
-      )}
-    </div>
-  )
-}
+const TabPanel = ({children, value, index}) => (
+  <div role="tabpanel"
+        hidden={value !== index}
+        id={`scrollable-force-tabpanel-${index}`}>
+    {value === index && (
+      <div>
+        {children}
+      </div>
+    )}
+  </div>
+)
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
-};
-
-
-function a11yProps(index) {
-  return {
-    id: `nav-tab-${index}`
-  }
 }
 
-class TabComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      tabPosition: 0,
-      artistForModal: {},
-      albumForModal: {},
-      artistModalOpen: false,
-      albumModalOpen: false,
-      modalType: ''
-    }
+const TabComponent = () => {
+  const [tabPosition, setTabPosition] = useState(0)
+  const [artistForModal, setArtistForModal] = useState(undefined)
+  const [albumForModal, setAlbumForModal] = useState(undefined)
+  const [artistModalOpen, setArtistModalOpen] = useState(false)
+  const [albumModalOpen, setAlbumModalOpen] = useState(false)
+
+  function handleClose() {
+    setArtistModalOpen(false)
+    setAlbumModalOpen(false)
+    setArtistForModal(undefined)
+    setAlbumForModal(undefined)
   }
 
-  handleClose = () => {
-    this.setState({
-      artistModalOpen: false,
-      albumModalOpen: false,
-      artistForModal: {},
-      albumForModal: {}
-    })
-  }
-
-  handleClick = (result, type) => {
+  function handleClick(result, type) {
     if (type == 'artist_name') {
-      this.openArtistModal(result)
+      openArtistModal(result)
     } else if (type == 'album_name') {
-      this.openAlbumModal(result)
+      openAlbumModal(result)
     } 
   }
 
-  openArtistModal = artistForModal => {
-    this.setState({artistForModal, artistModalOpen: true})
+  function openArtistModal(artistForModal) {
+    setArtistForModal(artistForModal)
+    setArtistModalOpen(true)
   }
 
-  openAlbumModal = albumForModal => {
-    this.setState({albumForModal, albumModalOpen: true})
+  function openAlbumModal(albumForModal) {
+    setAlbumForModal(albumForModal)
+    setAlbumModalOpen(true)
   }
 
-  handleChange = (e, newValue) => {
+  function handleChange(e, newValue) {
     e.preventDefault()
-    this.setState({tabPosition: newValue})
+    setTabPosition(newValue)
   }
 
-  render() {
-    const { tabPosition,
-            artistForModal,
-            artistModalOpen,
-            albumForModal,
-            albumModalOpen } = this.state
-    return (
-      <div>
-        <AppBar position="static">
-          <Paper square>
-            <Tabs
-              value={tabPosition}
-              indicatorColor="primary"
-              textColor="primary"
-              onChange={this.handleChange}
-            >
-              <Tab label="Browse" {...a11yProps(0)}/>
-              <Tab label="Search" {...a11yProps(1)}/>
-            </Tabs>
-          </Paper>
-        </AppBar>
-        {artistModalOpen &&
-          <Artist open={artistModalOpen}
-                  handleClose={this.handleClose}
-                  artistId={artistForModal.artist_id}
-                  artistName={artistForModal.artist_name}/>
-          
-        }
-        {albumModalOpen &&
-          <Album open={albumModalOpen}
-                  handleClose={this.handleClose}
-                  albumId={albumForModal.album_id}
-                  albumName={albumForModal.album_name}
-                  releaseYear={albumForModal.release_year}/>
-          
-        }
-        <TabPanel value={tabPosition} index={0}>
-          <Browse handleClick={this.handleClick}/>
-        </TabPanel>
-        <TabPanel value={tabPosition} index={1}>
-          <Search handleClick={this.handleClick}/>
-        </TabPanel>
-      </div>
-    )
-  }
-}
-TabComponent.propTypes = {
-  setlist: PropTypes.array
+
+  return (
+    <div>
+      
+      <AppBar position="static">
+        <Paper square>
+          <Tabs value={tabPosition}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={handleChange}>
+            <Tab label="Browse" id="nav-tab-0"/>
+            <Tab label="Search" id="nav-tab-1"/>
+          </Tabs>
+        </Paper>
+      </AppBar>
+
+      {artistModalOpen &&
+        <Artist open={artistModalOpen}
+                handleClose={handleClose}
+                artistId={artistForModal.artist_id}
+                artistName={artistForModal.artist_name}/>
+        
+      }
+      {albumModalOpen &&
+        <Album open={albumModalOpen}
+                handleClose={handleClose}
+                albumId={albumForModal.album_id}
+                albumName={albumForModal.album_name}
+                releaseYear={albumForModal.release_year}/>
+        
+      }
+
+      <TabPanel value={tabPosition} index={0}>
+        <PageCard cardImgUrl="./assets/browse.jpg">
+          <Browse handleClick={handleClick}/>
+        </PageCard>
+      </TabPanel>
+      <TabPanel value={tabPosition} index={1}>
+        <PageCard cardImgUrl="./assets/recommendations.jpg">
+          <Search handleClick={handleClick}/>
+        </PageCard>
+      </TabPanel>
+
+    </div>
+  )
 }
 
 export default TabComponent

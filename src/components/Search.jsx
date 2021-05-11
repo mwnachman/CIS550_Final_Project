@@ -4,10 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Button,
-  Card,
-  CardActionArea,
   CardContent,
-  CardMedia,
   FormControl,
   FormControlLabel,
   Grid,
@@ -27,22 +24,21 @@ import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
-export class GetRecs extends React.Component {
-  selectSong = e => {
+export const GetRecs = ({song, handleClick}) => {
+  function selectSong(e) {
     e.preventDefault()
-    this.props.handleClick(this.props.song)
+    handleClick(song)
   }
 
-  render() {
-    return (
-      <Button variant="outlined"
-              color="primary"
-              disableElevation
-              onClick={this.selectSong}>
-        Get Recs
-      </Button>
-    )
-  }
+  return (
+    <Button variant="outlined"
+            color="primary"
+            disableElevation
+            style={{padding: '7px'}}
+            onClick={selectSong}>
+      Get Recs
+    </Button>
+  )
 }
 GetRecs.propTypes = {
   handleClick: PropTypes.func,
@@ -194,58 +190,39 @@ class SearchCard extends React.Component {
             showRecs,
             selectedSong } = this.state
     return (
-      <Grid container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        className={styles.exterior_grid}>
-        <Grid item xs={12} className={styles.interior_grid}>
-          <Card className={styles.root}>
-            <CardActionArea>
 
-              <CardMedia
-                className={styles.media}
-                image="/assets/recommendations.jpg"
-              />
+      <CardContent>
+        <Grid container
+              direction="column"
+              alignItems="flex-start"
+              justify="flex-start">
+          <Grid item xs={12}>
+            <Typography gutterBottom variant="h5" component="h2">
+              Search for an album, artist or song...
+            </Typography>
+          </Grid>
+        </Grid>
 
-              <CardContent>
-                <Grid container
-                      direction="column"
-                      alignItems="flex-start"
-                      justify="flex-start">
-                  <Grid item xs={12}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Search for an album, artist or song...
-                    </Typography>
-                  </Grid>
-                </Grid>
+        <SearchForm query={this.query}
+                    styles={styles}
+                    handleChange={this.handleChange}
+                    searchTerm={searchTerm}
+                    radioValue={radioValue}
+                    handleRadioChange={this.handleRadioChange}/>
+        
+        {showRecs ?
+          <Recommendations getRecs={this.getRecs}
+                            handleClick={handleClick}
+                            selectedSong={selectedSong}/> 
+          :
+          <ResultContainer columns={columns}
+                            results={searchResults}
+                            getRecs={this.getRecs}
+                            resultType={resultType}
+                            handleClick={handleClick}/>
+        }
 
-                <SearchForm query={this.query}
-                            styles={styles}
-                            handleChange={this.handleChange}
-                            searchTerm={searchTerm}
-                            radioValue={radioValue}
-                            handleRadioChange={this.handleRadioChange}/>
-                
-                {showRecs ?
-                  <Recommendations getRecs={this.getRecs}
-                                   handleClick={handleClick}
-                                   selectedSong={selectedSong}/> 
-                  :
-                  <ResultContainer styles={styles}
-                                   columns={columns}
-                                   results={searchResults}
-                                   getRecs={this.getRecs}
-                                   resultType={resultType}
-                                   handleClick={handleClick}/>
-                }
-
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>   
-      </Grid> 
+      </CardContent>
     )
   }
 }

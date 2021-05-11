@@ -3,92 +3,128 @@ export const columns = {
     {
       header:'Artist Name',
       label: 'artist_name',
-      minWidth: '30vh'
+      style: {
+        width: '50%',
+      },
     },
     {
       header: 'Number of Albums',
       label: 'album_count',
-      minWidth: '10vh'
+      style: {
+        width: '25%',
+      },
     },
     {
       header: 'Number of Songs',
       label: 'song_count',
-      minWidth: '10vh'
+      style: {
+        width: '25%',
+      },
     }
   ],
   song: [
     {
       header: 'Song',
       label: 'song_name',
-      minWidth: '30vh'
+      style: {
+        width: '30%',
+      },
     },
     {
       header: 'Artist',
       label: 'artist_name',
-      minWidth: '30vh'
+      style: {
+        width: '25%',
+      },
     },
     {
       header: 'Album',
       label: 'album_name',
-      minWidth: '25vh'
+      style: {
+        width: '25%',
+      },
     },
     {
       header: 'Action',
-      minWidth: '10vh'
+      style: {
+        width: '15%',
+        paddingRight: 0,
+      },
     },
   ],
   album: [
     {
       header: 'Album',
       label: 'album_name',
-      minWidth: '25vh'
+      style: {
+        width: '30%',
+      },
     },
     {
       header: 'Artist',
       label: 'artist_name',
-      minWidth: '25vh'
+      style: {
+        width: '25%',
+      },
     },
     {
       header: 'Release Year',
       label: 'release_year',
-      minWidth: '10vh'
+      style: {
+        width: '5%',
+      },
     },
     {
       header: 'Format',
       label: 'album_format',
-      minWidth: '10vh'
+      style: {
+        width: '5%',
+      },
     },
     {
       header: 'Record Label',
       label: 'record_label_name',
-      minWidth: '20vh'
+      style: {
+        width: '17%',
+      },
     },
     {
       header: 'Pitchfork',
       label: 'review_url',
-      minWidth: '20vh'
+      style: {
+        width: '18%',
+        paddingRight: 0
+      },
     }
   ],
   album_abbreviated: [
     {
       header: 'Album',
       label: 'album_name',
-      minWidth: '25vh'
+      style: {
+        width: '40%',
+      },
     },
     {
       header: 'Artist',
       label: 'artist_name',
-      minWidth: '25vh'
+      style: {
+        width: '40%'
+      },
     },
     {
       header: 'Release Year',
       label: 'release_year',
-      minWidth: '10vh'
+      style: {
+        width: '10%',
+      },
     },
     {
       header: 'Format',
       label: 'album_format',
-      minWidth: '10vh'
+      style: {
+        width: '10%',
+      },
     }
   ]
 }
@@ -172,22 +208,30 @@ export const artistModalColumns = [
   {
     header: 'Album',
     label: 'album_name',
-    minWidth: '30vh'
+    style: {
+      minWidth: '50%',
+    },
   },
   {
     header: 'Format',
     label: 'album_format',
-    minWidth: '30vh'
+    style: {
+      minWidth: '10%',
+    },
   },
   {
     header: 'Record Label',
     label: 'record_label_name',
-    minWidth: '30vh'
+    style: {
+      minWidth: '30%',
+    },
   },
   {
     header: 'Release Year',
     label: 'release_year',
-    minWidth: '20vh'
+    style: {
+      minWidth: '10%',
+    },
   }
 ]
 
@@ -195,17 +239,23 @@ export const recommendedSongHeaders = [
   {
     header: 'Song',
     label: 'song_name',
-    minWidth: '30vh'
+    style: {
+      minWidth: '40%',
+    },
   },
   {
     header: 'Artist',
     label: 'artist_name',
-    minWidth: '30vh'
+    style: {
+      minWidth: '30%',
+    },
   },
   {
     header: 'Album',
     label: 'album_name',
-    minWidth: '30vh'
+    style: {
+      minWidth: '30%',
+    },
   },
 ]
 
@@ -213,37 +263,51 @@ export const tracklistHeaders = [
   {
     header: '#',
     label: 'track_number',
-    minWidth: '5vh'
+    style: {
+      minWidth: '3%',
+    },
   },
   {
     header: 'Track',
     label: 'song_name',
-    minWidth: '10vh'
+    style: {
+      minWidth: '27%',
+    },
   },
   {
     header: 'Length',
     label: 'time_seconds',
-    minWidth: '5vh'
+    style: {
+      minWidth: '5%',
+    },
   },
   {
     header: 'Energy',
     label: 'energy',
-    minWidth: '5vh'
+    style: {
+      minWidth: '5%',
+    },
   },
   {
     header: 'Danceability',
     label: 'danceability',
-    minWidth: '5vh'
+    style: {
+      minWidth: '5%',
+    },
   },
   {
     header: 'Tempo',
     label: 'tempo',
-    minWidth: '5vh'
+    style: {
+      minWidth: '5%',
+    },
   },
   {
-    header: 'Listen via Spotify',
+    header: 'Listen',
     label: 'play',
-    minWidth: '30vh'
+    style: {
+      minWidth: '10%',
+    },
   }
 ]
 

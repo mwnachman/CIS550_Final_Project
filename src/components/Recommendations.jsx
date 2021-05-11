@@ -82,77 +82,68 @@ const RecommendedSongs = ({songs,
   }
 }
 
-class Parameter extends React.Component {
-  handleSliderChange = (event, newValue) => {
-    let newState = this.props.values
-    newState[this.props.i] = newValue
-    this.props.setValues(newState)
+const Parameter = ({attribute,
+                    setValues,
+                    values,
+                    i,
+                    checked,
+                    handleCheckboxChange,
+                    styles}) => {
+  
+  function sliderChange(e, newValue) {
+    setValues(Object.assign([], values, {[i]: newValue}))
   }
 
-  handleInputChange = ({target: {value}}) => {
-    let newState = this.props.values
-    newState[this.props.i] = value
-    this.props.setValues(newState)
+  function checkboxChange() {
+    handleCheckboxChange(Object.assign([], checked, {[i]: !checked[i]}))
   }
 
-  handleCheckboxChange = () => {
-    const {checked, i, handleCheckboxChange} = this.props
-    let newState = checked
-    newState[i] = !checked[i]
-    handleCheckboxChange(newState)
-  }
+  return (
+    <TableRow>
+      <TableCell>
+        {attribute.label}
+      </TableCell>
 
-  render () {
-    const { attribute,
-            values,
-            i,
-            checked,
-            styles } = this.props
-    return (
-      <TableRow>
-        <TableCell>
-          {attribute.label}
-        </TableCell>
+      <TableCell>
+        {attribute.min}
+      </TableCell>
 
-        <TableCell>
-          {attribute.min}
-        </TableCell>
+      <TableCell className={styles.slider}>
+        <Slider value={parseFloat(values[i])}
+                valueLabelDisplay="auto"
+                min={attribute.min}
+                max={attribute.max}
+                step={attribute.step}
+                onChange={sliderChange}/>
+      </TableCell>
 
-        <TableCell className={styles.slider}>
-          <Slider value={parseFloat(values[i])}
-                  valueLabelDisplay="auto"
-                  min={attribute.min}
-                  max={attribute.max}
-                  step={attribute.step}
-                  onChange={this.handleSliderChange}/>
-        </TableCell>
+      <TableCell>
+        {attribute.max}
+      </TableCell>
+      
+      <TableCell>
+        {attribute.description}
+      </TableCell>
 
-        <TableCell>
-          {attribute.max}
-        </TableCell>
-        
-        <TableCell className={styles.description}>
-          {attribute.description}
-        </TableCell>
-
-        <TableCell className={styles.description}>
-          <Checkbox className={styles.checkbox}
-                    color="default"
-                    checked={checked[i]}
-                    onChange={this.handleCheckboxChange}
-                    checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
-                    icon={<span className={styles.icon} />}/>
-          Include
-        </TableCell>
-      </TableRow>
-    )
-  }
+      <TableCell>
+        <Checkbox className={styles.checkbox}
+                  color="default"
+                  checked={checked[i]}
+                  onChange={checkboxChange}
+                  checkedIcon={<span className={clsx(styles.icon, styles.checkedIcon)} />}
+                  icon={<span className={styles.icon} />}/>
+        Include
+      </TableCell>
+    </TableRow>
+  )
 }
 Parameter.propTypes = {
-  attribute: PropTypes.string,
-  values: PropTypes.object,
+  attribute: PropTypes.object,
+  values: PropTypes.array,
+  setValues: PropTypes.func,
   i: PropTypes.number,
-  checked: PropTypes.bool,
+  checked: PropTypes.array,
+  handleCheckboxChange: PropTypes.func,
   styles: PropTypes.object
 }
 
@@ -242,7 +233,6 @@ class Recommendations extends React.Component {
           styles } = this.props
     const { values,
           songs,
-          initialValues,
           genreChecked,
           searchedForRecs,
           checked } = this.state
@@ -309,12 +299,11 @@ class Recommendations extends React.Component {
                                 i={i}
                                 key={i}
                                 checked={checked}
-                                initialValues={initialValues}
                                 values={values}
                                 handleCheckboxChange={this.handleCheckboxChange}
                                 setValues={this.setParameterValues}/>)
                   )}
-              </TableBody>
+                </TableBody>
               }
             </Table>
           </TableContainer>
