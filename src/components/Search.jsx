@@ -24,22 +24,21 @@ import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || 'development']
 
-export class GetRecs extends React.Component {
-  selectSong = e => {
+export const GetRecs = ({song, handleClick}) => {
+  function selectSong(e) {
     e.preventDefault()
-    this.props.handleClick(this.props.song)
+    handleClick(song)
   }
 
-  render() {
-    return (
-      <Button variant="outlined"
-              color="primary"
-              disableElevation
-              onClick={this.selectSong}>
-        Get Recs
-      </Button>
-    )
-  }
+  return (
+    <Button variant="outlined"
+            color="primary"
+            disableElevation
+            style={{padding: '7px'}}
+            onClick={selectSong}>
+      Get Recs
+    </Button>
+  )
 }
 GetRecs.propTypes = {
   handleClick: PropTypes.func,
@@ -216,8 +215,7 @@ class SearchCard extends React.Component {
                             handleClick={handleClick}
                             selectedSong={selectedSong}/> 
           :
-          <ResultContainer styles={styles}
-                            columns={columns}
+          <ResultContainer columns={columns}
                             results={searchResults}
                             getRecs={this.getRecs}
                             resultType={resultType}

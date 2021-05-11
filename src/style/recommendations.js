@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: '70vh'
   },
   interior_grid: {
-    minWidth: '90%',
+    minWidth: '100%',
   },
   recsWording: {
     marginTop: theme.spacing(4)
@@ -70,11 +70,6 @@ const useStyles = makeStyles(theme => ({
   },
   noBottomBorder: {
     borderBottom: 'none'
-  },
-  headers: {
-    fontSize: 22,
-    color: '#5c5855',
-    fontWeight: 'bold'
   },
   selectedSong: {
     fontWeight: 'bold',

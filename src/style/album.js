@@ -8,11 +8,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  headers: {
-    fontSize: 16,
-    color: '#5c5855',
-    fontWeight: 'bold'
-  },
   paper: {
     position:'absolute',
     display:'block',
@@ -29,7 +24,6 @@ const useStyles = makeStyles(theme => ({
   },
   interior_grid: {
     width: '100%',
-    overflow: 'hidden'
   },
   art: {
     width: '60vh',

@@ -23,24 +23,20 @@ NoResult.propTypes = {
   text: PropTypes.string
 }
 
-export const Headers = ({styles, columns}) => (
+export const Headers = ({columns}) => (
   <TableRow>
     {columns && columns.map((column, i) => (
-      <TableCell className={styles}
-                key={i}
-                style={{ minWidth: column.minWidth }}>
+      <TableCell key={i} style={{...column.style, fontWeight: 600}}>
         {column.header}
       </TableCell>
     ))}
   </TableRow>
 )
 Headers.propTypes = {
-  styles: PropTypes.string,
   resultType: PropTypes.string
 }
 
-export const ResultContainer = ({ styles,
-                                  columns,
+export const ResultContainer = ({ columns,
                                   results,
                                   getRecs,
                                   resultType,
@@ -57,7 +53,7 @@ export const ResultContainer = ({ styles,
 
           {!!resultType && !!results.length && (
             <TableHead>
-              <Headers styles={styles.header} columns={columns[resultType]}/>
+              <Headers columns={columns[resultType]}/>
             </TableHead>
           )}
 
@@ -66,7 +62,6 @@ export const ResultContainer = ({ styles,
               <SearchResult result={result}
                             headers={columns[resultType]}
                             key={i}
-                            styles={styles}
                             getRecs={getRecs}
                             handleClick={handleClick}/>
             ))}
@@ -85,7 +80,6 @@ ResultContainer.propTypes = {
   columns: PropTypes.object,
   resultType: PropTypes.string,
   results: PropTypes.array,
-  styles: PropTypes.object
 }
 
 export const SearchResult = ({result, headers, getRecs, handleClick}) => (
@@ -93,7 +87,7 @@ export const SearchResult = ({result, headers, getRecs, handleClick}) => (
     {headers.map((header, i) => {
       if (header.label == 'review_url') {
         return (
-          <TableCell key={i} style={{minWidth: headers.minWidth}}>
+          <TableCell key={i} style={header.style}>
             {result.review_url &&
               <Link href={result.review_url}
                     target="_blank">
@@ -105,7 +99,7 @@ export const SearchResult = ({result, headers, getRecs, handleClick}) => (
       } else if (header.label == 'artist_name' ||
           header.label == 'album_name') {
         return (
-          <TableCell key={i} style={{minWidth: headers.minWidth}}>
+          <TableCell key={i} style={header.style}>
             <Link href="#" onClick={() => handleClick(result, header['label'])}>
               {result[header['label']]}
             </Link>
@@ -113,7 +107,7 @@ export const SearchResult = ({result, headers, getRecs, handleClick}) => (
         )
       } else {
         return (
-        <TableCell key={i} style={{minWidth: headers.minWidth}}>
+        <TableCell key={i} style={header.style}>
           {!!header['label'] ?
             result[header['label']] :
             <GetRecs song={result} handleClick={getRecs}/>
@@ -127,5 +121,6 @@ export const SearchResult = ({result, headers, getRecs, handleClick}) => (
 SearchResult.propTypes = {
   result: PropTypes.object,
   headers: PropTypes.array,
-  getRecs: PropTypes.func
+  getRecs: PropTypes.func,
+  handleClick: PropTypes.func
 }

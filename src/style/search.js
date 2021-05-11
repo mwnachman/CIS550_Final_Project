@@ -6,11 +6,6 @@ const useStyles = makeStyles(theme => ({
     minWidth: '100%',
     display: '-webkit-box',
   },
-  headers: {
-    fontSize: 22,
-    color: '#5c5855',
-    fontWeight: 'bold'
-  },
   search: {
     color: '#1A1628',
     position: 'relative',

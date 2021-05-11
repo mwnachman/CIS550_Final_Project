@@ -233,7 +233,6 @@ class Recommendations extends React.Component {
           styles } = this.props
     const { values,
           songs,
-          initialValues,
           genreChecked,
           searchedForRecs,
           checked } = this.state

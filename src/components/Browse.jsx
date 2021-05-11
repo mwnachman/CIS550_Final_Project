@@ -20,11 +20,6 @@ import * as config from '../../config/client.json'
 
 const APIRoot = config.BASE_URL[process.env.NODE_ENV || "development"]
 
-const BrowseWrapper = (props) => {
-  const styles = useStyles()
-  return <Browse styles={styles} {...props} />
-}
-
 const Browse = ({handleClick}) => {
   const [selectedGenre, setGenre] = useState("")
   const [selectedTrait, setTrait] = useState("")
@@ -44,6 +39,7 @@ const Browse = ({handleClick}) => {
 
   const grabResults = async () => {
     setDisplayResults(true)
+    
     // determine which endpoint to call based on selectedTrait value
     let appropriateUrl = APIRoot
     if (selectedTrait == 'top') {
@@ -96,8 +92,7 @@ const Browse = ({handleClick}) => {
         </Select>
       </FormControl>
       {displayResults &&
-        <ResultContainer styles={styles}
-                          results={results}
+        <ResultContainer results={results}
                           columns={columns}
                           resultType={results.length ? "album_abbreviated" : undefined}
                           noResultText="Please select a genre"

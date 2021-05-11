@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
   },
   selectEmpty: {
     marginTop: 10,
-  }
+  },
 }))
 
 export default useStyles
