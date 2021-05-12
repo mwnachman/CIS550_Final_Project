@@ -8,8 +8,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#FFFFFF',
   },
   bar: {
-    backgroundImage: 'url("../assets/albums_background.jpg")',
-    backgroundPosition: 'left 800px',
+    backgroundImage: 'url("../assets/albums.png")',
+    backgroundPosition: 'left 240px',
     opacity: 0.5,
     height: 120,
     fontSize: '36px',
@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme => ({
       display: 'block',
     },
   },
+  typography: {
+    fontFamily: 'RubikMonoOne'
+  }
 }))
 
 export default useStyles

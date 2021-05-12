@@ -101,12 +101,12 @@ const TabComponent = () => {
       }
 
       <TabPanel value={tabPosition} index={0}>
-        <PageCard cardImgUrl="./assets/browse.jpg">
+        <PageCard cardImgUrl="./assets/browse.png">
           <Browse handleClick={handleClick}/>
         </PageCard>
       </TabPanel>
       <TabPanel value={tabPosition} index={1}>
-        <PageCard cardImgUrl="./assets/recommendations.jpg">
+        <PageCard cardImgUrl="./assets/recommendations.png">
           <Search handleClick={handleClick}/>
         </PageCard>
       </TabPanel>
