@@ -34,7 +34,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, './build/' + process.env.NODE_ENV),
+    path: path.resolve(__dirname, './build/' + (process.env.NODE_ENV === 'development' ? process.env.NODE_ENV : '')),
     publicPath: '/',
     filename: 'bundle.js'
   },
