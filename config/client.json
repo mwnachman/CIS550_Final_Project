@@ -1,6 +1,6 @@
 {
   "BASE_URL": {
     "development": "http://localhost:3000",
-    "production": "https://yetzsj5ad1.execute-api.us-east-1.amazonaws.com/prod"
+    "production": "https://p4mekrymyd.execute-api.us-east-1.amazonaws.com/production"
   }
 }
