@@ -11,8 +11,9 @@
     "copy:dev": "NODE_ENV=development npm run copy",
     "lint": "eslint --ext .js --ext .jsx src",
     "start": "npm run copy:dev && NODE_ENV=development webpack-dev-server --progress --colors --hot --config ./webpack.dev.js --mode development",
-    "deploy": "NODE_ENV=production && npm run build && npm run deploy:sync && aws configure set preview.cloudfront true",
-    "deploy:sync": "aws s3 sync build/production/ s3://sonalysis.net --acl public-read --exclude .DS_Store --delete"
+    "deploy": "NODE_ENV=production && npm run build && npm run deploy:sync && aws configure set preview.cloudfront true && npm run deploy:invalidate",
+    "deploy:sync": "aws s3 sync build/production/ s3://sonalysis.net --acl public-read --exclude .DS_Store --delete",
+    "deploy:invalidate": "aws cloudfront create-invalidation --distribution-id E9YOVJB7AFGE3 --paths \"/*\""
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
