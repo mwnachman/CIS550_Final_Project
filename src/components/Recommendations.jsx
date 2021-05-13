@@ -100,15 +100,15 @@ const Parameter = ({attribute,
 
   return (
     <TableRow>
-      <TableCell className={styles.label}>
+      <TableCell classes={{body: styles.body}} className={styles.label}>
         {attribute.label}
       </TableCell>
 
-      <TableCell className={styles.min}>
+      <TableCell classes={{body: styles.body}} className={styles.min}>
         {attribute.min}
       </TableCell>
 
-      <TableCell className={styles.slider}>
+      <TableCell classes={{body: styles.body}} className={styles.slider}>
         <Slider value={parseFloat(values[i])}
                 valueLabelDisplay="auto"
                 min={attribute.min}
@@ -117,15 +117,15 @@ const Parameter = ({attribute,
                 onChange={sliderChange}/>
       </TableCell>
 
-      <TableCell className={styles.max}>
+      <TableCell classes={{body: styles.body}} className={styles.max}>
         {attribute.max}
       </TableCell>
       
-      <TableCell className={styles.description}>
+      <TableCell classes={{body: styles.body}} className={styles.description}>
         {attribute.description}
       </TableCell>
 
-      <TableCell className={styles.include}>
+      <TableCell classes={{body: styles.body}} className={styles.include}>
         <Checkbox className={styles.checkbox}
                   color="default"
                   checked={checked[i]}

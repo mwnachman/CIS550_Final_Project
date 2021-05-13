@@ -90,6 +90,10 @@ const useStyles = makeStyles(theme => ({
   selectedSong: {
     fontWeight: 'bold',
     fontSize: 20
+  },
+  body: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
   }
 }))
 
