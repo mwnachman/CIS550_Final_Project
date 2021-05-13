@@ -28,6 +28,8 @@ const useStyles = makeStyles(theme => ({
   art: {
     width: '60vh',
     height: '60vh',
+    maxHeight: 300,
+    maxWidth: 300,
     marginBottom: theme.spacing(2)
   }
 }))
