@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     width: 80
   },
   slider: {
-    width: 150,
+    width: '15%',
     paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(0)
   },
@@ -67,6 +67,22 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: 'transparent',
     },
+  },
+  label: {
+    width: '15%'
+  },
+  min: {
+    width: '5%',
+    textAlign: 'right'
+  },
+  max: {
+    width: '5%'
+  },
+  description: {
+    width: '35%'
+  },
+  include: {
+    width: '15%'
   },
   noBottomBorder: {
     borderBottom: 'none'
